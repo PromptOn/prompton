@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:6.0.5 # mongodb/mongodb-community-server:6.0.5-ubi8 ?
+    container_name: mongodb
+    restart: unless-stopped
+    # command: '/bin/bash -c "sleep 5; mongosh $$CONN_STR --eval \"show dbs;\""'
+    environment: # set required env variables to access mongo
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      PROMPTON_ORG_NAME: ${PROMPTON_ORG_NAME}
+      PROMPTON_ORG_OPENAI_API_KEY: ${PROMPTON_ORG_OPENAI_API_KEY}
+      PROMPTON_USER_EMAIL: ${PROMPTON_USER_EMAIL}
+      PROMPTON_USER_PASSWORD_HASH: ${PROMPTON_USER_PASSWORD_HASH}
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    ports:
+      - 27017:27017
+    volumes:
+      - ./.mongo-data:/data/db
+      - ./mongo-init/:/docker-entrypoint-initdb.d/:ro
+  
+  # Mongo Express Service
+  mongo-express:
+    image: mongo-express:latest 
+    container_name: mongo-express
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+    links:
+      - mongodb
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: true
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}

@@ -1,0 +1,31 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+motor = "*"
+uvicorn = "*"
+python-dotenv = "*"
+httpx = "*"
+aiohttp = "==3.8.4" 
+openai = "*"
+python-jose = {extras = ["cryptography"], version = "*"}
+passlib = {extras = ["bcrypt"], version = "*"}
+python-multipart = "*"
+pydantic = {extras = ["email"], version = "*"}
+
+[dev-packages]
+mypy = "*"
+pytest = "*"
+httpx = "*"
+mongomock-motor = "*"
+deepdiff = "*"
+
+[requires]
+python_version = "3.11"
+python_full_version = "3.11.3"
+
+[pipenv]
+allow_prereleases = true
