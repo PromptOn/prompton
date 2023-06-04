@@ -8,6 +8,11 @@ on: [push, pull_request]
 permissions:
   contents: read
 
+env:
+  DATABASE_URL: ${{ vars.DATABASE_URL }}
+  MONGO_INITDB_DATABASE: ${{ vars.MONGO_INITDB_DATABASE }}
+  JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
