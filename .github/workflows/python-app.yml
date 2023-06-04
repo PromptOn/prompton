@@ -10,19 +10,19 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    environment: CI
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.11.3
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.11.3"
-        cache: "pipenv"
-    - name: Install pipenv
-      run: pip install pipenv
-    - name: Install packages
-      run: pipenv install --dev
-    - name: Run tests
-      run: pipenv run pytest
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.11.3
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11.3"
+          cache: "pipenv"
+      - name: Install pipenv
+        run: pip install pipenv
+      - name: Install packages
+        run: pipenv install --dev
+      - name: Run tests
+        run: pipenv run pytest
