@@ -1,4 +1,6 @@
-db = db.getSiblingDB(process.env.MONGO_INITDB_DATABASE);
+console.log(">>>>>>>>>>>>>>> 02_indexes.js starting ");
+
+db = db.getSiblingDB(process.env.MONGO_DATABASE);
 db.auth(process.env.MONGO_USER, process.env.MONGO_PASSWORD);
 
 db.users.createIndex({ email: 1 }, { unique: true });
@@ -13,3 +15,5 @@ db.promptVersions.createIndex({ prompt_id: 1 });
 db.inferences.createIndex({ prompt_id: 1 });
 
 db.inferences.createIndex({ prompt_version_id: 1 });
+
+console.log("<<<<<<<<<<<<< 02_indexes.js finished. ");

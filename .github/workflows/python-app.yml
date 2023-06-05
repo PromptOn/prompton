@@ -11,7 +11,12 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: CI
+    environment: staging
+
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      MONGO_DATABASE: ${{ vars.MONGO_DATABASE }}
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}

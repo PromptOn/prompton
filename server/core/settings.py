@@ -3,7 +3,7 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     DATABASE_URL: str
-    MONGO_INITDB_DATABASE: str
+    MONGO_DATABASE: str
 
     DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS: float = 90
 
