@@ -8,26 +8,26 @@ on: [push, pull_request]
 permissions:
   contents: read
 
-env:
-  DATABASE_URL: ${{ vars.DATABASE_URL }}
-  MONGO_INITDB_DATABASE: ${{ vars.MONGO_INITDB_DATABASE }}
-  JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
     environment: CI
 
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      MONGO_INITDB_DATABASE: ${{ vars.MONGO_INITDB_DATABASE }}
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+
     steps:
       - uses: actions/checkout@v3
+      - name: Install poetry
+        run: pipx install poetry
       - name: Set up Python 3.11.3
         uses: actions/setup-python@v4
         with:
           python-version: "3.11.3"
-          cache: "pipenv"
-      - name: Install pipenv
-        run: pip install pipenv
+          cache: "poetry"
       - name: Install packages
-        run: pipenv install --dev
+        run: poetry install
       - name: Run tests
-        run: pipenv run pytest
+        run: poetry run pytest
