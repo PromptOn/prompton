@@ -4,6 +4,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 import logging  # TODO: repleace with structlog or loguru or something else and add cloud logging
 import sys
 from starlette.responses import JSONResponse
+from mangum import Mangum
 
 from server.core import database
 from server.endpoints import routers
@@ -22,6 +23,8 @@ app = FastAPI(
 )
 
 app.include_router(routers)
+
+handler = Mangum(app)  # handler for deploy FastAPI to lambdas
 
 # TODO: configure CORS
 app.add_middleware(GZipMiddleware, minimum_size=1000)
