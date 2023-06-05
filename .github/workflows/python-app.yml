@@ -18,6 +18,11 @@ jobs:
       MONGO_DATABASE: ${{ vars.MONGO_DATABASE }}
       JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
 
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      MONGO_INITDB_DATABASE: ${{ vars.MONGO_INITDB_DATABASE }}
+      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+
     steps:
       - uses: actions/checkout@v3
       - name: Install poetry
