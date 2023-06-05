@@ -28,6 +28,6 @@ jobs:
           python-version: "3.11.3"
           cache: "poetry"
       - name: Install packages
-        run: poetry install --dev
+        run: poetry install
       - name: Run tests
         run: poetry run pytest
