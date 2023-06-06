@@ -14,7 +14,6 @@ jobs:
       SERVICE: ${{ vars.GC_SERVICE_NAME }}
       REGION: ${{ vars.GC_SERVICE_REGION }}
       IMAGE_URL: ${{ vars.GC_GAR_LOCATION }}-docker.pkg.dev/${{ vars.GC_PROJECT_ID }}/${{ vars.GC_ARTIFACTS_REPO_NAME }}
-      BRANCH_NAME: ${GITHUB_REF_NAME//\//-}
 
     # Add 'id-token' with the intended permissions for workload identity federation
     permissions:
@@ -23,6 +22,9 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - name: Set BRANCH_NAME env # needed to replace / with - in branch name for docker image tag (pull requests)
+        run: echo "BRANCH_NAME=${GITHUB_REF_NAME/\//-}" >> $GITHUB_ENV
+
       - name: Checkout
         uses: actions/checkout@v3
 
