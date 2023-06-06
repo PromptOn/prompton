@@ -28,6 +28,10 @@ jobs:
         with:
           images: |
             ${{ env.IMAGE_URL}}
+          tags: |
+            type: sha
+            type: edge
+            type: pep440,pattern={{version}}
 
       - name: Checkout
         uses: actions/checkout@v3
