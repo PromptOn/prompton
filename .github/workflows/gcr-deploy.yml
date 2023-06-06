@@ -22,14 +22,10 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Set DOCKER_TAG env # needed to replace / with - in branch name for docker image tag (pull requests)
-        run: echo "DOCKER_TAG=${GITHUB_REF_NAME/\//-}" >> $GITHUB_ENV
-
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
         with:
-          # list of Docker images to use as base name for tags
           images: |
             ${{ env.IMAGE_URL}}
 
@@ -48,11 +44,10 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-        with:
-          buildkitd-flags: --debug
 
       # Authenticate Docker to Google Cloud Artifact Registry
-      - name: Docker Auth
+      - name: Docker Auth if not pull request
+        if: ${{ github.event_name != 'pull_request' }}
         id: docker-auth
         uses: docker/login-action@v2
         with:
@@ -60,22 +55,7 @@ jobs:
           password: "${{ steps.auth.outputs.access_token }}"
           registry: "${{ env.GAR_LOCATION }}-docker.pkg.dev"
 
-      # - name: Build and Push Container
-      #   run: |-
-      #     docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}" ./
-      #     docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
-
-      - name: Debug
-        run: |
-          echo "GITHUB_REF_NAME = $GITHUB_REF_NAME"
-          echo "github.ref_name: ${{  github.ref_name }}"
-          echo "DOCKER_TAG = $DOCKER_TAG"
-          echo "env.DOCKER_TAG = ${{env.DOCKER_TAG}}"
-          echo "meta tags = ${{ steps.meta.outputs.tags }}"
-          echo "meta labels = ${{ steps.meta.outputs.labels }}"
-          echo "tags=\n  ${{ env.IMAGE_URL}}:${{github.sha}}\n  ${{ env.IMAGE_URL}}:${{env.DOCKER_TAG}}"
-
-      - name: Build and Push Container
+      - name: Build Container and push if not pull request
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -83,11 +63,10 @@ jobs:
           # push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          # tags: ${{ env.IMAGE_URL}}:${{github.sha}}, ${{ env.IMAGE_URL}}:${{env.DOCKER_TAG}}
 
       # END - Docker auth and build
 
-      - name: Deploy to Cloud Run
+      - name: Deploy to Cloud Run if not pull request
         if: ${{ github.event_name != 'pull_request' }}
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v1
