@@ -29,7 +29,7 @@ VALID_REQ = {
     "source": "source1",
 }
 
-ORG2_NO_ACCESS_KEYS = {
+ORG2_NONE_ACCESS_KEYS = {
     **ORG1,
     "_id": ObjectId("bbbbbbbbbbbbbbbbbbbbbbbf"),
     "name": "org2",
@@ -40,18 +40,18 @@ USER_BASIC_ORG2_NO_ACCESS_KEY = {
     **USER_BASIC,
     "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaaf"),
     "email": "noaccesskey@x.ai",
-    "org_id": ORG2_NO_ACCESS_KEYS["_id"],
+    "org_id": ORG2_NONE_ACCESS_KEYS["_id"],
 }
 
 LIVE_PROMPT_VERSION_DB_ORG2 = {
     **LIVE_PROMPT_VERSION_DB,
     "_id": ObjectId("cccccccccccccccccccccccf"),
-    "created_by_org_id": ORG2_NO_ACCESS_KEYS["_id"],
+    "created_by_org_id": ORG2_NONE_ACCESS_KEYS["_id"],
 }
 
 test_db_data = {
     "users": [USER_BASIC, USER_BASIC_ORG2_NO_ACCESS_KEY],
-    "orgs": [ORG1, ORG2_NO_ACCESS_KEYS],
+    "orgs": [ORG1, ORG2_NONE_ACCESS_KEYS],
     "promptVersions": [
         LIVE_PROMPT_VERSION_DB,
         DRAFT_PROMPT_VERSION_DB,

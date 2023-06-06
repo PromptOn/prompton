@@ -695,6 +695,20 @@ files = [
 ]
 
 [[package]]
+name = "mangum"
+version = "0.17.0"
+description = "AWS Lambda support for ASGI applications"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "mangum-0.17.0-py3-none-any.whl", hash = "sha256:f00be705605bc4793958df62e4d249abf58d254c39d90bb410d069570206f4a2"},
+    {file = "mangum-0.17.0.tar.gz", hash = "sha256:5b4e26375e12eed051687670466d17968f8b74beecaca432edd4eb4127f78509"},
+]
+
+[package.dependencies]
+typing-extensions = "*"
+
+[[package]]
 name = "mongomock"
 version = "4.1.2"
 description = "Fake pymongo stub for testing simple MongoDB-dependent code"
@@ -1446,4 +1460,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "429d402da9adb91306fcb382df87557a62349881dd34d19560cc2f52fdaf9325"
+content-hash = "f1f000abc038016b3085f8c98d1e42fad3bd45fc9c0e39bbe6d0b09fc9a4e510"

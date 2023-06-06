@@ -11,7 +11,7 @@ from server.schemas.user import UserInDB
 PASSWORD_HASH_foo = "$2b$12$4MvKPux4R8AWrA/FFTW5muiVrYKqS.7NlQOA6N81U0lATUoijV4NK"
 PASSWORD_HASH_bar = "$2b$12$ZYZMqs2CsDA./fueQkwQceorkm1xOLm5j6yGLF206.Glfwncbo2PG"
 
-# TODO: test rest of prompt_forge_api.core.auth  methods
+# TODO: test rest of core.auth  methods
 
 
 @pytest.mark.slow  # ~ 1s +

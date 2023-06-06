@@ -4,6 +4,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 import logging  # TODO: repleace with structlog or loguru or something else and add cloud logging
 import sys
 from starlette.responses import JSONResponse
+from mangum import Mangum
 
 from server.core import database
 from server.endpoints import routers
@@ -16,12 +17,14 @@ logging.getLogger("multipart.multipart").setLevel(logging.WARNING)
 
 # https://fastapi.tiangolo.com/tutorial/metadata/
 app = FastAPI(
-    title="prompt-forge-api",
-    description="API for prompt-forge, an app for managing full lifecycle of AI chat prompts.",
+    title="prompton-api",
+    description="API for prompton - managing full lifecycle of AI chat prompts.",
     version="0.0.1",
 )
 
 app.include_router(routers)
+
+handler = Mangum(app)  # handler for deploy FastAPI to lambdas
 
 # TODO: configure CORS
 app.add_middleware(GZipMiddleware, minimum_size=1000)
@@ -53,7 +56,7 @@ async def root(db=Depends(get_db)) -> underTheHood.ApiStatusResponse:
 
     status = underTheHood.ApiStatusResponse(
         version="0.0.1",
-        message="prompt-forge-api is running",
+        message="prompton-api is running",
         dbstatus=dbstatus,
     )
     return status

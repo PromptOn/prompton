@@ -17,7 +17,7 @@ async def mock_db(request):
 
     try:
         mock_client = AsyncMongoMockClient()
-        mock_db = mock_client["prompt-forge-api-testDB"]
+        mock_db = mock_client["prompton-api-testDB"]
         await mock_db.users.create_index("email", unique=True)
 
         if hasattr(request, "param") and hasattr(request.param, "items"):

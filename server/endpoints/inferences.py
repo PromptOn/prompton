@@ -110,14 +110,14 @@ async def new_inference(
 
     if not user_org.access_keys or not user_org.access_keys.get("openai_api_key"):
         raise MalformedRequestError(
-            f"Curren user's organization doesn't have OpenAI API key set. Can't create inferences. Set access_keys.openai_api_key for org_id {user_org.id}."
+            f"Curren user's organization doesn't have openai_api_key set. Can't create inferences. Set access_keys.openai_api_key for org_id {user_org.id}."
         )
 
     openai_api_key = user_org.access_keys.get("openai_api_key")
 
     if not openai_api_key or not openai_api_key.strip():
         raise MalformedRequestError(
-            f"Curren user's organization OpenAI API key is to empty. Can't create inferences. Set access_keys.openai_api_key for org_id {user_org.id}."
+            f"Curren user's organization openai_api_key key is empty. Can't create inferences. Set access_keys.openai_api_key for org_id {user_org.id}."
         )
 
     new_inference = await inference_crud.create(db, inferenceRequest, current_user)

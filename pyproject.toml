@@ -18,6 +18,7 @@ python-jose = { version = "^3.3.0", extras = ["cryptography"] }
 passlib = { version = "^1.7.4", extras = ["bcrypt"] }
 python-multipart = "^0.0.6"
 pydantic = { version = "^1.10.8", extras = ["email"] }
+mangum = "^0.17.0"
 
 
 [tool.poetry.group.dev.dependencies]

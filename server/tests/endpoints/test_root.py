@@ -10,7 +10,7 @@ async def test_read_main(endpoint: AsyncClient, mock_db, mock_user):
     assert response.status_code == 200
     assert response.json() == {
         "version": "0.0.1",
-        "message": "prompt-forge-api is running",
+        "message": "prompton-api is running",
         "dbstatus": {"status_code": 1, "status_message": "{'ok': 1.0}"},
     }
 
