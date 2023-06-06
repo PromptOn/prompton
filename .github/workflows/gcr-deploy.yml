@@ -76,9 +76,10 @@ jobs:
           image: ${{ env.IMAGE_URL}}:${{ github.sha }}
           env_vars: |
             MONGO_DATABASE=${{ vars.MONGO_DATABASE }}
-          secrets: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+          # TODO: review if these are exposed anywhere and need to be passed as secret
+          # secrets: |
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
