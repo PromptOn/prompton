@@ -1,9 +1,7 @@
 # See more: https://github.com/marketplace/actions/deploy-to-cloud-run
 name: Build and Deploy to Cloud Run
 
-on:
-  push:
-    branches: ["staging", "main"]
+on: [push, pull_request]
 
 jobs:
   deploy:
