@@ -1,3 +1,6 @@
+# europe-west1-docker.pkg.dev/prompton-389007/prompton-images/prompton-api:299e299d840df97571731f9f552e9f420fcb33ec
+# europe-west1-docker.pkg.dev/prompton-389007/prompton-images/prompton-api@sha256:83b7010f30645830de843a61127e757e32afdca1fc35a4c256abaccfbd27fdcf
+
 # See more: https://github.com/marketplace/actions/deploy-to-cloud-run
 name: Build and Deploy to Cloud Run
 
@@ -72,6 +75,9 @@ jobs:
 
       # END - Docker auth and build
 
+      - name: Debug
+        run: echo ${{ steps.meta.outputs.labels }}
+
       - name: Deploy to Cloud Run if not pull request
         if: ${{ github.event_name != 'pull_request' }}
         id: deploy
@@ -79,7 +85,7 @@ jobs:
         with:
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
-          image: ${{ env.IMAGE_URL}}:${{ github.sha }}
+          image: ${{ env.IMAGE_URL}}:${{ steps.meta.outputs.labels.org.opencontainers.image.revision }}
           env_vars: |
             MONGO_DATABASE=${{ vars.MONGO_DATABASE }}
             DATABASE_URL=${{ secrets.DATABASE_URL }}
