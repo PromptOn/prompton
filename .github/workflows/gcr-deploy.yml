@@ -22,8 +22,8 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Set BRANCH_NAME env # needed to replace / with - in branch name for docker image tag (pull requests)
-        run: echo "BRANCH_NAME=${GITHUB_REF_NAME/\//-}" >> $GITHUB_ENV
+      - name: Set DOCKER_TAG env # needed to replace / with - in branch name for docker image tag (pull requests)
+        run: echo "DOCKER_TAG=${GITHUB_REF_NAME/\//-}" >> $GITHUB_ENV
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -59,15 +59,16 @@ jobs:
         run: |
           echo "GITHUB_REF_NAME = $GITHUB_REF_NAME"
           echo "github.ref_name: ${{  github.ref_name }}"
-          echo "BRANCH_NAME = $BRANCH_NAME"
-          echo "env.BRANCH_NAME = ${{env.BRANCH_NAME}}"
+          echo "DOCKER_TAG = $DOCKER_TAG"
+          echo "env.DOCKER_TAG = ${{env.DOCKER_TAG}}"
+          echo "tags=\n  ${{ env.IMAGE_URL}}:${{github.sha}}\n  ${{ env.IMAGE_URL}}:${{env.DOCKER_TAG}}"
 
       - name: Build and Push Container
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_URL}}:${{github.sha}}, ${{ env.IMAGE_URL}}:${{env.BRANCH_NAME}}
+          tags: ${{ env.IMAGE_URL}}:${{github.sha}}, ${{ env.IMAGE_URL}}:${{env.DOCKER_TAG}}
 
       # END - Docker auth and build
 
