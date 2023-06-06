@@ -17,8 +17,8 @@ logging.getLogger("multipart.multipart").setLevel(logging.WARNING)
 
 # https://fastapi.tiangolo.com/tutorial/metadata/
 app = FastAPI(
-    title="prompt-forge-api",
-    description="API for prompt-forge, an app for managing full lifecycle of AI chat prompts.",
+    title="prompton-api",
+    description="API for prompton - managing full lifecycle of AI chat prompts.",
     version="0.0.1",
 )
 
@@ -56,7 +56,7 @@ async def root(db=Depends(get_db)) -> underTheHood.ApiStatusResponse:
 
     status = underTheHood.ApiStatusResponse(
         version="0.0.1",
-        message="prompt-forge-api is running",
+        message="prompton-api is running",
         dbstatus=dbstatus,
     )
     return status
