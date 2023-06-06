@@ -30,8 +30,10 @@ jobs:
             ${{ env.IMAGE_URL}}
           tags: |
             type=sha
-            type=edge
+            type=ref,event=branch
+            type=ref,event=pr
             type=pep440,pattern={{version}}
+            type=schedule
 
       - name: Checkout
         uses: actions/checkout@v3
