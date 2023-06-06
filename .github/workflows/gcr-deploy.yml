@@ -35,6 +35,9 @@ jobs:
 
       # BEGIN - Docker auth and build
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
       # Authenticate Docker to Google Cloud Artifact Registry
       - name: Docker Auth
         id: docker-auth
@@ -44,10 +47,17 @@ jobs:
           password: "${{ steps.auth.outputs.access_token }}"
           registry: "${{ env.GAR_LOCATION }}-docker.pkg.dev"
 
+      # - name: Build and Push Container
+      #   run: |-
+      #     docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}" ./
+      #     docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
+
       - name: Build and Push Container
-        run: |-
-          docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}" ./
-          docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE_URL}}:${{github.sha}}, ${{ env.IMAGE_URL}}:${{github.ref_name}}
 
       # END - Docker auth and build
 
