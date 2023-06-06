@@ -76,7 +76,7 @@ jobs:
       # END - Docker auth and build
 
       - name: Debug
-        run: echo ${{ steps.meta.outputs.labels }}
+        run: echo "steps.meta.outputs.labels = ${{ steps.meta.outputs.labels }}"
 
       - name: Deploy to Cloud Run if not pull request
         if: ${{ github.event_name != 'pull_request' }}
