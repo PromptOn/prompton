@@ -67,7 +67,6 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          # push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
@@ -75,8 +74,8 @@ jobs:
 
       - name: Debug
         run: |
-          - echo "steps.docker-build.outputs.digest = ${{ steps.docker-build.outputs.digest }}"
-          - echo "steps.docker-build.outputs = ${{ steps.docker-build.outputs }}"
+          echo "steps.docker-build.outputs.digest = ${{ steps.docker-build.outputs.digest }}"
+          echo "steps.docker-build.outputs = ${{ steps.docker-build.outputs }}"
 
       - name: Deploy to Cloud Run if not pull request
         if: ${{ github.event_name != 'pull_request' }}
