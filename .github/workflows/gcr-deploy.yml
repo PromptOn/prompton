@@ -31,7 +31,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            ${{ env.SERVICE}}
+            ${{ env.IMAGE_URL}}
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -71,13 +71,15 @@ jobs:
           echo "github.ref_name: ${{  github.ref_name }}"
           echo "DOCKER_TAG = $DOCKER_TAG"
           echo "env.DOCKER_TAG = ${{env.DOCKER_TAG}}"
+          echo "meta tags = ${{ steps.meta.outputs.tags }}"
+          echo "meta labels = ${{ steps.meta.outputs.labels }}"
           echo "tags=\n  ${{ env.IMAGE_URL}}:${{github.sha}}\n  ${{ env.IMAGE_URL}}:${{env.DOCKER_TAG}}"
 
       - name: Build and Push Container
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           # push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
