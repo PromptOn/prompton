@@ -13,7 +13,7 @@ jobs:
       GAR_LOCATION: ${{ vars.GC_GAR_LOCATION }}
       SERVICE: ${{ vars.GC_SERVICE_NAME }}
       REGION: ${{ vars.GC_SERVICE_REGION }}
-      IMAGE_URL: ${{ vars.GC_GAR_LOCATION }}-docker.pkg.dev/${{ vars.GC_PROJECT_ID }}/${{ vars.GC_SERVICE_NAME }}
+      IMAGE_URL: ${{ vars.GC_GAR_LOCATION }}-docker.pkg.dev/${{ vars.GC_PROJECT_ID }}/${{ vars.GC_ARTIFACTS_REPO_NAME }}
 
     # Add 'id-token' with the intended permissions for workload identity federation
     permissions:
