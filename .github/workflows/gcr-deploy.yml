@@ -72,11 +72,6 @@ jobs:
 
       # END - Docker auth and build
 
-      - name: Debug
-        run: |
-          echo "steps.docker-build.outputs.digest = ${{ steps.docker-build.outputs.digest }}"
-          echo "steps.docker-build.outputs = ${{ steps.docker-build.outputs }}"
-
       - name: Deploy to Cloud Run if not pull request
         if: ${{ github.event_name != 'pull_request' }}
         id: deploy
@@ -84,7 +79,7 @@ jobs:
         with:
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
-          image: ${{ env.IMAGE_URL}}:${{ steps.docker-build.outputs.digest}}
+          image: ${{ env.IMAGE_URL}}@${{ steps.docker-build.outputs.digest}}
           env_vars: |
             MONGO_DATABASE=${{ vars.MONGO_DATABASE }}
             DATABASE_URL=${{ secrets.DATABASE_URL }}
