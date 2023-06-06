@@ -8,7 +8,7 @@ org = {
   created_by_user_id: "000000000000000000000000",
   created_by_org_id: "000000000000000000000000",
   name: process.env.PROMPTON_ORG_NAME,
-  access_keys: { "openai-api-key": process.env.PROMPTON_ORG_OPENAI_API_KEY },
+  access_keys: { openai_api_key: process.env.PROMPTON_ORG_OPENAI_API_KEY },
 };
 
 res = db.orgs.insertOne(org);
