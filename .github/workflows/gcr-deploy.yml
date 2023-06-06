@@ -31,7 +31,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            ${{ env.IMAGE_URL}}
+            ${{ env.SERVICE}}
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -86,6 +86,7 @@ jobs:
       # END - Docker auth and build
 
       - name: Deploy to Cloud Run
+        if: ${{ github.event_name != 'pull_request' }}
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v1
         with:
