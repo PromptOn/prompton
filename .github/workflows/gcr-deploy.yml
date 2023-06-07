@@ -13,7 +13,9 @@ jobs:
   deploy:
     if: github.event.pull_request.merged == true
 
-    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+      url: ${{ steps.deploy.outputs.url }}
 
     env:
       PROJECT_ID: ${{ vars.GC_PROJECT_ID }}
@@ -94,4 +96,8 @@ jobs:
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
-        run: echo ${{ steps.deploy.outputs.url }}
+        run: |
+          echo ${{ steps.deploy.outputs.url }}
+          echo ${{ env.SERVICE }}}}
+          echo ${{ github.ref }}
+          echo ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
