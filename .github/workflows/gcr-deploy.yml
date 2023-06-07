@@ -14,10 +14,11 @@ jobs:
     if: github.event.pull_request.merged == true
 
     environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+      name: ${{ github.ref == 'main' && 'production' || 'staging' }}
       url: ${{ steps.deploy.outputs.url }}
 
     env:
+      GITHUB_ENV: ${{ github.ref == 'main' && 'production' || 'staging' }}
       PROJECT_ID: ${{ vars.GC_PROJECT_ID }}
       GAR_LOCATION: ${{ vars.GC_GAR_LOCATION }}
       SERVICE: ${{ vars.GC_SERVICE_NAME }}
@@ -39,7 +40,7 @@ jobs:
             ${{ env.IMAGE_URL}}
           tags: |
             type=sha
-            type=raw,value=${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+            type=raw,value=${{ github.ref == 'main' && 'production' || 'staging' }}
             type=pep440,pattern={{version}}
             type=schedule
 
@@ -91,13 +92,18 @@ jobs:
             MONGO_DATABASE=${{ vars.MONGO_DATABASE }}
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+            GITHUB_SHA=${{ github.sha }}
+            GITHUB_ENV=${{ env.GITHUB_ENV }}
           # TODO: JWT_SECRET_KEY and DATABASE_URL should be passed as secret b/c it's exposed in gcloud run logs
           # secrets: |
 
-      # If required, use the Cloud Run url output in later steps
-      - name: Show Output
+      - name: Summary
         run: |
-          echo ${{ steps.deploy.outputs.url }}
-          echo ${{ env.SERVICE }}}}
-          echo ${{ github.ref }}
-          echo ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+          echo "Deploy url: ${{ steps.deploy.outputs.url }}"
+          echo "GC_SERVICE_NAME :${{ env.SERVICE }}"
+          echo "github.ref:  ${{ github.ref }}"
+          echo "github.ref_name: ${{ github.ref_name }}"
+          echo "github env calc: ${{ github.ref == 'main' && 'production' || 'staging' }}"
+          echo "GITHUB_ENV: ${{ env.GITHUB_ENV }}"
+          echo "github.sha:  ${{ github.sha }}"
+          echo "github.job:  ${{ github.job }}"
