@@ -37,8 +37,7 @@ jobs:
             ${{ env.IMAGE_URL}}
           tags: |
             type=sha
-            type=ref,event=branch
-            type=ref,event=pr
+            type=raw,value=${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
             type=pep440,pattern={{version}}
             type=schedule
 
