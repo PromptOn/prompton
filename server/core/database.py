@@ -9,15 +9,17 @@ from server.core.settings import settings
 
 
 # motor_asyncio is not typed so we use pymongo types. motor_asyncio is a wrapper for pymongo
-DbClient = Optional[MongoClient]  # it's actually an AsyncIOMotorClient
-Db = Optional[Database]  # it's actually an AsyncIOMotorDatabase
+DbClient = MongoClient  # it's actually an AsyncIOMotorClient
+Db = Database  # it's actually an AsyncIOMotorDatabase
 
-db_client: DbClient = None
-db: Db = None
+db_client: DbClient | None = None
+db: Db | None = None
 
 
 async def get_db() -> Db:
     """Return database client instance."""
+    if db is None:
+        raise Exception("Database is not initialized")
     return db
 
 
