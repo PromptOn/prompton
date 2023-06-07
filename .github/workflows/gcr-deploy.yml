@@ -10,7 +10,7 @@ on:
       - closed
 
 jobs:
-  if_merged:
+  deploy:
     if: github.event.pull_request.merged == true
 
     environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
