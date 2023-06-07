@@ -1,20 +1,35 @@
-from typing import Optional
+from typing import Type
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 
 
 from server.core.settings import settings
 import logging
 
-DbClient = Optional[AsyncIOMotorClient]
-Db = Optional[AsyncIOMotorDatabase]
+DbClient = Type[AsyncIOMotorClient]
+Db = Type[AsyncIOMotorDatabase]
 
-db_client: DbClient = None
-db: Db = None
+db_client: DbClient | None = None
+db: Db | None = None
 
 
 async def get_db() -> Db:
     """Return database client instance."""
+    global db
+    if db is None:
+        await connect_db()
+    if db is None:
+        raise Exception("DB connection failed")
     return db
+
+
+async def get_client() -> DbClient:
+    """Return database client instance."""
+    global db_client
+    if db_client is None:
+        await connect_db()
+    if db_client is None:
+        raise Exception("DB connection failed")
+    return db_client
 
 
 async def connect_db():

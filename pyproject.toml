@@ -10,14 +10,13 @@ python = "^3.11"
 fastapi = "^0.96.0"
 motor = "^3.1.2"
 uvicorn = "^0.22.0"
-python-dotenv = "^1.0.0"
 httpx = "^0.24.1"
 aiohttp = "^3.8.4"
-openai = "^0.27.7"
+openai = "^0.27.8"
 python-jose = { version = "^3.3.0", extras = ["cryptography"] }
 passlib = { version = "^1.7.4", extras = ["bcrypt"] }
 python-multipart = "^0.0.6"
-pydantic = { version = "^1.10.8", extras = ["email"] }
+pydantic = { version = "^1.10.8", extras = ["email", "dotenv"] }
 mangum = "^0.17.0"
 
 
@@ -26,6 +25,7 @@ mypy = "^1.3.0"
 pytest = "^7.3.1"
 mongomock-motor = "^0.0.19"
 deepdiff = "^6.3.0"
+python-dotenv = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core"]
