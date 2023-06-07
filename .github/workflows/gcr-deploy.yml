@@ -14,7 +14,7 @@ jobs:
     if: github.event.pull_request.merged == true
 
     environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+      name: ${{ github.ref == 'main' && 'production' || 'staging' }}
       url: ${{ steps.deploy.outputs.url }}
 
     env:
@@ -40,7 +40,7 @@ jobs:
             ${{ env.IMAGE_URL}}
           tags: |
             type=sha
-            type=raw,value=${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+            type=raw,value=${{ github.ref == 'main' && 'production' || 'staging' }}
             type=pep440,pattern={{version}}
             type=schedule
 
