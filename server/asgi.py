@@ -7,6 +7,7 @@ from starlette.responses import JSONResponse
 from mangum import Mangum
 
 from server.core import database
+from server.core.settings import settings
 from server.endpoints import routers
 from server.schemas import underTheHood
 from server.core.database import get_db
@@ -58,5 +59,7 @@ async def root(db=Depends(get_db)) -> underTheHood.ApiStatusResponse:
         version="0.0.1",
         message="prompton-api is running",
         dbstatus=dbstatus,
+        github_sha=settings.GITHUB_SHA,
+        github_env=settings.GITHUB_ENV,
     )
     return status

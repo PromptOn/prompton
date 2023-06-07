@@ -10,3 +10,5 @@ class ApiStatusResponse(MyBaseModel):
     version: str
     message: str
     dbstatus: DBStatus
+    github_sha: str | None
+    github_env: str | None
