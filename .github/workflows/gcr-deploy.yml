@@ -80,6 +80,7 @@ jobs:
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
           image: ${{ env.IMAGE_URL}}@${{ steps.docker-build.outputs.digest}}
+          flags: "--vpc-connector=${{vars.GC_VPC_CONNECTOR}} --vpc-egress=all-traffic" # see: https://cloud.google.com/run/docs/configuring/static-outbound-ip
           env_vars: |
             MONGO_DATABASE=${{ vars.MONGO_DATABASE }}
             DATABASE_URL=${{ secrets.DATABASE_URL }}
