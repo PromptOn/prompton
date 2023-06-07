@@ -10,12 +10,11 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: staging
 
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      MONGO_DATABASE: ${{ vars.MONGO_DATABASE }}
-      JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+      DATABASE_URL: "dummy for testing"
+      MONGO_DATABASE: "dummy for testing"
+      JWT_SECRET_KEY: "dummy for testing"
 
     steps:
       - uses: actions/checkout@v3
