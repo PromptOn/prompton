@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     JWT_SECRET_KEY: str
     JWT_ALGORITHM: str = "HS256"
 
+    GITHUB_ENV: str | None
+    GITHUB_SHA: str | None
+
     class Config:
         env_file = "./.env"
 
