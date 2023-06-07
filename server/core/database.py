@@ -1,16 +1,12 @@
 from typing import Optional
-from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo.database import Database
-from pymongo import MongoClient
+from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 
-import logging
 
 from server.core.settings import settings
+import logging
 
-
-# motor_asyncio is not typed so we use pymongo types. motor_asyncio is a wrapper for pymongo
-DbClient = MongoClient  # it's actually an AsyncIOMotorClient
-Db = Database  # it's actually an AsyncIOMotorDatabase
+DbClient = Optional[AsyncIOMotorClient]
+Db = Optional[AsyncIOMotorDatabase]
 
 db_client: DbClient | None = None
 db: Db | None = None
