@@ -7,7 +7,7 @@ from server.tests.utils import get_all_endpoint_methods, method_mapping
 
 no_auth_white_list_paths = [
     "/",
-    "/docs",
+    "/status",
     "/docs/oauth2-redirect",
     "/redoc",
     "/openapi.json",

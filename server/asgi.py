@@ -1,16 +1,13 @@
-from typing import Callable
-from fastapi import Depends, FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.gzip import GZipMiddleware
 import logging  # TODO: repleace with structlog or loguru or something else and add cloud logging
 import sys
-from starlette.responses import JSONResponse
+
 from mangum import Mangum
+from fastapi.openapi.docs import get_swagger_ui_html
 
 from server.core import database
-from server.core.settings import settings
 from server.endpoints import routers
-from server.schemas import underTheHood
-from server.core.database import get_db
 
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
@@ -21,6 +18,7 @@ app = FastAPI(
     title="prompton-api",
     description="API for prompton - managing full lifecycle of AI chat prompts.",
     version="0.0.1",
+    docs_url=None,
 )
 
 app.include_router(routers)
@@ -43,23 +41,8 @@ async def shutdown():
     await database.disconnect_db()
 
 
-@app.get("/", response_model=underTheHood.ApiStatusResponse, tags=["under the hood"])
-async def root(db=Depends(get_db)) -> underTheHood.ApiStatusResponse:
-    # TODO: proper db status check + handling exceptions including timeout.  move it to a health endpoint & figure what's to show on /
-    dbstatus: underTheHood.DBStatus
-    if db is None:
-        dbstatus = underTheHood.DBStatus(status_code=0, status_message="not connected")
-    else:
-        dbstatus = underTheHood.DBStatus(
-            status_code=1,
-            status_message=str(await db.command("ping")),
-        )
-
-    status = underTheHood.ApiStatusResponse(
-        version="0.0.1",
-        message="prompton-api is running",
-        dbstatus=dbstatus,
-        github_sha=settings.GITHUB_SHA,
-        github_env=settings.GITHUB_ENV,
-    )
-    return status
+@app.get("/", include_in_schema=False)
+async def swagger_docs():
+    response = get_swagger_ui_html(openapi_url="/openapi.json", title="docs")
+    response.headers["Cache-Control"] = "public, max-age=600"
+    return response
