@@ -1,4 +1,4 @@
-# PromptOn - chat prompts lifecycle management
+# PromptOn - Chat prompt template evaluation and inference monitoring
 
 Testing and evaluating prompts for real world use is challenging.
 
@@ -47,7 +47,7 @@ The API is still in alpha, may change without notice. However, the schema is lar
 
     Prompton users are those who handle prompts and the services that call inferences on behalf of the final users.
 
-    User auth is via JWT tokens. Once you have a user/password just click on authorize [Prompton API documentation UI](https://staging.api.prompton.ai).
+    User auth is via JWT tokens. Once you have a user/password just click on authorize on [Prompton API documentation UI](https://staging.api.prompton.ai).
 
     From code you can use `/token` endpoint.
 
@@ -96,7 +96,7 @@ The API is still in alpha, may change without notice. However, the schema is lar
     }    
     ```
 
-    NB: Only `Draft` status promptVersions can be updated (apart from moving the status to non Draft).  It's to make sure all inferences we compare with the same version. If you need to change a prompt version just create a new one. Copy a prompt version is on the todo but until then it need to be handled by the UI.
+    NB: Only `Draft` status promptVersions can be updated (apart from changing the status to any non-Draft).  It's to make sure inferences are comparable. If you need to change a prompt version then create a new one. Copy a prompt version is on the todo but until then it can to be handled by an UI.
 
 1. Inference - aka calling the model: POST `/inferences`
 
