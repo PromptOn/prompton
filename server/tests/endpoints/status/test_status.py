@@ -11,7 +11,7 @@ async def test_read_main(endpoint: AsyncClient, mock_db, mock_user):
         "dbstatus": {"status_code": 1, "status_message": "{'ok': 1.0}"},
     }  # +github_sha, github_env present
 
-    response = await endpoint.get("/")
+    response = await endpoint.get("/status")
     db_status = str(await mock_db.command("ping"))
 
     assert response.status_code == 200

@@ -29,7 +29,7 @@ async def get_org_list(
     "/orgs/me",
     tags=["orgs"],
     response_model=OrgRead,
-    responses={**ReqResponses.INVALID_ITEM_ID},
+    responses={**ReqResponses.GET_RESPONSES},
 )
 async def get_current_user_org(
     id: str,
@@ -43,7 +43,7 @@ async def get_current_user_org(
     "/orgs/{id}",
     tags=["orgs"],
     response_model=OrgRead,
-    responses={**ReqResponses.INVALID_ITEM_ID},
+    responses={**ReqResponses.GET_RESPONSES},
 )
 async def get_org_by_id(
     id: str,
@@ -58,7 +58,7 @@ async def get_org_by_id(
     "/orgs",
     tags=["orgs"],
     status_code=status.HTTP_201_CREATED,
-    responses={**ReqResponses.POST_CREATED},
+    responses={**ReqResponses.POST_RESPONSES},
 )
 async def add_org(
     org: OrgCreate,
@@ -74,7 +74,7 @@ async def add_org(
     "/orgs/{id}",
     tags=["orgs"],
     response_model=OrgRead,
-    responses={**ReqResponses.INVALID_ITEM_ID, **ReqResponses.PATH_UPDATED},
+    responses={**ReqResponses.PATCH_RESPONSES},
 )
 async def update_org(
     org_patch: OrgUpdate,
