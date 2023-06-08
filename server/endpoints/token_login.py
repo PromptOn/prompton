@@ -1,18 +1,26 @@
 from typing import Annotated
 from datetime import timedelta
 from fastapi import APIRouter, Depends, status, HTTPException
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm
 
 from server.core.database import get_db
 from server.core.settings import settings
 from server.core.auth import authenticate_user, create_access_token
 from server.schemas.user import Token
-
+from server.endpoints.ApiResponses import ReqResponses
 
 router = APIRouter()
 
 
-@router.post("/token", response_model=Token, tags=["authentication"])
+@router.post(
+    "/token",
+    responses={
+        **ReqResponses.NOT_AUTHENTICATED,
+        **ReqResponses.MALFORMED_REQUEST,
+    },
+    response_model=Token,
+    tags=["authentication"],
+)
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db=Depends(get_db)
 ):

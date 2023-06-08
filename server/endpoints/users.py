@@ -21,7 +21,12 @@ router = APIRouter()
 # TODO: signup endpoint
 
 
-@router.get("/users", tags=["users"], response_model=List[UserRead])
+@router.get(
+    "/users",
+    tags=["users"],
+    responses={**ReqResponses.GET_RESPONSES},
+    response_model=List[UserRead],
+)
 async def get_users_list(
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
     db=Depends(get_db),
@@ -34,8 +39,8 @@ async def get_users_list(
 @router.get(
     "/users/me",
     tags=["users"],
+    responses={**ReqResponses.GET_RESPONSES},
     response_model=UserRead,
-    responses={**ReqResponses.INVALID_ITEM_ID},
 )
 async def get_current_user(
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
@@ -47,8 +52,8 @@ async def get_current_user(
 @router.get(
     "/users/{id}",
     tags=["users"],
+    responses={**ReqResponses.GET_RESPONSES},
     response_model=UserRead,
-    responses={**ReqResponses.INVALID_ITEM_ID},
 )
 async def get_user_by_id(
     id: str,
@@ -61,8 +66,8 @@ async def get_user_by_id(
 @router.post(
     "/users",
     tags=["users"],
+    responses={**ReqResponses.POST_RESPONSES},
     status_code=status.HTTP_201_CREATED,
-    responses={**ReqResponses.POST_CREATED},
 )
 async def add_new_user(
     user_to_add: UserCreate,

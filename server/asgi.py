@@ -43,7 +43,7 @@ async def shutdown():
     await database.disconnect_db()
 
 
-@app.get("/")
+@app.get("/", response_model=underTheHood.ApiStatusResponse, tags=["under the hood"])
 async def root(db=Depends(get_db)) -> underTheHood.ApiStatusResponse:
     # TODO: proper db status check + handling exceptions including timeout.  move it to a health endpoint & figure what's to show on /
     dbstatus: underTheHood.DBStatus
