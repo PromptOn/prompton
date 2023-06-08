@@ -1,7 +1,7 @@
 from typing import Optional
-from pydantic import BaseModel, Extra, Field, ConstrainedStr, root_validator, validator
+from pydantic import BaseModel, Extra, Field, ConstrainedStr
 from datetime import datetime
-from bson import DatetimeMS, ObjectId
+from bson import ObjectId
 import pydantic
 
 
@@ -45,18 +45,14 @@ class MongoBase(MyBaseModel):
 
 
 class AllOptional(pydantic.main.ModelMetaclass):
-    """Make all fields optional on class. Using this PATCH schema can be based on Base/Create schema
-    Usage:
+    """Make all fields optional on class but keep validators. Using it PATCH schema can be based on Base/Create schema
+    `class PromptUpdate(AllOptional, PromptBase):`
 
-    `class ItemPatch(ItemBase, metaclass=AllOptional):`
+    If you like rabbit holes: https://stackoverflow.com/questions/67699451/make-every-field-as-optional-with-pydantic/72365032
     """
 
-    def __new__(cls, name, bases, namespaces, **kwargs):
-        annotations = namespaces.get("__annotations__", {})
-        for base in bases:
-            annotations.update(base.__annotations__)
-        for field in annotations:
-            if not field.startswith("__"):
-                annotations[field] = Optional[annotations[field]]
-        namespaces["__annotations__"] = annotations
-        return super().__new__(cls, name, bases, namespaces, **kwargs)
+    def __new__(mcls, name, bases, namespaces, **kwargs):
+        cls = super().__new__(mcls, name, bases, namespaces, **kwargs)
+        for field in cls.__fields__.values():
+            field.required = False
+        return cls
