@@ -10,9 +10,7 @@ from server.tests.shared_test_data import (
 from server.tests.utils import TestSpecList
 
 
-test_db_data = {
-    "orgs": [ORG1, ORG2],
-}
+test_db_data = {"orgs": [ORG1, ORG2]}
 
 test_specs_get: TestSpecList = [
     # list orgs
@@ -26,7 +24,7 @@ test_specs_get: TestSpecList = [
     {
         "spec_id": "basic user own org /me",
         "mock_user": USER_BASIC,
-        "input": {"id": str(ORG1["_id"])},
+        "input": {"id": "me"},
         "expected": ORG1,
     },
     {

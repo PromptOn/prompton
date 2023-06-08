@@ -32,11 +32,10 @@ async def get_org_list(
     responses={**ReqResponses.GET_RESPONSES},
 )
 async def get_current_user_org(
-    id: str,
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
     db=Depends(get_db),
 ):
-    return await org_crud.get(db, current_user.id, current_user)
+    return await org_crud.get(db, current_user.org_id, current_user)
 
 
 @router.get(
