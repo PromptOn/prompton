@@ -52,14 +52,14 @@ test_specs_post: TestSpecList = [
         },
     },
     {
-        "spec_id": "min fields",
+        "spec_id": "OrgAdmin should add OrgAdmin",
         "mock_user": USER_ORG_ADMIN,
-        "input": {"request_body": MIN_VALID},
+        "input": {"request_body": {**MIN_VALID, "role": "OrgAdmin"}},
         "expected": {
             "email": "x@y.z",
             "disabled": False,
             "full_name": None,
-            "role": "Basic",
+            "role": "OrgAdmin",
             "org_id": ORG1["_id"],
             "hashed_password": "monkeypatched_hashed_password",
             "created_by_user_id": USER_ORG_ADMIN["_id"],
@@ -94,6 +94,24 @@ test_specs_post: TestSpecList = [
         "spec_id": "OrgAdmin shouldn't add non own org user",
         "mock_user": USER_ORG_ADMIN,
         "input": {"request_body": {**MIN_VALID, "org_id": ORG2["_id"]}},
+        "expected": 403,
+    },
+    {
+        "spec_id": "OrgAdmin shouldn't add SuperAdmin",
+        "mock_user": USER_ORG_ADMIN,
+        "input": {"request_body": {**MIN_VALID, "role": "SuperAdmin"}},
+        "expected": 403,
+    },
+    {
+        "spec_id": "Basic shouldn't add SuperAdmin",
+        "mock_user": USER_BASIC,
+        "input": {"request_body": {**MIN_VALID, "role": "SuperAdmin"}},
+        "expected": 403,
+    },
+    {
+        "spec_id": "Basic shouldn't add OrgAdmin",
+        "mock_user": USER_BASIC,
+        "input": {"request_body": {**MIN_VALID, "role": "OrgAdmin"}},
         "expected": 403,
     },
     #

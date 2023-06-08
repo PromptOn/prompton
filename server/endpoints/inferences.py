@@ -38,7 +38,7 @@ router = APIRouter()
     "/inferences",
     tags=["inferences"],
     response_model=List[InferenceRead],
-    responses={**ReqResponses.MalformedRequestError},
+    responses={**ReqResponses.GET_RESPONSES},
 )
 async def get_inferences_list(
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
@@ -71,7 +71,7 @@ async def get_inferences_list(
     "/inferences/{id}",
     tags=["inferences"],
     response_model=InferenceRead,
-    responses={**ReqResponses.INVALID_ITEM_ID},
+    responses={**ReqResponses.GET_RESPONSES},
 )
 async def get_inference_by_id(
     id: str,
@@ -88,7 +88,7 @@ async def get_inference_by_id(
     tags=["inferences"],
     status_code=status.HTTP_201_CREATED,
     responses={
-        **ReqResponses.POST_CREATED,
+        **ReqResponses.POST_RESPONSES,
         **ReqResponses.OPENAI_ERROR,
         **ReqResponses.OPENAI_TIMEOUT,
     },

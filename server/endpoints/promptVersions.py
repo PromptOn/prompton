@@ -22,7 +22,10 @@ router = APIRouter()
 # TODO: auto version numbering? could replace name field. shall we worry about concurrency or naiv approach enough?
 # TODO: return number of inferences (optional?)
 @router.get(
-    "/promptVersions", tags=["promptVersions"], response_model=List[PromptVersionRead]
+    "/promptVersions",
+    tags=["promptVersions"],
+    responses={**ReqResponses.GET_RESPONSES},
+    response_model=List[PromptVersionRead],
 )
 async def get_promptVersions_list(
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
@@ -43,8 +46,8 @@ async def get_promptVersions_list(
 @router.get(
     "/promptVersions/{id}",
     tags=["promptVersions"],
+    responses={**ReqResponses.GET_RESPONSES},
     response_model=PromptVersionRead,
-    responses={**ReqResponses.INVALID_ITEM_ID},
 )
 async def get_promptVersion_by_id(
     id: str,
@@ -59,7 +62,7 @@ async def get_promptVersion_by_id(
     "/promptVersions",
     tags=["promptVersions"],
     status_code=status.HTTP_201_CREATED,
-    responses={**ReqResponses.POST_CREATED},
+    responses={**ReqResponses.POST_RESPONSES},
 )
 async def add_promptVersion(
     promptVersion: PromptVersionCreate,
@@ -76,8 +79,8 @@ async def add_promptVersion(
 @router.patch(
     "/promptVersions/{id}",
     tags=["promptVersions"],
+    responses={**ReqResponses.PATCH_RESPONSES},
     response_model=PromptVersionRead,
-    responses={**ReqResponses.INVALID_ITEM_ID, **ReqResponses.PATH_UPDATED},
 )
 async def update_promptVersion(
     promptVersion_patch: PromptVersionUpdate,

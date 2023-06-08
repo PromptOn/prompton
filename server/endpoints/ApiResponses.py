@@ -38,8 +38,30 @@ class ReqResponses:
         status.HTTP_504_GATEWAY_TIMEOUT: {"description": "OpenAI API Call timeout"}
     }
 
-    MalformedRequestError: rtype = {
+    MALFORMED_REQUEST: rtype = {
         status.HTTP_400_BAD_REQUEST: {"description": "Malformed request"}
     }
 
-    PATCH_RESPONSES: rtype = {**INVALID_ITEM_ID, **PATH_UPDATED, **NO_ITEM_UPDATED}
+    NOT_AUTHENTICATED: rtype = {
+        status.HTTP_401_UNAUTHORIZED: {"description": "Not authenticated"}
+    }
+
+    PATCH_RESPONSES: rtype = {
+        **INVALID_ITEM_ID,
+        **PATH_UPDATED,
+        **NO_ITEM_UPDATED,
+        **NOT_AUTHENTICATED,
+        **MALFORMED_REQUEST,
+    }
+
+    GET_RESPONSES: rtype = {
+        **INVALID_ITEM_ID,
+        **MALFORMED_REQUEST,
+        **NOT_AUTHENTICATED,
+    }
+
+    POST_RESPONSES: rtype = {
+        **MALFORMED_REQUEST,
+        **NOT_AUTHENTICATED,
+        **POST_CREATED,
+    }

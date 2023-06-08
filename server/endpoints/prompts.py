@@ -22,7 +22,12 @@ router = APIRouter()
 # TODO: add pagination or cursor
 # TODO: ordering?
 # TODO: return number of prompteVersions (optional?)
-@router.get("/prompts", tags=["prompts"], response_model=List[PromptRead])
+@router.get(
+    "/prompts",
+    tags=["prompts"],
+    responses={**ReqResponses.GET_RESPONSES},
+    response_model=List[PromptRead],
+)
 async def get_prompt_list(
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
     db=Depends(get_db),
@@ -36,7 +41,7 @@ async def get_prompt_list(
     "/prompts/{id}",
     tags=["prompts"],
     response_model=PromptRead,
-    responses={**ReqResponses.INVALID_ITEM_ID},
+    responses={**ReqResponses.GET_RESPONSES},
 )
 async def get_prompt_by_id(
     id: str,
@@ -50,7 +55,7 @@ async def get_prompt_by_id(
     "/prompts",
     tags=["prompts"],
     status_code=status.HTTP_201_CREATED,
-    responses={**ReqResponses.POST_CREATED},
+    responses={**ReqResponses.POST_RESPONSES},
 )
 async def add_prompt(
     prompt: PromptCreate,
@@ -66,7 +71,7 @@ async def add_prompt(
     "/prompts/{id}",
     tags=["prompts"],
     response_model=PromptRead,
-    responses={**ReqResponses.INVALID_ITEM_ID, **ReqResponses.PATCH_RESPONSES},
+    responses={**ReqResponses.PATCH_RESPONSES},
 )
 async def update_prompt(
     prompt_patch: PromptUpdate,
