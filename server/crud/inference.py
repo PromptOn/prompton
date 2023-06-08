@@ -55,7 +55,7 @@ class InferenceCRUD(CrudBase[InferenceInDB, InferenceCreate, InferenceUpdate]):
             {
                 **promptVersion.model_config.dict(),
                 "messages": template_pop,
-                "user": obj_in.endUserId,
+                "user": obj_in.end_user_id,
             }
         )
 
@@ -68,7 +68,7 @@ class InferenceCRUD(CrudBase[InferenceInDB, InferenceCreate, InferenceUpdate]):
             prompt_id=promptVersion.prompt_id,
             prompt_version_id=obj_in.prompt_version_id,
             prompt_version_name=promptVersion.name,
-            endUserId=obj_in.endUserId,
+            end_user_id=obj_in.end_user_id,
             source=obj_in.source,
             template_args=obj_in.template_args,
             metadata=obj_in.metadata,

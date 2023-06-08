@@ -25,7 +25,7 @@ FILLED_TEMPLATE = {
 
 VALID_REQ = {
     "prompt_version_id": str(LIVE_PROMPT_VERSION_DB["_id"]),
-    "endUserId": "u1",
+    "end_user_id": "u1",
     "source": "source1",
 }
 
@@ -62,7 +62,7 @@ test_db_data = {
 min_input: TestInput = {
     "request_body": {
         "prompt_version_id": str(LIVE_PROMPT_VERSION_DB["_id"]),
-        "endUserId": "u1",
+        "end_user_id": "u1",
         "source": "s1",
     }
 }
@@ -70,7 +70,7 @@ min_input: TestInput = {
 all_input: TestInput = {
     "request_body": {
         "prompt_version_id": str(LIVE_PROMPT_VERSION_DB["_id"]),
-        "endUserId": "u1",
+        "end_user_id": "u1",
         "source": "s1",
         "request_timeout": 120.1,
         "template_args": {"arg1": "v1", "arg2": "v2"},
@@ -82,7 +82,7 @@ all_input: TestInput = {
 expected_all_fields_head = {
     "created_by_user_id": USER_BASIC["_id"],
     "created_by_org_id": ORG1["_id"],
-    "endUserId": "u1",
+    "end_user_id": "u1",
     "source": "s1",
     "template_args": {"arg1": "v1", "arg2": "v2"},
     "metadata": {"meta1": "m1"},
@@ -106,7 +106,7 @@ expected_all_fields_head = {
 expected_min_fields_head = {
     "created_by_user_id": USER_BASIC["_id"],
     "created_by_org_id": ORG1["_id"],
-    "endUserId": "u1",
+    "end_user_id": "u1",
     "source": "s1",
     "template_args": None,
     "metadata": None,
@@ -170,7 +170,7 @@ test_specs_post: TestSpecList = [
         "input": {
             "request_body": {
                 "prompt_version_id": str(LIVE_PROMPT_VERSION_DB_ORG2["_id"]),
-                "endUserId": "u1",
+                "end_user_id": "u1",
                 "source": "s1",
             }
         },
@@ -184,7 +184,7 @@ test_specs_post: TestSpecList = [
         "input": {
             "request_body": {
                 "prompt_version_id": str(LIVE_PROMPT_VERSION_DB_ORG2["_id"]),
-                "endUserId": "u1",
+                "end_user_id": "u1",
                 "source": "s1",
             }
         },
@@ -231,15 +231,15 @@ test_specs_post: TestSpecList = [
         "expected": 422,
     },
     {
-        "spec_id": "empty endUserId field",
+        "spec_id": "empty end_user_id field",
         "mock_user": USER_BASIC,
-        "input": {"request_body": {**VALID_REQ, "endUserId": " "}},
+        "input": {"request_body": {**VALID_REQ, "end_user_id": " "}},
         "expected": 422,
     },
     {
-        "spec_id": "None endUserId field",
+        "spec_id": "None end_user_id field",
         "mock_user": USER_BASIC,
-        "input": {"request_body": {**VALID_REQ, "endUserId": None}},
+        "input": {"request_body": {**VALID_REQ, "end_user_id": None}},
         "expected": 422,
     },
     {
