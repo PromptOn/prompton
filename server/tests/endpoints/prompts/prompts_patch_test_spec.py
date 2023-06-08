@@ -96,4 +96,10 @@ test_specs_patch: TestSpecList = [
         },
         "expected": 422,
     },
+    {
+        "spec_id": "none name fielde",
+        "mock_user": USER_BASIC,
+        "input": {"id": PROMPT_MIN_FIELDS["_id"], "request_body": {"name": None}},
+        "expected": 422,
+    },
 ]

@@ -28,7 +28,7 @@ class InferenceResponseStatus(str, Enum):
 # TODO: num_samples
 # TODO: streaming
 class InferenceBase(MyBaseModel):
-    endUserId: NonEmptyStrField
+    end_user_id: NonEmptyStrField
     source: NonEmptyStrField
     template_args: Optional[dict[str, str]] = Field(None)
     metadata: Optional[dict[str, Any]] = Field(None)

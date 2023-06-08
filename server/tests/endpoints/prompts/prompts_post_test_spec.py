@@ -77,6 +77,12 @@ test_specs_post: TestSpecList = [
         "expected": 422,
     },
     {
+        "spec_id": "none name field",
+        "mock_user": USER_BASIC,
+        "input": {"request_body": {"status": "Active", "name": None}},
+        "expected": 422,
+    },
+    {
         "spec_id": "empty name field",
         "mock_user": USER_BASIC,
         "input": {"request_body": {"name": "  "}},
