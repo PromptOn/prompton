@@ -79,7 +79,14 @@ async def add_new_user(
         and user_to_add.org_id != current_user.org_id
     ):
         raise PermissionValidationError(
-            f"Not authorized to add user to `org_id` {user_to_add.org_id}.  `OrgAdmin` can only add user to own org"
+            f"`OrgAdmin` can only add user to own org. Not authorized to add user to `provided org_id` {user_to_add.org_id}."
+        )
+
+    if current_user.role != UserRoles.SUPER_ADMIN and (
+        user_to_add.role not in (UserRoles.ORG_ADMIN, UserRoles.BASIC)
+    ):
+        raise PermissionValidationError(
+            f"`OrgAdmin`can only add OrgAdmin or Baisc role users. Not authorized to add user with provided '{user_to_add.role}' role."
         )
 
     try:
