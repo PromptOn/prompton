@@ -100,6 +100,7 @@ jobs:
       - name: Summary
         run: |
           echo "Deploy url: ${{ steps.deploy.outputs.url }}"
+          echo "MONGO_DATABASE: ${{ vars.MONGO_DATABASE }}",
           echo "GC_SERVICE_NAME :${{ env.SERVICE }}"
           echo "github.ref:  ${{ github.ref }}"
           echo "github.ref_name: ${{ github.ref_name }}"
