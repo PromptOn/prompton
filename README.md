@@ -231,11 +231,11 @@ pytest
 pytest -m "not slow"` # if you want to cut a few secs by avoiding slower tests (password hasing etc.)
 ```
 
-### Initialising a blank remote database
+### Initialising a blank remote MongoDB database
 
 1. Set your `.env` based on [.env.example](.env.example)
 
-1. Optional: if your only have db admin role user create one manually or use this script:
+1. Optional: if you only have admin role db user create one for the api with only readWrite acces. Manually or use this script:
 
     ```sh
     poetry run python -m scripts.db_init_add_api_user
