@@ -18,15 +18,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    env:
-      DATABASE_URL: "dummy for testing"
-      MONGO_DATABASE: "dummy for testing"
-      JWT_SECRET_KEY: "dummy for testing"
-
     steps:
       - uses: actions/checkout@v3
         with:
           sparse-checkout: "server/"
+
+      - name: create .env file
+        run: |
+          echo "DATABASE_URL=dummy" >> .env
+          echo "MONGO_DATABASE=dummy >> .env
+          echo "JWT_SECRET_KEY=dummy" >> .env
 
       - name: Install poetry
         run: pipx install poetry
@@ -61,6 +62,7 @@ jobs:
           tags: "citest"
           load: true
 
-      - name: Launch Docker Image to test
+      - name: Launch Docker Image & test
         run: |
-          docker run --rm "citest"
+          docker run --env-file .env 8080:8080--rm "citest"
+          curl http://localhost:8080/
