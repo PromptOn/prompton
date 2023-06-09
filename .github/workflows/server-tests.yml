@@ -63,7 +63,7 @@ jobs:
           load: true
 
       - name: Launch Docker container for test
-        run: docker run --env-file .env -p 8080:8080 --rm "citest" -d
+        run: docker run --env-file .env -p 8080:8080 --rm --detach "citest"
 
       - name: Check if container responsive
         uses: iFaxity/wait-on-action@v1.1.0
