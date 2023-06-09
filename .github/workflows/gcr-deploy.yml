@@ -3,11 +3,15 @@ name: Build and Deploy to Cloud Run
 
 on:
   pull_request:
+    paths:
+      - "server/**"
     branches:
       - staging
       - main
     types:
       - closed
+
+  workflow_dispatch:
 
 jobs:
   deploy:
