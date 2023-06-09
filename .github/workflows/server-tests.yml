@@ -77,4 +77,4 @@ jobs:
                   printf '.'
                   sleep 0.2
               done
-          shell: bash
+        shell: bash
