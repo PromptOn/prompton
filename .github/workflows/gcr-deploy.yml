@@ -1,5 +1,9 @@
 # See more: https://github.com/marketplace/actions/deploy-to-cloud-run
-name: Build and Deploy to Cloud Run
+name: Server Build and Deploy
+
+defaults:
+  run:
+    working-directory: server
 
 on:
   pull_request:

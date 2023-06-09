@@ -173,7 +173,9 @@ The API is still in alpha, may change without notice. However, the schema is lar
 
      Stay tuned: Support for end user feedback (following an inference) and optional external feedback (i.e.expert feedback/flagging etc.) is coming.
 
-## Local dev setup
+## Local server dev setup
+
+1. your workdir need to be `server` folder
 
 1. install packages with poetry
 

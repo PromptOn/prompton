@@ -2,7 +2,12 @@
 
 name: Server Tests
 
+defaults:
+  run:
+    working-directory: server
+
 on: [push, pull_request]
+  paths: "server/**"
 
 permissions:
   contents: read
