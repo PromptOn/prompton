@@ -5,8 +5,11 @@ defaults:
   run:
     working-directory: server
 
-on: [push, pull_request]
-  paths: "server/**"
+on:
+  pull_request:
+    paths: "server/**"
+  push:
+    paths: "server/**"
 
 permissions:
   contents: read
