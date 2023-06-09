@@ -63,7 +63,9 @@ jobs:
           load: true
 
       - name: Launch Docker container for test
-        run: docker run --env-file .env -p 8080:8080 --rm "citest"
+        run: docker run --env-file .env -p 8080:8080 --rm "citest" -d
 
-      - name: Test container
-        run: curl http://localhost:8080/
+      - name: Check if container responsive
+        uses: iFaxity/wait-on-action@v1.1.0
+        with:
+          resource: http://localhost:8080
