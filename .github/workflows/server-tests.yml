@@ -58,10 +58,11 @@ jobs:
         with:
           context: server
           file: ./server/Dockerfile
-          push: false
           tags: "citest"
+          push: false
+          load: true
 
       - name: Launch Docker Image & test
         run: |
-          docker run --env-file .env 8080:8080 --rm "citest"
+          docker run --env-file .env -p 8080:8080 --rm "citest"
           curl http://localhost:8080/
