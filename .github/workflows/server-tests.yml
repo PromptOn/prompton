@@ -77,7 +77,7 @@ jobs:
 
       - name: Wait for server to be ready
         run: |
-          while ! curl http://localhost:8080  do
+          while ! curl http://localhost:8080 ; do
             echo "Waiting for server..."
             sleep 5
           done
