@@ -37,7 +37,7 @@ It's a REST API microservice designed to mix it into your existing ecosystem in 
 
  There is no public signup currently but drop an email for early access: <hello@prompton.ai>
 
- You can also try in local dev env: [Local setup](#local-dev-setup)
+ You can also try in local dev env: [Local setup](#local_dev_setup)
 
 The API is still in alpha, may change without notice. However, the schema is largely stable and it will soon enter production when  proper versioning will be introduced.
 
@@ -67,7 +67,7 @@ The API is still in alpha, may change without notice. However, the schema is lar
         { "access_keys": {"openai_api_key": "<your OpenAI API key>"  }}
         ```
 
-    TIP: if you just want to play around then set `openai_api_key` to any string and [mock responses](#mock-response-tip)
+    TIP: if you just want to play around then set `openai_api_key` to any string and [mock responses](#mock_response_tip)
 
 1. Prompt
 
@@ -110,20 +110,25 @@ The API is still in alpha, may change without notice. However, the schema is lar
     ```
 
     It will:
+
     1. Populate the template with the passed values
-    1. Log the request
-    1. Send the request to provider
-    1. Log respnse and send it back to client.
+    2. Log the request
+    3. Send the request to provider
+    4. Log respnse and send it back to client.
 
     It also handles errors, timeouts and updates the inference accordingly. It will still process response if client disconnects before it arrives.
 
-    Tip:<a name="mock-response-tip"></a> you can use a few easter eggs to test it without a valid api key. You can pass these values in `end_user_id` to mock responses:
+     **Mock responses**<a id="mock_response_tip"></a>
 
-    - `mock_me_softly`
-    - `timeout_me_softly`
-    - `fail_me_softly`
+     You can use a few easter eggs to test without a valid api key:
 
-    Example sucessfull response (NB: full raw request data also accessible via `/inference` GET):
+    - `"end_user_id": "mock_me_softly"`
+    - `"end_user_id": "timeout_me_softly"`
+    - `"end_user_id": "fail_me_softly"`
+
+    Successfull response
+
+    _NB: full raw request data also accessible via `/inference` GET_
 
     ```json
     {
@@ -173,7 +178,9 @@ The API is still in alpha, may change without notice. However, the schema is lar
 
      Stay tuned: Support for end user feedback (following an inference) and optional external feedback (i.e.expert feedback/flagging etc.) is coming.
 
-## Local dev setup
+## <a id="local_dev_setup">Local server dev setup</a>
+
+1. your workdir need to be `server` folder
 
 1. install packages with poetry
 

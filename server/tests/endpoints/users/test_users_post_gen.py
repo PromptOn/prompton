@@ -1,9 +1,9 @@
-from server.tests.endpoints.users.user_post_test_spec import (
+from tests.endpoints.users.user_post_test_spec import (
     test_db_data,
     test_specs_post,
 )
 
-from server.tests.endpoints.test_generators.post_test_genarator import (
+from tests.endpoints.test_generators.post_test_genarator import (
     generate_pytest_post,
 )
 

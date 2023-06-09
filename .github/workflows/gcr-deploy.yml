@@ -1,13 +1,21 @@
 # See more: https://github.com/marketplace/actions/deploy-to-cloud-run
-name: Build and Deploy to Cloud Run
+name: Server Build and Deploy
+
+defaults:
+  run:
+    working-directory: server
 
 on:
   pull_request:
+    paths:
+      - "server/**"
     branches:
       - staging
       - main
     types:
       - closed
+
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -73,7 +81,8 @@ jobs:
         id: docker-build
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: server
+          file: ./server/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

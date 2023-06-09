@@ -1,9 +1,9 @@
 from typing import Any, Dict
 from httpx import AsyncClient
 import pytest
-from server.asgi import app
+from src.asgi import app
 
-from server.tests.utils import get_all_endpoint_methods, method_mapping
+from tests.utils import get_all_endpoint_methods, method_mapping
 
 no_auth_white_list_paths = [
     "/",

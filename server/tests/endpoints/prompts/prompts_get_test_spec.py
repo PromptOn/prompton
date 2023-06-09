@@ -1,15 +1,15 @@
-from server.tests.endpoints.prompts.prompts_test_records import (
+from tests.endpoints.prompts.prompts_test_records import (
     PROMPT_ALL_FIELDS,
     PROMPT_MIN_FIELDS,
     PROMPT_ARCHIVED_ORG2,
     PROMPT_EXTRA_FIELD,
 )
-from server.tests.shared_test_data import (
+from tests.shared_test_data import (
     USER_BASIC,
     USER_ORG_ADMIN,
     USER_SUPER_ADMIN,
 )
-from server.tests.utils import MockDBData, TestSpecList, remove_props
+from tests.utils import MockDBData, TestSpecList, remove_props
 
 test_db_data = {
     "prompts": [
