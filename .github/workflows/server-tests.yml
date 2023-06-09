@@ -25,6 +25,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          sparse-checkout: "server/"
       - name: Install poetry
         run: pipx install poetry
 
@@ -46,5 +48,10 @@ jobs:
       - name: Build docker image
         uses: docker/build-push-action@v4
         with:
-          context: ./server
+          context: "{{defaultContext}}:server"
           push: false
+          tags: "citest"
+
+      - name: Test Docker Image
+        run: |
+          docker run --rm "citest"
