@@ -65,7 +65,19 @@ jobs:
       - name: Launch Docker container for test
         run: docker run --env-file .env -p 8080:8080 --rm --detach "citest"
 
+      # - name: Wait for server to be ready
+      #   uses: cygnetdigital/wait_for_response@v2.0.0
+      #   with:
+      #     url: "http://localhost:8080/"
+
+      # - name: Check if container responsive
+      #   uses: iFaxity/wait-on-action@v1.1.0
+      #   with:
+      #     resource: http://localhost:8080
+
       - name: Wait for server to be ready
-        uses: cygnetdigital/wait_for_response@v2.0.0
-        with:
-          url: "http://localhost:8080/"
+        run: |
+          while ! curl http://localhost:8080  do
+            echo "Waiting for server..."
+            sleep 5
+          done
