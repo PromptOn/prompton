@@ -77,3 +77,4 @@ jobs:
             echo "Waiting for server..."
             sleep 5
           done
+        shell: bash
