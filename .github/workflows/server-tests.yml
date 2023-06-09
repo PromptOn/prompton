@@ -64,5 +64,5 @@ jobs:
 
       - name: Launch Docker Image & test
         run: |
-          docker run --env-file .env 8080:8080--rm "citest"
+          docker run --env-file .env 8080:8080 --rm "citest"
           curl http://localhost:8080/
