@@ -27,8 +27,15 @@ jobs:
       - uses: actions/checkout@v3
         with:
           sparse-checkout: "server/"
+
       - name: Install poetry
         run: pipx install poetry
+
+      - name: Debug info
+        run: |
+          ls -la
+          pwd
+          echo "github.workspace: ${{ github.workspace }}"
 
       - name: Set up Python 3.11.3
         uses: actions/setup-python@v4
@@ -48,11 +55,10 @@ jobs:
       - name: Build docker image
         uses: docker/build-push-action@v4
         with:
-          context: server
-          file: ./Dockerfile
           push: false
           tags: "citest"
+          load: true
 
-      - name: Test Docker Image
+      - name: Launch Docker Image to test
         run: |
           docker run --rm "citest"
