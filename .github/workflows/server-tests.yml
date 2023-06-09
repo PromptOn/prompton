@@ -28,6 +28,9 @@ jobs:
         with:
           sparse-checkout: "server/"
 
+      - name: Install poetry
+        run: pipx install poetry
+
       - name: Debug info
         run: |
           ls -la
@@ -39,9 +42,6 @@ jobs:
         with:
           python-version: "3.11.3"
           cache: "poetry"
-
-      - name: Install poetry
-        run: pipx install poetry
 
       - name: Install packages
         run: poetry install
