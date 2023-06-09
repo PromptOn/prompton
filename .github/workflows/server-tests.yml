@@ -56,7 +56,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: server
-          file: ./Dockerfile
+          file: ./server/Dockerfile
           push: false
           tags: "citest"
           load: true
