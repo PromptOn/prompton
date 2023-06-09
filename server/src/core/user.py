@@ -1,9 +1,9 @@
 from typing import Annotated
 from fastapi import Depends, HTTPException
-from server.endpoints.endpoint_exceptions import PermissionValidationError
+from src.endpoints.endpoint_exceptions import PermissionValidationError
 
-from server.schemas.user import UserInDB, UserRoles
-import server.core.auth as auth  # need to import in this format to allow monkeypatching in tests
+from src.schemas.user import UserInDB, UserRoles
+import src.core.auth as auth  # need to import in this format to allow monkeypatching in tests
 
 
 async def get_current_active_user(

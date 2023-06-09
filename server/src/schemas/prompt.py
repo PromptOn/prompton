@@ -2,7 +2,7 @@ from enum import Enum
 from typing import Optional
 from pydantic import Extra, Field
 
-from server.schemas.base import AllOptional, MongoBase, MyBaseModel, NameField
+from src.schemas.base import AllOptional, MongoBase, MyBaseModel, NameField
 
 
 # TODO: do we actually need to restrict statuses? is active only special and we could allow any string?

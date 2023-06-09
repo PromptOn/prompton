@@ -1,15 +1,15 @@
 from typing import Annotated, List
 from fastapi import APIRouter, Depends, status
-from server.core.user import get_current_active_user
+from src.core.user import get_current_active_user
 
-from server.endpoints.endpoint_exceptions import (
+from src.endpoints.endpoint_exceptions import (
     NotImplementedException,
 )
-from server.schemas.prompt import PromptUpdate, PromptRead, PromptCreate
-from server.core.database import get_db
-from server.endpoints.ApiResponses import ReqResponses
-from server.crud.prompt import prompt_crud
-from server.schemas.user import UserInDB
+from src.schemas.prompt import PromptUpdate, PromptRead, PromptCreate
+from src.core.database import get_db
+from src.endpoints.ApiResponses import ReqResponses
+from src.crud.prompt import prompt_crud
+from src.schemas.user import UserInDB
 
 
 router = APIRouter()

@@ -1,9 +1,9 @@
-from server.tests.shared_test_data import (
+from tests.shared_test_data import (
     USER_BASIC,
     USER_ORG_ADMIN,
     USER_SUPER_ADMIN,
 )
-from server.tests.endpoints.promptVersions.promptVersions_test_records import (
+from tests.endpoints.promptVersions.promptVersions_test_records import (
     PROMPT_WITH_2_VER,
     PROMPT_WITH_1_VER,
     PROMPT_VER_LIVE,
@@ -11,7 +11,7 @@ from server.tests.endpoints.promptVersions.promptVersions_test_records import (
     PROMPT_VER_TESTING_EXTRA_FIELD,
     PROMPT_VER_ARCHIVED_ORG2,
 )
-from server.tests.utils import TestSpecList, remove_props
+from tests.utils import TestSpecList, remove_props
 
 
 test_db_data = {

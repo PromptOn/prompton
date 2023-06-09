@@ -2,7 +2,7 @@ import json
 from httpx import AsyncClient
 import pytest
 
-from server.tests.endpoints.token.token_post_test_data import (
+from tests.endpoints.token.token_post_test_data import (
     test_db_data,
     login_form_test_specs,
 )

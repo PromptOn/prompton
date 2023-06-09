@@ -1,12 +1,12 @@
 from pydantic import parse_obj_as
 import pytest
 
-from server.core.templateProcessing import (
+from src.core.templateProcessing import (
     get_arg_identifiers,
     get_populated_template,
 )
-from server.schemas.openAI import ChatGPTMessageTemplate
-from server.tests.core.templateProcessing_test_data import (
+from src.schemas.openAI import ChatGPTMessageTemplate
+from tests.core.templateProcessing_test_data import (
     test_arglist_data,
     test_pop_data,
 )

@@ -2,7 +2,7 @@ from typing import Type
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 
 
-from server.core.settings import settings
+from src.core.settings import settings
 import logging
 
 DbClient = Type[AsyncIOMotorClient]

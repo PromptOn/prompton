@@ -2,8 +2,8 @@ from typing import Any, Dict, List
 from bson import ObjectId
 import pytest
 
-from server.tests.shared_test_data import USER_BASIC
-from server.tests.utils import TestSpecList
+from tests.shared_test_data import USER_BASIC
+from tests.utils import TestSpecList
 
 
 test_specs_post: TestSpecList = [

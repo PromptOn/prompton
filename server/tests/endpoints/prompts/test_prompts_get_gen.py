@@ -1,9 +1,9 @@
-from server.tests.endpoints.prompts.prompts_get_test_spec import (
+from tests.endpoints.prompts.prompts_get_test_spec import (
     test_db_data,
     test_specs_get,
 )
 
-from server.tests.endpoints.test_generators.get_test_genarator import (
+from tests.endpoints.test_generators.get_test_genarator import (
     generate_pytest_get,
     generate_pytest_get_empty,
 )

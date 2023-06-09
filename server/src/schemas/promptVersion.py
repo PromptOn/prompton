@@ -2,12 +2,12 @@ from enum import Enum
 from typing import List, Optional
 from pydantic import Extra, Field, root_validator, validator
 
-from server.schemas.base import AllOptional, PyObjectId
-from server.schemas.openAI import (
+from src.schemas.base import AllOptional, PyObjectId
+from src.schemas.openAI import (
     ChatGPTChatCompletitionConfig,
     ChatGPTMessageTemplate,
 )
-from server.schemas.base import MongoBase, MyBaseModel, NameField
+from src.schemas.base import MongoBase, MyBaseModel, NameField
 
 
 class PromptVersionProviders(str, Enum):

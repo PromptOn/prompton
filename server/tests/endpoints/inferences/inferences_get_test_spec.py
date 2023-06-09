@@ -1,5 +1,5 @@
 from typing import Any, Dict, List
-from server.tests.endpoints.inferences.inference_test_records import (
+from tests.endpoints.inferences.inference_test_records import (
     ERROR_INFERENCE,
     PROCESSED_INFERENCE,
     PROCESSED_INFERENCE_ORG2,
@@ -9,12 +9,12 @@ from server.tests.endpoints.inferences.inference_test_records import (
     PROMPT_VERSION_ID2,
     TIMEOUT_INFERENCE,
 )
-from server.tests.shared_test_data import (
+from tests.shared_test_data import (
     USER_BASIC,
     USER_ORG_ADMIN,
     USER_SUPER_ADMIN,
 )
-from server.tests.utils import TestSpecList, MockDBData, remove_props
+from tests.utils import TestSpecList, MockDBData, remove_props
 
 inferences_get_test_db: MockDBData = {
     "inferences": [

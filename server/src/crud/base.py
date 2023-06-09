@@ -11,13 +11,13 @@ from pymongo.results import (
 )
 
 
-from server.core.utils import to_ObjectId
-from server.endpoints.endpoint_exceptions import (
+from src.core.utils import to_ObjectId
+from src.endpoints.endpoint_exceptions import (
     ItemNotFoundException,
     NoItemUpdatedException,
 )
-from server.schemas.base import MongoBase
-from server.schemas.user import UserInDB, UserRoles
+from src.schemas.base import MongoBase
+from src.schemas.user import UserInDB, UserRoles
 
 
 DBModelType = TypeVar("DBModelType", bound=MongoBase)

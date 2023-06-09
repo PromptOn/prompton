@@ -2,17 +2,17 @@ from typing import List, Annotated
 from fastapi import APIRouter, Depends, status
 
 
-from server.core.database import get_db
-from server.schemas.user import UserInDB
-from server.core.user import get_current_active_user
-from server.core.utils import str_to_ObjectId
-from server.schemas.promptVersion import (
+from src.core.database import get_db
+from src.schemas.user import UserInDB
+from src.core.user import get_current_active_user
+from src.core.utils import str_to_ObjectId
+from src.schemas.promptVersion import (
     PromptVersionCreate,
     PromptVersionUpdate,
     PromptVersionRead,
 )
-from server.endpoints.ApiResponses import ReqResponses
-from server.crud.promptVersion import promptVersion_crud
+from src.endpoints.ApiResponses import ReqResponses
+from src.crud.promptVersion import promptVersion_crud
 
 router = APIRouter()
 

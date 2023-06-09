@@ -2,20 +2,20 @@ from bson import ObjectId
 from pymongo.results import InsertOneResult
 
 
-from server.crud.base import CrudBase
-from server.core.templateProcessing import get_populated_template
+from src.crud.base import CrudBase
+from src.core.templateProcessing import get_populated_template
 
-from server.crud.promptVersion import promptVersion_crud
-from server.endpoints.endpoint_exceptions import EndPointValidationError
-from server.schemas.inference import (
+from src.crud.promptVersion import promptVersion_crud
+from src.endpoints.endpoint_exceptions import EndPointValidationError
+from src.schemas.inference import (
     InferenceInDB,
     InferenceCreate,
     InferenceRequestData,
     InferenceUpdate,
 )
-from server.schemas.openAI import ChatGPTChatCompletitionRequest
-from server.schemas.promptVersion import PromptVersionStatus
-from server.schemas.user import UserInDB
+from src.schemas.openAI import ChatGPTChatCompletitionRequest
+from src.schemas.promptVersion import PromptVersionStatus
+from src.schemas.user import UserInDB
 
 
 class InferenceCRUD(CrudBase[InferenceInDB, InferenceCreate, InferenceUpdate]):

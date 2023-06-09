@@ -2,19 +2,19 @@ from typing import List, Annotated
 from fastapi import APIRouter, Depends, status
 from pymongo.errors import DuplicateKeyError
 
-from server.core.database import get_db
-from server.endpoints.endpoint_exceptions import (
+from src.core.database import get_db
+from src.endpoints.endpoint_exceptions import (
     EmailAlreadyExistsError,
     PermissionValidationError,
 )
-from server.schemas.user import UserInDB, UserRoles
-from server.core.user import (
+from src.schemas.user import UserInDB, UserRoles
+from src.core.user import (
     get_current_active_user,
     get_current_org_admin_user,
 )
-from server.endpoints.ApiResponses import ReqResponses
-from server.schemas.user import UserCreate, UserRead
-from server.crud.user import user_crud
+from src.endpoints.ApiResponses import ReqResponses
+from src.schemas.user import UserCreate, UserRead
+from src.crud.user import user_crud
 
 router = APIRouter()
 

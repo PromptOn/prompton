@@ -3,13 +3,13 @@ import json
 from typing import Any, Dict, List
 
 from bson import ObjectId
-from server.tests.shared_test_data import (
+from tests.shared_test_data import (
     ORG_ID2,
     USER_BASIC,
     USER_ORG_ADMIN,
     USER_SUPER_ADMIN,
 )
-from server.tests.utils import TestSpecList, remove_props
+from tests.utils import TestSpecList, remove_props
 
 DB_DEFAULTS = {
     "disabled": False,

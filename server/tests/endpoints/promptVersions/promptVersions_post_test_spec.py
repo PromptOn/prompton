@@ -1,9 +1,9 @@
-from server.tests.endpoints.promptVersions.promptVersions_test_records import (
+from tests.endpoints.promptVersions.promptVersions_test_records import (
     PROMPT_WITH_1_VER,
     PROMPT_WITH_1_VER_ORG2,
 )
-from server.tests.shared_test_data import DEFAULT_MODEL_CONFIG, USER_BASIC
-from server.tests.utils import TestSpecList
+from tests.shared_test_data import DEFAULT_MODEL_CONFIG, USER_BASIC
+from tests.utils import TestSpecList
 
 test_db_data = {"prompts": [PROMPT_WITH_1_VER, PROMPT_WITH_1_VER_ORG2]}
 

@@ -1,20 +1,20 @@
 from bson import ObjectId
 import openai
-from server.tests.conftest_mock_openai import mock_completition_data
-from server.tests.endpoints.inferences.inference_test_records import (
+from tests.conftest_mock_openai import mock_completition_data
+from tests.endpoints.inferences.inference_test_records import (
     DRAFT_PROMPT_VERSION_DB,
     LIVE_PROMPT_VERSION_DB,
     PROMPT_ID1,
     VALID_TEMPLATE,
 )
 
-from server.tests.shared_test_data import (
+from tests.shared_test_data import (
     DEFAULT_RAW_COMPLETITION_REQUEST,
     ORG1,
     USER_BASIC,
     USER_SUPER_ADMIN,
 )
-from server.tests.utils import TestInput, TestSpecList
+from tests.utils import TestInput, TestSpecList
 
 
 FILLED_TEMPLATE = {

@@ -1,7 +1,7 @@
 from enum import Enum
 from pydantic import EmailStr, Extra, Field
 
-from server.schemas.base import (
+from src.schemas.base import (
     AllOptional,
     MongoBase,
     MyBaseModel,

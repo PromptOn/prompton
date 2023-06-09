@@ -1,5 +1,5 @@
-from server.crud.base import CrudBase
-from server.schemas.prompt import PromptInDB, PromptCreate, PromptUpdate
+from src.crud.base import CrudBase
+from src.schemas.prompt import PromptInDB, PromptCreate, PromptUpdate
 
 
 class PromptCRUD(CrudBase[PromptInDB, PromptCreate, PromptUpdate]):

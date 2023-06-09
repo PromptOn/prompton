@@ -2,19 +2,19 @@ import asyncio
 import time
 import openai
 
-from server.core.database import get_db
-from server.crud.promptVersion import promptVersion_crud
-from server.core.utils import str_to_ObjectId
-from server.schemas.openAI import (
+from src.core.database import get_db
+from src.crud.promptVersion import promptVersion_crud
+from src.core.utils import str_to_ObjectId
+from src.schemas.openAI import (
     ChatGPTChatCompletitionRequest,
     ChatGPTChatCompletitionResponse,
 )
-from server.schemas.inference import (
+from src.schemas.inference import (
     InferenceResponseData,
     InferenceResponseError,
 )
-from server.schemas.promptVersion import PromptVersionStatus
-from server.core.settings import settings
+from src.schemas.promptVersion import PromptVersionStatus
+from src.core.settings import settings
 
 
 MOCK_COMPLETITION = {

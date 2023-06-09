@@ -1,9 +1,9 @@
-from server.tests.shared_test_data import (
+from tests.shared_test_data import (
     DEFAULT_MODEL_CONFIG,
     USER_BASIC,
     USER_BASIC_ORG2,
 )
-from server.tests.endpoints.promptVersions.promptVersions_test_records import (
+from tests.endpoints.promptVersions.promptVersions_test_records import (
     PROMPT_WITH_2_VER,
     PROMPT_WITH_1_VER,
     PROMPT_VER_LIVE,
@@ -13,7 +13,7 @@ from server.tests.endpoints.promptVersions.promptVersions_test_records import (
     VALID_MODEL_CONFIG,
     VALID_TEMPLATE,
 )
-from server.tests.utils import TestSpecList
+from tests.utils import TestSpecList
 
 
 test_db_data = {

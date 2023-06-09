@@ -2,13 +2,13 @@ from bson import ObjectId
 import pytest
 from httpx import AsyncClient
 
-from server.asgi import app
+from src.asgi import app
 
 # for additional mocking :
 from .conftest_mock_db import *
 from .conftest_mock_openai import *
 from .conftest_mock_auth import *
-from server.core.settings import settings
+from src.core.settings import settings
 
 
 @pytest.fixture(scope="session")

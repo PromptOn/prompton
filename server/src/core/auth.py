@@ -6,12 +6,12 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from jose import ExpiredSignatureError, JWTError, jwt
-from server.core.database import get_db
+from src.core.database import get_db
 
-from server.core.settings import settings
-from server.crud.user import user_crud
-from server.endpoints.endpoint_exceptions import CredentialExpiredError
-from server.schemas.user import TokenData, UserInDB
+from src.core.settings import settings
+from src.crud.user import user_crud
+from src.endpoints.endpoint_exceptions import CredentialExpiredError
+from src.schemas.user import TokenData, UserInDB
 
 
 class CredentialsException(Exception):

@@ -3,18 +3,18 @@ from unittest import mock
 import pytest
 from deepdiff import DeepDiff
 
-from server.core.completition import get_openai_chat_completition
+from src.core.completition import get_openai_chat_completition
 
-from server.schemas.inference import InferenceCreate
-from server.schemas.openAI import ChatGPTChatCompletitionRequest
-from server.tests.core.inferenceProcessing_test_data import (
+from src.schemas.inference import InferenceCreate
+from src.schemas.openAI import ChatGPTChatCompletitionRequest
+from tests.core.inferenceProcessing_test_data import (
     expected_error_response,
     mock_completition_data,
     test_raw_request,
     expected_response,
 )
-from server.tests.shared_test_data import DEFAULT_RAW_COMPLETITION_REQUEST
-from server.tests.utils import bson_to_json
+from tests.shared_test_data import DEFAULT_RAW_COMPLETITION_REQUEST
+from tests.utils import bson_to_json
 
 
 @pytest.mark.parametrize("mock_openai", [mock_completition_data], indirect=True)

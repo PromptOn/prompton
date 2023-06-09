@@ -1,5 +1,5 @@
-from server.crud.base import CrudBase
-from server.schemas.org import OrgInDB, OrgCreate, OrgUpdate
+from src.crud.base import CrudBase
+from src.schemas.org import OrgInDB, OrgCreate, OrgUpdate
 
 
 class OrgCRUD(CrudBase[OrgInDB, OrgCreate, OrgUpdate]):

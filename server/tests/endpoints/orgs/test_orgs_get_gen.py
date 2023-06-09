@@ -1,14 +1,14 @@
-from server.tests.shared_test_data import USER_SUPER_ADMIN
-from server.tests.endpoints.orgs.orgs_get_test_spec import (
+from tests.shared_test_data import USER_SUPER_ADMIN
+from tests.endpoints.orgs.orgs_get_test_spec import (
     test_db_data,
     test_specs_get,
 )
 
-from server.tests.endpoints.test_generators.get_test_genarator import (
+from tests.endpoints.test_generators.get_test_genarator import (
     generate_pytest_get,
     generate_pytest_get_empty,
 )
-from server.tests.shared_test_data import USER_SUPER_ADMIN
+from tests.shared_test_data import USER_SUPER_ADMIN
 
 
 test_orgs_get = generate_pytest_get("/orgs", test_db_data, test_specs_get)

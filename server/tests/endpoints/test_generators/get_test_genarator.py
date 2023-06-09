@@ -2,8 +2,8 @@ import json
 from typing import List
 from httpx import AsyncClient
 import pytest
-from server.tests.shared_test_data import DEFAULT_MOCKED_USER
-from server.tests.utils import (
+from tests.shared_test_data import DEFAULT_MOCKED_USER
+from tests.utils import (
     MockDBData,
     TestSpecList,
     bson_to_json,

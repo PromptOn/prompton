@@ -1,11 +1,11 @@
 from pymongo.results import InsertOneResult
 
-from server.crud.base import CrudBase
+from src.crud.base import CrudBase
 
-from server.schemas.user import UserInDB, UserCreate, UserUpdate
+from src.schemas.user import UserInDB, UserCreate, UserUpdate
 
-import server.core.auth as auth
-from server.crud.org import org_crud
+import src.core.auth as auth
+from src.crud.org import org_crud
 
 
 class UserCRUD(CrudBase[UserInDB, UserCreate, UserUpdate]):

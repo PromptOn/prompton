@@ -1,6 +1,6 @@
 from typing import Dict, List
 from pydantic import Extra
-from server.schemas.base import (
+from src.schemas.base import (
     AllOptional,
     MongoBase,
     MyBaseModel,

@@ -2,20 +2,20 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Optional
 from pydantic import Extra, Field
-from server.schemas.openAI import (
+from src.schemas.openAI import (
     ChatGPTChatCompletitionRequest,
     ChatGPTChatCompletitionResponse,
     ChatGPTMessage,
     ChatGPTTokenUsage,
 )
 
-from server.schemas.base import (
+from src.schemas.base import (
     MongoBase,
     MyBaseModel,
     NonEmptyStrField,
     PyObjectId,
 )
-from server.schemas.promptVersion import PromptVersionProviders
+from src.schemas.promptVersion import PromptVersionProviders
 
 
 class InferenceResponseStatus(str, Enum):

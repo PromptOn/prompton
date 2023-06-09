@@ -1,19 +1,19 @@
 from bson import ObjectId
 from pymongo.results import UpdateResult, InsertOneResult
 
-from server.crud.base import CrudBase
-from server.crud.prompt import prompt_crud
-from server.core.templateProcessing import get_arg_identifiers
+from src.crud.base import CrudBase
+from src.crud.prompt import prompt_crud
+from src.core.templateProcessing import get_arg_identifiers
 
 
-from server.endpoints.endpoint_exceptions import EndPointValidationError
-from server.schemas.promptVersion import (
+from src.endpoints.endpoint_exceptions import EndPointValidationError
+from src.schemas.promptVersion import (
     PromptVersionInDB,
     PromptVersionCreate,
     PromptVersionUpdate,
     PromptVersionStatus,
 )
-from server.schemas.user import UserInDB
+from src.schemas.user import UserInDB
 
 
 class PromptVersionCRUD(

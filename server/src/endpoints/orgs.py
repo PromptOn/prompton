@@ -1,17 +1,17 @@
 from typing import List, Annotated
 from fastapi import APIRouter, Depends, status
 
-from server.core.database import get_db
-from server.endpoints.endpoint_exceptions import PermissionValidationError
-from server.schemas.user import UserInDB, UserRoles
-from server.core.user import (
+from src.core.database import get_db
+from src.endpoints.endpoint_exceptions import PermissionValidationError
+from src.schemas.user import UserInDB, UserRoles
+from src.core.user import (
     get_current_active_user,
     get_current_org_admin_user,
     get_current_super_user,
 )
-from server.endpoints.ApiResponses import ReqResponses
-from server.schemas.org import OrgCreate, OrgRead, OrgUpdate
-from server.crud.org import org_crud
+from src.endpoints.ApiResponses import ReqResponses
+from src.schemas.org import OrgCreate, OrgRead, OrgUpdate
+from src.crud.org import org_crud
 
 router = APIRouter()
 

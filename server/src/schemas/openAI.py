@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from pydantic import Field
 
-from server.schemas.base import MyBaseModel
+from src.schemas.base import MyBaseModel, NonEmptyStrField
 
 
 class ChatGPTRole(str, Enum):
@@ -22,7 +22,7 @@ ChatGPTMessageTemplate = List[ChatGPTMessage]
 
 
 class ChatGPTChatCompletitionConfig(MyBaseModel):
-    model: str = Field(None, min_length=1, strip_whitespace=True)
+    model: NonEmptyStrField | None
     temperature: float = Field(None, ge=0.0)
     top_p: float = Field(None, ge=0.0, le=1.0)
     stop: List[str] | str = Field(None)

@@ -1,7 +1,7 @@
 import copy
 import string
 from typing import Set
-from server.schemas.openAI import ChatGPTMessageTemplate, ChatGPTMessage
+from src.schemas.openAI import ChatGPTMessageTemplate, ChatGPTMessage
 
 
 class TemplateString(string.Template):

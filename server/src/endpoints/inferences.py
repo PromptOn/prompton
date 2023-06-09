@@ -1,22 +1,22 @@
 from typing import List, Annotated
 from fastapi import APIRouter, Depends, Request, status
 
-from server.core.database import get_db
-from server.crud.org import org_crud
-from server.schemas.user import UserInDB
-from server.core.user import get_current_active_user
-from server.core.completition import get_openai_chat_completition
+from src.core.database import get_db
+from src.crud.org import org_crud
+from src.schemas.user import UserInDB
+from src.core.user import get_current_active_user
+from src.core.completition import get_openai_chat_completition
 
-from server.core.utils import str_to_ObjectId
-from server.crud.inference import inference_crud
-from server.endpoints.ApiResponses import ReqResponses
-from server.endpoints.endpoint_exceptions import (
+from src.core.utils import str_to_ObjectId
+from src.crud.inference import inference_crud
+from src.endpoints.ApiResponses import ReqResponses
+from src.endpoints.endpoint_exceptions import (
     ItemNotFoundException,
     MalformedRequestError,
     OpenAIError,
 )
 
-from server.schemas.inference import (
+from src.schemas.inference import (
     InferenceCreate,
     InferencePostResponse,
     InferenceRead,

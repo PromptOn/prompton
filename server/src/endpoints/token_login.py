@@ -3,11 +3,11 @@ from datetime import timedelta
 from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 
-from server.core.database import get_db
-from server.core.settings import settings
-from server.core.auth import authenticate_user, create_access_token
-from server.schemas.user import Token
-from server.endpoints.ApiResponses import ReqResponses
+from src.core.database import get_db
+from src.core.settings import settings
+from src.core.auth import authenticate_user, create_access_token
+from src.schemas.user import Token
+from src.endpoints.ApiResponses import ReqResponses
 
 router = APIRouter()
 

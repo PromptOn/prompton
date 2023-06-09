@@ -6,8 +6,8 @@ import sys
 from mangum import Mangum
 from fastapi.openapi.docs import get_swagger_ui_html
 
-from server.core import database
-from server.endpoints import routers
+from src.core import database
+from src.endpoints import routers
 
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)

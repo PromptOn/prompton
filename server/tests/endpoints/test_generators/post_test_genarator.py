@@ -5,7 +5,7 @@ from httpx import AsyncClient
 import pytest
 from deepdiff import DeepDiff
 
-from server.tests.utils import (
+from tests.utils import (
     MockDBData,
     TestSpecList,
     assert_base_db_records,

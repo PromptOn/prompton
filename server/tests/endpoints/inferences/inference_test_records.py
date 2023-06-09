@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from bson import ObjectId
 
-from server.tests.shared_test_data import ORG_ID1, ORG_ID2
+from tests.shared_test_data import ORG_ID1, ORG_ID2
 
 VALID_TEMPLATE = {"role": "system", "content": "a1: ${arg1} a2: ${arg2}", "name": None}
 

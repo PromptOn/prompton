@@ -1,9 +1,9 @@
 from typing import Any, Dict
 import pytest
 from httpx import AsyncClient
-from server.tests.shared_test_data import USER_SUPER_ADMIN
+from tests.shared_test_data import USER_SUPER_ADMIN
 
-from server.tests.utils import method_mapping
+from tests.utils import method_mapping
 
 test_items = [
     pytest.param(

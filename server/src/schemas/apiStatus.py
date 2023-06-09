@@ -1,4 +1,4 @@
-from server.schemas.base import MyBaseModel
+from src.schemas.base import MyBaseModel
 
 
 class DBStatus(MyBaseModel):

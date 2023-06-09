@@ -2,14 +2,14 @@ from typing import Any, Dict, List
 from bson import ObjectId
 import pytest
 
-from server.tests.shared_test_data import (
+from tests.shared_test_data import (
     ORG1,
     ORG2,
     USER_BASIC,
     USER_ORG_ADMIN,
     USER_SUPER_ADMIN,
 )
-from server.tests.utils import TestSpecList
+from tests.utils import TestSpecList
 
 MIN_VALID: Dict[str, Any] = {
     "email": "x@y.z",

@@ -3,7 +3,7 @@
 from typing import Any, Dict
 from bson import ObjectId
 
-from server.tests.shared_test_data import ORG_ID1, ORG_ID2
+from tests.shared_test_data import ORG_ID1, ORG_ID2
 
 PROMPT_ALL_FIELDS: Dict[str, Any] = {
     "_id": ObjectId("645d786f180786983c9eede6"),
