@@ -6,9 +6,9 @@ from pymongo import ASCENDING
 from copy import deepcopy
 from datetime import datetime
 
-from server.asgi import app
-from server.core.database import get_db
-from server.tests.utils import bson_to_json
+from src.asgi import app
+from src.core.database import get_db
+from tests.utils import bson_to_json
 
 
 @pytest.fixture

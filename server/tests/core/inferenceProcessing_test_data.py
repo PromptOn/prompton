@@ -1,4 +1,4 @@
-from server.schemas.openAI import ChatGPTMessage
+from src.schemas.openAI import ChatGPTMessage
 
 VALID_TEMPLATE = {"role": "system", "content": "bla ${arg1}", "name": None}
 

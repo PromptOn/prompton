@@ -1,9 +1,9 @@
-from server.tests.shared_test_data import USER_BASIC
-from server.tests.endpoints.prompts.prompts_test_records import (
+from tests.shared_test_data import USER_BASIC
+from tests.endpoints.prompts.prompts_test_records import (
     PROMPT_MIN_FIELDS,
     PROMPT_ARCHIVED_ORG2,
 )
-from server.tests.utils import TestSpecList
+from tests.utils import TestSpecList
 
 
 test_db_data = {"prompts": [PROMPT_MIN_FIELDS, PROMPT_ARCHIVED_ORG2]}

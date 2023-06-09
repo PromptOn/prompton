@@ -1,11 +1,11 @@
 import pytest
 
-from server.tests.shared_test_data import (
+from tests.shared_test_data import (
     USER_BASIC,
     USER_ORG_ADMIN,
     USER_SUPER_ADMIN,
 )
-from server.tests.utils import TestSpecList
+from tests.utils import TestSpecList
 
 
 test_specs_post: TestSpecList = [

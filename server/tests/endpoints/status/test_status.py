@@ -4,7 +4,7 @@ from deepdiff import DeepDiff
 
 
 @pytest.mark.anyio
-async def test_read_main(endpoint: AsyncClient, mock_db, mock_user):
+async def test_read_main(endpoint: AsyncClient):
     expected_response = {
         "version": "0.0.1",
         "message": "prompton-api is running",
@@ -12,7 +12,6 @@ async def test_read_main(endpoint: AsyncClient, mock_db, mock_user):
     }  # +github_sha, github_env present
 
     response = await endpoint.get("/status")
-    db_status = str(await mock_db.command("ping"))
 
     assert response.status_code == 200
     actual_response = response.json()
@@ -29,6 +28,3 @@ async def test_read_main(endpoint: AsyncClient, mock_db, mock_user):
 
     assert "github_sha" in actual_response
     assert "github_env" in actual_response
-
-
-# TODO: 404 tests

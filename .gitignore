@@ -2,6 +2,7 @@
 .history
 .vscode
 .DS_store
+**node_modules
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

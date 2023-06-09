@@ -4,12 +4,12 @@ import pytest
 from httpx import AsyncClient
 from deepdiff import DeepDiff
 
-from server.tests.endpoints.inferences.inferences_post_test_spec import (
+from tests.endpoints.inferences.inferences_post_test_spec import (
     post_openai_error_test_specs,
     test_db_data,
 )
 
-from server.tests.utils import bson_to_json, format_test_specs
+from tests.utils import bson_to_json, format_test_specs
 
 # Not using  post_test_genarator,
 #    calling a fixture (mock_openai_exception_factory) with parameters from  post_test_genarator is too much hassle

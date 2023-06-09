@@ -1,12 +1,12 @@
 from functools import partial
 import pytest
 
-from server.asgi import app
-from server.tests.shared_test_data import DEFAULT_MOCKED_USER
+from src.asgi import app
+from tests.shared_test_data import DEFAULT_MOCKED_USER
 
-from server.tests.utils import get_all_endpoint_methods
-from server.core import auth
-from server.schemas.user import UserRead
+from tests.utils import get_all_endpoint_methods
+from src.core import auth
+from src.schemas.user import UserRead
 
 
 @pytest.fixture(

@@ -13,7 +13,7 @@ from datetime import datetime
 
 from httpx import AsyncClient, Response as HttpxResponse
 
-from server.tests.shared_test_data import ORG2
+from tests.shared_test_data import ORG2
 
 MockDBData = Dict[str, List[Dict[str, Any]]]
 
