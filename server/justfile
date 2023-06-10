@@ -1,0 +1,72 @@
+
+default: 
+  just --list
+
+default_local_server_url := "http://localhost:8000"
+
+install target="dev":
+  #!/usr/bin/env bash -euxo pipefail
+  if [ "{{target}}" == "dev" ] ; then
+    npm install # for fern-api
+    poetry install --with="dev"
+  elif [ "{{target}}" == "prod" ] ; then
+    poetry install --without="dev"
+  else
+    echo "Unsuported target: {{target}}"
+  fi 
+
+test *params='': 
+  set positional-arguments  
+  pytest $@
+
+test-quick *params='': 
+  set positional-arguments  
+  pytest -m "not slow" $@
+
+run target="dev":
+  #!/usr/bin/env sh
+  if [ "{{target}}" == "dev" ] ; then
+    poetry run uvicorn src.asgi:app --reload
+  elif [ "{{target}}" == "docker" ] ; then
+    docker run --env-file .env -it -p 8080:8080 --rm prompton-api-server:localdev
+  else
+    echo "Unsuported target: {{target}}"  
+  fi
+
+devdb-up:
+  docker compose -f ./docker-compose-dev.yml up
+
+devdb-down:
+  docker compose -f ./docker-compose-dev.yml down
+
+devdb-init-purge:
+  just devdb-down
+  rm -rf .mongo-data
+  
+  just devdb-up
+  poetry run python -m scripts.db_init_add_api_user
+  poetry run python -m scripts.db_init_indexes_and_first_user
+
+build-docker:
+  docker build -t prompton-api-server:localdev . 
+
+server-check server_url=default_local_server_url:
+  #!/usr/bin/env bash
+  counter=0
+  until $(curl --output /dev/null --silent --head --fail {{server_url}}); do
+    counter=$((counter+1))
+    if [ $counter -gt 100 ]; then
+        echo -e "\nServer didn't respond in time ({{server_url}})"
+        exit 1
+    fi
+    printf '.'
+    sleep 0.2
+  done
+  echo -e "\nServer responded in time {{server_url}}"
+
+build-clients openapi_json_url=(default_local_server_url + "/openapi.json"):
+  curl -o ./fern/api/openapi/openapi.json {{openapi_json_url}}
+  npx fern generate
+
+
+  
