@@ -1,5 +1,5 @@
 from enum import Enum
-from pydantic import EmailStr, Extra, Field
+from pydantic import EmailStr, Extra, Field, SecretStr
 
 from src.schemas.base import (
     AllOptional,
@@ -51,3 +51,8 @@ class UserRead(User, MongoBase, extra=Extra.ignore):
 
 class UserUpdate(UserCreate, metaclass=AllOptional):
     pass
+
+
+class LoginCredentialsPost(MyBaseModel):
+    username: EmailStr
+    password: SecretStr

@@ -1,14 +1,13 @@
 from typing import Annotated
-from datetime import timedelta
-from fastapi import APIRouter, Body, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, Form
 from fastapi.security import OAuth2PasswordRequestForm
-from src.endpoints.endpoint_exceptions import InvalidUserNameOrPassword
+
+
+from src.schemas.user import Token, LoginCredentialsPost
+from src.endpoints.ApiResponses import ReqResponses
 
 from src.core.database import get_db
-from src.core.settings import settings
-from src.core.auth import authenticate_user, create_access_token
-from src.schemas.user import Token
-from src.endpoints.ApiResponses import ReqResponses
+from src.crud.user import user_crud
 
 router = APIRouter()
 
@@ -19,19 +18,36 @@ router = APIRouter()
         **ReqResponses.INVALID_USERNAME_OR_PASSWORD,
         **ReqResponses.MALFORMED_REQUEST,
     },
-    response_model=Token,
     tags=["authentication"],
 )
-async def login_for_access_token(
-    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+async def get_access_token_extended(
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db=Depends(get_db)
+) -> Token:
+    token = await user_crud.get_token(db, form_data.username, form_data.password)
+
+    return token
+
+
+@router.post(
+    "/token_basic",
+    responses={
+        **ReqResponses.INVALID_USERNAME_OR_PASSWORD,
+        **ReqResponses.MALFORMED_REQUEST,
+    },
+    tags=["authentication"],
+)
+async def get_access_token(
+    # data: Dict[str, Union[str, SecretStr]],
+    credentials: LoginCredentialsPost,
     db=Depends(get_db),
-):
-    user = await authenticate_user(form_data.username, form_data.password, db)
+) -> Token:
+    """Same functionality as /token but taking `username` and `password` args as `application/json` type instead of `application/x-www-form-urlencoded`
 
-    if not user:
-        raise InvalidUserNameOrPassword
+    Don't use it becuase it's a **temporary** workaround for client lib generator and will be removed in the future.
+    """
+    # TODO: check if newer fern version than 0.10.13 supports application/x-www-form-urlencoded so we can remove  /token_basic
 
-    # TODO: add user: prefix to sub
-    access_token = create_access_token(data={"sub": user.email})
-
-    return {"access_token": access_token, "token_type": "bearer"}
+    token = await user_crud.get_token(
+        db, credentials.username, credentials.password.get_secret_value()
+    )
+    return token
