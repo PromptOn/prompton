@@ -5,7 +5,8 @@ default:
 default_local_server_url := "http://localhost:8000"
 
 install target="dev":
-  #!/usr/bin/env sh -S -euxo pipefail
+  #!/usr/bin/env bash
+  set -euxo pipefail
   if [ "{{target}}" == "dev" ] ; then
     npm install # for fern-api
     poetry install --with="dev"
@@ -24,7 +25,7 @@ test-quick *params='':
   pytest -m "not slow" $@
 
 run target="dev":
-  #!/usr/bin/env sh
+  #!/usr/bin/env bash
   if [ "{{target}}" == "dev" ] ; then
     poetry run uvicorn src.asgi:app --reload
   elif [ "{{target}}" == "docker" ] ; then
@@ -51,7 +52,7 @@ build-docker:
   docker build -t prompton-api-server:localdev . 
 
 server-check server_url=default_local_server_url:
-  #!/usr/bin/env sh
+  #!/usr/bin/env bash
   counter=0
   until $(curl --output /dev/null --silent --head --fail {{server_url}}); do
     counter=$((counter+1))
