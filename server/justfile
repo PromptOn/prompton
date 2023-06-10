@@ -18,11 +18,11 @@ install target="dev":
 
 test *params='': 
   set positional-arguments  
-  poetry pytest $@
+  poetry run pytest $@
 
 test-quick *params='': 
   set positional-arguments  
-  poetry pytest -m "not slow" $@
+  poetry run pytest -m "not slow" $@
 
 run target="dev":
   #!/usr/bin/env bash
