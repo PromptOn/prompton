@@ -39,7 +39,7 @@ jobs:
         run: |
           ls -la
           pwd
-          just
+          poetry --version 
           just --version
           echo "github.workspace: ${{ github.workspace }}"
 
