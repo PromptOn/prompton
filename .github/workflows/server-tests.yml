@@ -8,6 +8,7 @@ defaults:
 on:
   pull_request:
     paths: "server/**"
+
   push:
     paths: "server/**"
 
@@ -77,8 +78,8 @@ jobs:
         run: just server-check http://localhost:8080
 
       # Generate OpenAPI specs for clients generator - it should be picked up by its gh action
-      # if: github.event_name == 'push'
       - name: Commit OpenAPI specification for clients generator
+        if: github.event_name == 'push'
         run: |
           just export-openapi-specs ./generated/openapi
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
