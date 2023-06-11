@@ -1,0 +1,17 @@
+# Python SDK buld & deploy scripts
+
+default: 
+  just --list
+
+set dotenv-load
+set positional-arguments  
+
+install:
+  poetry install
+
+build *params='':
+  poetry build $@
+
+# to PyPi - set POETRY_PYPI_TOKEN_PYPI in your .env
+publish *params='':
+  poetry publish $@

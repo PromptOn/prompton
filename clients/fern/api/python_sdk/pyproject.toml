@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "prompton"
+version = "0.0.2"
+description = "Chat prompt template evaluation and inference monitoring"
+authors = ["PromptOn <hello@prompton.ai>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+httpx = "^0.24.1"
+pydantic = { version = "^1.10.8", extras = ["email"] }
+
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
