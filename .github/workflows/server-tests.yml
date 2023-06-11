@@ -41,6 +41,11 @@ jobs:
           pwd
           poetry --version 
           just --version
+          echo "github.workflow: ${{ github.workflow }}"
+          echo "github.action: ${{ github.action }}"
+          echo "github.run_id: ${{ github.run_id }}"
+          echo "github.run_number: ${{ github.run_number }}"
+          echo "github.action: ${{ github.action }}"
           echo "github.workspace: ${{ github.workspace }}"
 
       - name: Set up Python 3.11.3
@@ -72,3 +77,13 @@ jobs:
 
       - name: Check if server in container responds
         run: just server-check http://localhost:8080
+
+      # Generate OpenAPI specs for clients generator - it should be picked up by its gh action
+      - name: Generate OpenAI specs
+        run: just export-openapi-specs ./generated/openapi
+
+      - name: Commit OpenAPI specification for clients generator
+        run: |
+          git add ../clients/fern/api/openapi
+          git commit -m "Update OpenAPI spec by gh action ${{ github.workflow }} ${{ github.run_id }} ${{ github.run_number }}"
+          git push origin  ${{ github.ref }}

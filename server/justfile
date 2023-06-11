@@ -65,9 +65,9 @@ server-check server_url=default_local_server_url:
   done
   echo -e "\nServer responded in time {{server_url}}"
 
-build-clients openapi_json_url=(default_local_server_url + "/openapi.json"):
-  curl -o ./fern/api/openapi/openapi.json {{openapi_json_url}}
-  npx fern generate
+# normally you don't need to run this manually, it's run by the CI
+export-openapi-specs target_dir="./generated/openapi"::  
+  poetry run python -m scripts.extract_openapi target_dir
 
 
   
