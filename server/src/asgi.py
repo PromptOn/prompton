@@ -7,7 +7,9 @@ from mangum import Mangum
 from fastapi.openapi.docs import get_swagger_ui_html
 
 from src.core import database
-from src.endpoints import routers
+
+# from src.routers import all_routers, use_route_names_as_operation_ids
+import src.routers as routers
 
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
@@ -21,7 +23,9 @@ app = FastAPI(
     docs_url=None,
 )
 
-app.include_router(routers)
+app.include_router(routers.all_routers)
+
+routers.use_route_names_as_operation_ids(app)  # for generated API clients
 
 handler = Mangum(app)  # handler for deploy FastAPI to lambdas
 

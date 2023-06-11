@@ -54,6 +54,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          sparse-checkout: "server/"
 
       - name: Google Auth
         id: auth

@@ -33,14 +33,6 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
-async def authenticate_user(email: str, password: str, db):
-    user = await user_crud.find_one(db, {"email": email})
-
-    if not user or not verify_password(password, user.hashed_password):
-        return False
-    return user
-
-
 def create_access_token(data: dict, expires_delta_minutes: timedelta | None = None):
     to_encode = data.copy()
 

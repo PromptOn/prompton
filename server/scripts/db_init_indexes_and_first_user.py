@@ -5,18 +5,18 @@
    - PROMPTON_USER_EMAIL, PROMPTON_USER_PASSWORD_HASH
 Should be part of a db migrations system when we have more than one migration to run.
 
-NB: this is practially a duplicate of the dev DB docker init scripts in mongo_init_docker-dev 
+NB: this is practically a duplicate of the dev DB docker init scripts in mongo_init_docker-dev 
 
 """
 import asyncio
 import os
 from bson import ObjectId
-from pymongo import ASCENDING, results
+from pymongo import ASCENDING
 from datetime import datetime
 from dotenv import load_dotenv
-from server.core.settings import settings
 
-from server.core.database import get_db
+from src.core.settings import settings
+from src.core.database import get_db
 
 
 async def run():

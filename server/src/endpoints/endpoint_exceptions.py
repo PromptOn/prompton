@@ -38,6 +38,17 @@ class EndPointValidationError(HTTPException):
         )
 
 
+class InvalidUserNameOrPassword(HTTPException):
+    def __init__(self, message=None):
+        self.message = "Incorrect username or password"
+        self.headers = {"WWW-Authenticate": "Bearer"}
+        super().__init__(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=self.message,
+            headers=self.headers,
+        )
+
+
 class PermissionValidationError(HTTPException):
     def __init__(self, message=None):
         """HTTP 403 Forbidden - use this exception when operation is not permitted with current user's permissions."""

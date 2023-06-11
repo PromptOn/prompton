@@ -11,9 +11,6 @@ on:
   push:
     paths: "server/**"
 
-permissions:
-  contents: read
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -22,6 +19,9 @@ jobs:
       - uses: actions/checkout@v3
         with:
           sparse-checkout: "server/"
+
+      - name: Install just
+        uses: extractions/setup-just@v1
 
       - name: create .env file
         run: |
@@ -36,6 +36,13 @@ jobs:
         run: |
           ls -la
           pwd
+          poetry --version 
+          just --version
+          echo "github.workflow: ${{ github.workflow }}"
+          echo "github.action: ${{ github.action }}"
+          echo "github.run_id: ${{ github.run_id }}"
+          echo "github.run_number: ${{ github.run_number }}"
+          echo "github.action: ${{ github.action }}"
           echo "github.workspace: ${{ github.workspace }}"
 
       - name: Set up Python 3.11.3
@@ -45,10 +52,10 @@ jobs:
           cache: "poetry"
 
       - name: Install packages
-        run: poetry install
+        run: just install
 
       - name: Run pytest
-        run: poetry run pytest
+        run: just test
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -66,15 +73,15 @@ jobs:
         run: docker run --env-file .env -p 8080:8080 --rm --detach "citest"
 
       - name: Check if server in container responds
+        run: just server-check http://localhost:8080
+
+      # Generate OpenAPI specs for clients generator - it should be picked up by its gh action
+      - name: Commit OpenAPI specification for clients generator on push
+        if: github.event_name == 'push'
         run: |
-          counter=0
-              until $(curl --output /dev/null --silent --head --fail http://localhost:8080); do
-                  counter=$((counter+1))
-                  if [ $counter -gt 100 ]; then
-                      echo -e "\nContainer didn't respond in time"
-                      exit 1
-                  fi
-                  printf '.'
-                  sleep 0.2
-              done
-        shell: bash
+          just export-openapi-specs ./generated/openapi
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add ./generated/openapi
+          git commit -m "Update OpenAPI spec by ${{ github.workflow }} ${{ github.run_id }} ${{ github.run_number }}"
+          git push

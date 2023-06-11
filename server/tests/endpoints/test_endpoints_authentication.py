@@ -12,6 +12,7 @@ no_auth_white_list_paths = [
     "/redoc",
     "/openapi.json",
     "/token",
+    "/token_basic",
 ]
 
 all_endpoints = get_all_endpoint_methods(app)
