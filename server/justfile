@@ -8,7 +8,6 @@ install target="dev":
   #!/usr/bin/env bash
   set -euxo pipefail
   if [ "{{target}}" == "dev" ] ; then
-    npm install # for fern-api
     poetry install --with="dev"
   elif [ "{{target}}" == "prod" ] ; then
     poetry install --without="dev"
