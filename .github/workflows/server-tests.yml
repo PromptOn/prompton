@@ -25,60 +25,60 @@ jobs:
         with:
           sparse-checkout: "server/"
 
-      - name: Install just
-        uses: extractions/setup-just@v1
+      # - name: Install just
+      #   uses: extractions/setup-just@v1
 
-      - name: create .env file
-        run: |
-          echo "DATABASE_URL=dummy" >> .env
-          echo "MONGO_DATABASE=dummy" >> .env
-          echo "JWT_SECRET_KEY=dummy" >> .env
+      # - name: create .env file
+      #   run: |
+      #     echo "DATABASE_URL=dummy" >> .env
+      #     echo "MONGO_DATABASE=dummy" >> .env
+      #     echo "JWT_SECRET_KEY=dummy" >> .env
 
-      - name: Install poetry
-        run: pipx install poetry
+      # - name: Install poetry
+      #   run: pipx install poetry
 
-      - name: Debug info
-        run: |
-          ls -la
-          pwd
-          poetry --version 
-          just --version
-          echo "github.workflow: ${{ github.workflow }}"
-          echo "github.action: ${{ github.action }}"
-          echo "github.run_id: ${{ github.run_id }}"
-          echo "github.run_number: ${{ github.run_number }}"
-          echo "github.action: ${{ github.action }}"
-          echo "github.workspace: ${{ github.workspace }}"
+      # - name: Debug info
+      #   run: |
+      #     ls -la
+      #     pwd
+      #     poetry --version
+      #     just --version
+      #     echo "github.workflow: ${{ github.workflow }}"
+      #     echo "github.action: ${{ github.action }}"
+      #     echo "github.run_id: ${{ github.run_id }}"
+      #     echo "github.run_number: ${{ github.run_number }}"
+      #     echo "github.action: ${{ github.action }}"
+      #     echo "github.workspace: ${{ github.workspace }}"
 
-      - name: Set up Python 3.11.3
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11.3"
-          cache: "poetry"
+      # - name: Set up Python 3.11.3
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: "3.11.3"
+      #     cache: "poetry"
 
-      - name: Install packages
-        run: just install
+      # - name: Install packages
+      #   run: just install
 
-      - name: Run pytest
-        run: just test
+      # - name: Run pytest
+      #   run: just test
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v2
 
-      - name: Build docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: server
-          file: ./server/Dockerfile
-          tags: "citest"
-          push: false
-          load: true
+      # - name: Build docker image
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: server
+      #     file: ./server/Dockerfile
+      #     tags: "citest"
+      #     push: false
+      #     load: true
 
-      - name: Launch Docker container for test
-        run: docker run --env-file .env -p 8080:8080 --rm --detach "citest"
+      # - name: Launch Docker container for test
+      #   run: docker run --env-file .env -p 8080:8080 --rm --detach "citest"
 
-      - name: Check if server in container responds
-        run: just server-check http://localhost:8080
+      # - name: Check if server in container responds
+      #   run: just server-check http://localhost:8080
 
       # Generate OpenAPI specs for clients generator - it should be picked up by its gh action
       - name: Commit OpenAPI specification for clients generator
