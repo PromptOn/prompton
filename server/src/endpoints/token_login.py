@@ -37,7 +37,6 @@ async def get_access_token_extended(
     tags=["authentication"],
 )
 async def get_access_token(
-    # data: Dict[str, Union[str, SecretStr]],
     credentials: LoginCredentialsPost,
     db=Depends(get_db),
 ) -> Token:
