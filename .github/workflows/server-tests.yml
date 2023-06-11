@@ -84,6 +84,6 @@ jobs:
 
       - name: Commit OpenAPI specification for clients generator
         run: |
-          git add ../clients/fern/api/openapi
-          git commit -m "Update OpenAPI spec by gh action ${{ github.workflow }} ${{ github.run_id }} ${{ github.run_number }}"
+          git add ./generated/openapi
+          git commit -m "Update OpenAPI spec by ${{ github.workflow }} ${{ github.run_id }} ${{ github.run_number }}"
           git push origin  ${{ github.ref }}
