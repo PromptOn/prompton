@@ -34,8 +34,8 @@ jobs:
       #     echo "MONGO_DATABASE=dummy" >> .env
       #     echo "JWT_SECRET_KEY=dummy" >> .env
 
-      # - name: Install poetry
-      #   run: pipx install poetry
+      - name: Install poetry
+        run: pipx install poetry
 
       # - name: Debug info
       #   run: |
