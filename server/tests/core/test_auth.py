@@ -1,11 +1,7 @@
 from bson import ObjectId
 import pytest
 
-from src.core.auth import (
-    get_hashed_password,
-    verify_password,
-    authenticate_user,
-)
+from src.core.auth import get_hashed_password, verify_password
 from src.schemas.user import UserInDB
 
 PASSWORD_HASH_foo = "$2b$12$4MvKPux4R8AWrA/FFTW5muiVrYKqS.7NlQOA6N81U0lATUoijV4NK"
@@ -91,25 +87,3 @@ test_authenticate_user_test_spec = [
         id="none email",
     ),
 ]
-
-
-# TODO: test for auth via /token endpoint too
-@pytest.mark.parametrize("mock_db", [test_db_data], indirect=True)
-@pytest.mark.parametrize("test_spec", test_authenticate_user_test_spec)
-@pytest.mark.anyio
-async def test_authenticate_user(mock_db, mock_verify_password_factory, test_spec):
-    print(" --> test_spec: ", test_spec)
-    mock_verify_password_factory(test_spec["input"]["verify_password_response"])
-
-    user = await authenticate_user(
-        email=test_spec["input"]["email"],
-        password=test_spec["input"]["password"],
-        db=mock_db,
-    )
-    print(" <-- authenticate_user resp: ", user)
-
-    if test_spec["expected"]:
-        assert user
-        assert user == UserInDB.parse_obj(test_spec["expected"])
-    else:
-        assert user == False

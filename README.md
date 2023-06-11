@@ -38,6 +38,7 @@ It's a REST API microservice designed to mix it into your existing ecosystem in 
  There is no public signup currently but drop an email for early access: <hello@prompton.ai>
 
  You can also try in local dev env: [Local setup](#local_dev_setup)
+ You can also try in local dev env: [Local setup](#local_dev_setup)
 
 The API is still in alpha, may change without notice. However, the schema is largely stable and it will soon enter production when  proper versioning will be introduced.
 
@@ -67,6 +68,7 @@ The API is still in alpha, may change without notice. However, the schema is lar
         { "access_keys": {"openai_api_key": "<your OpenAI API key>"  }}
         ```
 
+    TIP: if you just want to play around then set `openai_api_key` to any string and [mock responses](#mock_response_tip)
     TIP: if you just want to play around then set `openai_api_key` to any string and [mock responses](#mock_response_tip)
 
 1. Prompt
@@ -111,7 +113,11 @@ The API is still in alpha, may change without notice. However, the schema is lar
 
     It will:
 
+
     1. Populate the template with the passed values
+    2. Log the request
+    3. Send the request to provider
+    4. Log respnse and send it back to client.
     2. Log the request
     3. Send the request to provider
     4. Log respnse and send it back to client.
@@ -125,9 +131,18 @@ The API is still in alpha, may change without notice. However, the schema is lar
     - `"end_user_id": "mock_me_softly"`
     - `"end_user_id": "timeout_me_softly"`
     - `"end_user_id": "fail_me_softly"`
+     **Mock responses**<a id="mock_response_tip"></a>
+
+     You can use a few easter eggs to test without a valid api key:
+
+    - `"end_user_id": "mock_me_softly"`
+    - `"end_user_id": "timeout_me_softly"`
+    - `"end_user_id": "fail_me_softly"`
 
     Successfull response
+    Successfull response
 
+    _NB: full raw request data also accessible via `/inference` GET_
     _NB: full raw request data also accessible via `/inference` GET_
 
     ```json
@@ -180,45 +195,50 @@ The API is still in alpha, may change without notice. However, the schema is lar
 
 ## <a id="local_dev_setup">Local server dev setup</a>
 
-1. your workdir need to be `server` folder
+1. Checkout repo:
 
-1. install packages with poetry
+    ```sh
+    gh repo clone szerintedmi/prompton
+    cd prompton/server  # workdir needs to be server folder for these instructions
+    ```
 
-    `poetry install`
+1. Install `just`
 
-    `poetry shell` - instructions below assuming you are in the shell
+    - Mac: `brew install just`
+    - [Just install on other platforms](<https://github.com/casey/just#packages>)
 
-1. Create your local `.env`  
-    see: [.env.example](.env.example)
+1. Install packages with:
 
-1. Launch MongDB
+    ```sh
+    just install
+    ```
 
-    A. Locally in the provided container:
+1. Create your local `.env`  See: [.env.example](.env.example)
 
-    `docker compose -f ./docker-compose-dev.yml up`
+1. Launch MongDB:
 
-    Container provides:
+    ```sh
+    just devdb-up
+    ```
+
+    The launched container provides:
 
     - MongoDB instance on `localhost:27017` with the username/password set in your `.env`
 
       It stores data in `.mongo-data` folder. DB is initialised with scripts in [mongo-init-docker-dev](./mongo-init-docker-dev) folder at first run.
 
-      Remove containter:
-
-        `docker compose -f ./docker-compose-dev.yml down`
-
-      Re-initialise DB
-
-      If you need an empty DB db again then delete `.mongo-data` folder and next startup will initialize again.
-
     - Mongo Express on <http://localhost:8081>
 
-   B. Connect to any instance by setting env vars in `.env`
+   Stop DB container:`just devdb-down`
+
+   Purge DB and re-initialise: `just devdb-init-purge`
+
+   If you want to connect to other instance instead of the dev container then configure your `.env`
 
 1. Run the server
 
     ```sh
-    uvicorn server.asgi:app --reload
+    just run
     ```
 
    Running server in container if you need to test the container or you want to deploy it yourself:
@@ -231,11 +251,9 @@ The API is still in alpha, may change without notice. However, the schema is lar
 ### Tests
 
 ```sh
-pytest
-```
+just test
 
-```sh
-pytest -m "not slow"` # if you want to cut a few secs by avoiding slower tests (password hasing etc.)
+just test-quick # if you want to cut a few secs by skipping slower tests (password hasing etc.)
 ```
 
 ### Initialising a blank remote MongoDB database

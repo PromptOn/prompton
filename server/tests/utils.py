@@ -6,7 +6,7 @@ import enum
 import json
 import re
 from types import NoneType
-from typing import Any, Callable, Coroutine, Dict, List, TypeVar, TypedDict
+from typing import Any, Callable, Coroutine, Dict, List, Optional, TypeVar, TypedDict
 import bson
 from httpx import AsyncClient
 from datetime import datetime
@@ -20,13 +20,14 @@ MockDBData = Dict[str, List[Dict[str, Any]]]
 
 class TestInput(TypedDict, total=False):
     request_body: Dict[str, Any] | None | str
+    request_data: Dict[str, Any] | None
     params: Dict[str, Any]
     id: str
 
 
 class TestSpecMin(TypedDict):
     spec_id: str
-    mock_user: Dict[str, Any]
+    mock_user: Dict[str, Any] | None
     input: TestInput
     expected: Dict[str, Any] | List[Any] | int
 
@@ -34,6 +35,7 @@ class TestSpecMin(TypedDict):
 class TestSpec(TestSpecMin, total=False):
     mock_exception: Exception
     expected_db: Dict[str, Any]
+    expected_status_code: int
 
 
 TestSpecList = List[TestSpec]

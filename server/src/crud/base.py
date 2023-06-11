@@ -1,14 +1,9 @@
-import json
-from typing import Any, Dict, Generic, List, Optional, Type, TypeVar, Union
+from typing import Any, Dict, Generic, List, Type, TypeVar
 from bson import ObjectId
 
 from pydantic import BaseModel
 from pymongo import ReturnDocument
-from pymongo.results import (
-    InsertOneResult,
-    UpdateResult,
-    DeleteResult,
-)
+from pymongo.results import InsertOneResult, UpdateResult
 
 
 from src.core.utils import to_ObjectId
@@ -24,6 +19,8 @@ DBModelType = TypeVar("DBModelType", bound=MongoBase)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 UpdateResponseSchemaType = TypeVar("UpdateResponseSchemaType", bound=BaseModel)
+
+# TODO: catch pymongo.errors.ServerSelectionTimeoutError and return 503
 
 
 class CrudBase(

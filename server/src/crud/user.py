@@ -1,14 +1,35 @@
 from pymongo.results import InsertOneResult
 
+from src.core.database import Db
 from src.crud.base import CrudBase
-
-from src.schemas.user import UserInDB, UserCreate, UserUpdate
+from src.schemas.user import UserInDB, UserCreate, UserUpdate, Token
 
 import src.core.auth as auth
 from src.crud.org import org_crud
+from src.endpoints.endpoint_exceptions import InvalidUserNameOrPassword
 
 
 class UserCRUD(CrudBase[UserInDB, UserCreate, UserUpdate]):
+    async def get_token(self, db, email: str, plain_password: str) -> Token:
+        user = await self.authenticate_user(db, email, plain_password)
+
+        if not user:
+            raise InvalidUserNameOrPassword
+
+        # TODO: add user: prefix to sub
+        access_token = auth.create_access_token(data={"sub": user.email})
+
+        token = Token(access_token=access_token, token_type="bearer")
+
+        return token
+
+    async def authenticate_user(self, db: Db, email: str, password: str):
+        user = await self.find_one(db, {"email": email})
+
+        if not user or not auth.verify_password(password, user.hashed_password):
+            return False
+        return user
+
     async def create(
         self, db, obj_in: UserCreate, current_user: UserInDB
     ) -> InsertOneResult:

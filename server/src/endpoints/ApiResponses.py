@@ -46,6 +46,10 @@ class ReqResponses:
         status.HTTP_401_UNAUTHORIZED: {"description": "Not authenticated"}
     }
 
+    INVALID_USERNAME_OR_PASSWORD: rtype = {
+        status.HTTP_401_UNAUTHORIZED: {"description": "Incorrect username or password"}
+    }
+
     PATCH_RESPONSES: rtype = {
         **INVALID_ITEM_ID,
         **PATH_UPDATED,
