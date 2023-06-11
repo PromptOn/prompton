@@ -88,4 +88,4 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add ./generated/openapi
           git commit -m "Update OpenAPI spec by ${{ github.workflow }} ${{ github.run_id }} ${{ github.run_number }}"
-          git push
+          git push origin  ${{ github.ref }}
