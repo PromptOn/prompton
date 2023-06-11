@@ -26,7 +26,9 @@ def mock_user(request):
     `@pytest.mark.parametrize("mock_user", [{"disabled": True}], indirect=True)`"""
 
     try:
-        mocked_user = {**DEFAULT_MOCKED_USER, **request.param}
+        mocked_user = DEFAULT_MOCKED_USER
+        if request.param:
+            mocked_user = {**mocked_user, **request.param}
 
     except AttributeError:  # don't ask...
         mocked_user = DEFAULT_MOCKED_USER

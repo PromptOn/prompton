@@ -9,6 +9,7 @@ on:
   pull_request:
     paths:
       - "server/**"
+      - ".github/workflows/**"
     branches:
       - staging
       - main
@@ -18,7 +19,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  deploy-server:
     if: github.event.pull_request.merged == true
 
     environment:
@@ -54,6 +55,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          sparse-checkout: "server/"
 
       - name: Google Auth
         id: auth
