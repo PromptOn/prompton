@@ -12,6 +12,8 @@ on:
   push:
     paths: "server/**"
 
+  workflow_dispatch:
+
 jobs:
   test-server:
     runs-on: ubuntu-latest
