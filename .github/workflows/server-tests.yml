@@ -23,7 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.ref }} # works with push too b/c head.ref is replaced by def value if empty
           sparse-checkout: "server/"
 
       - name: Install just
