@@ -28,36 +28,36 @@ jobs:
       - name: Install just
         uses: extractions/setup-just@v1
 
-      # - name: create .env file
-      #   run: |
-      #     echo "DATABASE_URL=dummy" >> .env
-      #     echo "MONGO_DATABASE=dummy" >> .env
-      #     echo "JWT_SECRET_KEY=dummy" >> .env
+      - name: create .env file
+        run: |
+          echo "DATABASE_URL=dummy" >> .env
+          echo "MONGO_DATABASE=dummy" >> .env
+          echo "JWT_SECRET_KEY=dummy" >> .env
 
       - name: Install poetry
         run: pipx install poetry
 
-      # - name: Debug info
-      #   run: |
-      #     ls -la
-      #     pwd
-      #     poetry --version
-      #     just --version
-      #     echo "github.workflow: ${{ github.workflow }}"
-      #     echo "github.action: ${{ github.action }}"
-      #     echo "github.run_id: ${{ github.run_id }}"
-      #     echo "github.run_number: ${{ github.run_number }}"
-      #     echo "github.action: ${{ github.action }}"
-      #     echo "github.workspace: ${{ github.workspace }}"
+      - name: Debug info
+        run: |
+          ls -la
+          pwd
+          poetry --version
+          just --version
+          echo "github.workflow: ${{ github.workflow }}"
+          echo "github.action: ${{ github.action }}"
+          echo "github.run_id: ${{ github.run_id }}"
+          echo "github.run_number: ${{ github.run_number }}"
+          echo "github.action: ${{ github.action }}"
+          echo "github.workspace: ${{ github.workspace }}"
 
-      # - name: Set up Python 3.11.3
-      #   uses: actions/setup-python@v4
-      #   with:
-      #     python-version: "3.11.3"
-      #     cache: "poetry"
+      - name: Set up Python 3.11.3
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11.3"
+          cache: "poetry"
 
-      # - name: Install packages
-      #   run: just install
+      - name: Install packages
+        run: just install
 
       # - name: Run pytest
       #   run: just test
