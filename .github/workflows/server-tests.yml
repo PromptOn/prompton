@@ -25,8 +25,8 @@ jobs:
         with:
           sparse-checkout: "server/"
 
-      # - name: Install just
-      #   uses: extractions/setup-just@v1
+      - name: Install just
+        uses: extractions/setup-just@v1
 
       # - name: create .env file
       #   run: |
