@@ -16,6 +16,9 @@ on:
       - "server/**"
       - ".github/workflows/**"
 
+permissions:
+  contents: write
+
 jobs:
   test-server:
     runs-on: ubuntu-latest
