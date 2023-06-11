@@ -1,0 +1,1557 @@
+openapi: 3.0.2
+info:
+  title: prompton-api
+  description: API for prompton - managing full lifecycle of AI chat prompts.
+  version: 0.0.1
+paths:
+  /status:
+    get:
+      tags:
+      - Server status
+      summary: Get Status
+      operationId: get_status
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiStatusResponse'
+  /token:
+    post:
+      tags:
+      - authentication
+      summary: Get Access Token Extended
+      operationId: get_access_token_extended
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_get_access_token_extended_token_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Incorrect username or password
+        '400':
+          description: Malformed request
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /token_basic:
+    post:
+      tags:
+      - authentication
+      summary: Get Access Token
+      description: 'Same functionality as /token but taking `username` and `password`
+        args as `application/json` type instead of `application/x-www-form-urlencoded`
+
+
+        Don''t use it becuase it''s a **temporary** workaround for client lib generator
+        and will be removed in the future.'
+      operationId: get_access_token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginCredentialsPost'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Incorrect username or password
+        '400':
+          description: Malformed request
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /prompts:
+    get:
+      tags:
+      - prompts
+      summary: Get Prompt List
+      operationId: get_prompt_list
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get Prompt List Prompts Get
+                type: array
+                items:
+                  $ref: '#/components/schemas/PromptRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+    post:
+      tags:
+      - prompts
+      summary: Add Prompt
+      operationId: add_prompt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromptCreate'
+        required: true
+      responses:
+        '201':
+          description: Item created
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - JWT: []
+  /prompts/{id}:
+    get:
+      tags:
+      - prompts
+      summary: Get Prompt By Id
+      operationId: get_prompt_by_id
+      parameters:
+      - required: true
+        schema:
+          title: Id
+          type: string
+        name: id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+    delete:
+      tags:
+      - prompts
+      summary: Delete Prompt
+      description: Not implemented
+      operationId: delete_prompt
+      parameters:
+      - required: true
+        schema:
+          title: Id
+          type: string
+        name: id
+        in: path
+      responses:
+        '405':
+          description: Method not implemented
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+      security:
+      - JWT: []
+    patch:
+      tags:
+      - prompts
+      summary: Update Prompt
+      operationId: update_prompt
+      parameters:
+      - required: true
+        schema:
+          title: Id
+          type: string
+        name: id
+        in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromptUpdate'
+        required: true
+      responses:
+        '200':
+          description: Item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+  /promptVersions:
+    get:
+      tags:
+      - promptVersions
+      summary: Get Promptversions List
+      operationId: get_promptVersions_list
+      parameters:
+      - required: false
+        schema:
+          title: Prompt Id
+          type: string
+        name: prompt_id
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get Promptversions List Promptversions Get
+                type: array
+                items:
+                  $ref: '#/components/schemas/PromptVersionRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+    post:
+      tags:
+      - promptVersions
+      summary: Add Promptversion
+      operationId: add_promptVersion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromptVersionCreate'
+        required: true
+      responses:
+        '201':
+          description: Item created
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - JWT: []
+  /promptVersions/{id}:
+    get:
+      tags:
+      - promptVersions
+      summary: Get Promptversion By Id
+      operationId: get_promptVersion_by_id
+      parameters:
+      - required: true
+        schema:
+          title: Id
+          type: string
+        name: id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptVersionRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+    patch:
+      tags:
+      - promptVersions
+      summary: Update Promptversion
+      operationId: update_promptVersion
+      parameters:
+      - required: true
+        schema:
+          title: Id
+          type: string
+        name: id
+        in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromptVersionUpdate'
+        required: true
+      responses:
+        '200':
+          description: Item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptVersionRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+  /inferences:
+    get:
+      tags:
+      - inferences
+      summary: Get Inferences List
+      operationId: get_inferences_list
+      parameters:
+      - required: false
+        schema:
+          title: Prompt Version Id
+          type: string
+        name: prompt_version_id
+        in: query
+      - required: false
+        schema:
+          title: Prompt Id
+          type: string
+        name: prompt_id
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get Inferences List Inferences Get
+                type: array
+                items:
+                  $ref: '#/components/schemas/InferenceRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+    post:
+      tags:
+      - inferences
+      summary: New Inference
+      operationId: new_inference
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InferenceCreate'
+        required: true
+      responses:
+        '201':
+          description: Item created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InferencePostResponse'
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+        '502':
+          description: Error from OpenAI API Call
+        '504':
+          description: OpenAI API Call timeout
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - JWT: []
+  /inferences/{id}:
+    get:
+      tags:
+      - inferences
+      summary: Get Inference By Id
+      operationId: get_inference_by_id
+      parameters:
+      - required: true
+        schema:
+          title: Id
+          type: string
+        name: id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InferenceRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+  /orgs:
+    get:
+      tags:
+      - orgs
+      summary: Get Org List
+      operationId: get_org_list
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get Org List Orgs Get
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgRead'
+      security:
+      - JWT: []
+    post:
+      tags:
+      - orgs
+      summary: Add Org
+      operationId: add_org
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrgCreate'
+        required: true
+      responses:
+        '201':
+          description: Item created
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - JWT: []
+  /orgs/me:
+    get:
+      tags:
+      - orgs
+      summary: Get Current User Org
+      operationId: get_current_user_org
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+  /orgs/{id}:
+    get:
+      tags:
+      - orgs
+      summary: Get Org By Id
+      operationId: get_org_by_id
+      parameters:
+      - required: true
+        schema:
+          title: Id
+          type: string
+        name: id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+    patch:
+      tags:
+      - orgs
+      summary: Update Org
+      operationId: update_org
+      parameters:
+      - required: true
+        schema:
+          title: Id
+          type: string
+        name: id
+        in: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrgUpdate'
+        required: true
+      responses:
+        '200':
+          description: Item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+  /users:
+    get:
+      tags:
+      - users
+      summary: Get Users List
+      operationId: get_users_list
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Get Users List Users Get
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+    post:
+      tags:
+      - users
+      summary: Add New User
+      operationId: add_new_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+        required: true
+      responses:
+        '201':
+          description: Item created
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - JWT: []
+  /users/me:
+    get:
+      tags:
+      - users
+      summary: Get Current User
+      operationId: get_current_user
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+  /users/{id}:
+    get:
+      tags:
+      - users
+      summary: Get User By Id
+      operationId: get_user_by_id
+      parameters:
+      - required: true
+        schema:
+          title: Id
+          type: string
+        name: id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRead'
+        '422':
+          description: Invalid itemid supplied
+        '404':
+          description: Item not found
+        '400':
+          description: Malformed request
+        '401':
+          description: Not authenticated
+      security:
+      - JWT: []
+  /:
+    head:
+      summary: Swagger Docs
+      operationId: swagger_docs__head
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    ApiStatusResponse:
+      title: ApiStatusResponse
+      required:
+      - version
+      - message
+      - dbstatus
+      type: object
+      properties:
+        version:
+          title: Version
+          type: string
+        message:
+          title: Message
+          type: string
+        dbstatus:
+          $ref: '#/components/schemas/DBStatus'
+        github_sha:
+          title: Github Sha
+          type: string
+        github_env:
+          title: Github Env
+          type: string
+      additionalProperties: false
+    Body_get_access_token_extended_token_post:
+      title: Body_get_access_token_extended_token_post
+      required:
+      - username
+      - password
+      type: object
+      properties:
+        grant_type:
+          title: Grant Type
+          pattern: password
+          type: string
+        username:
+          title: Username
+          type: string
+        password:
+          title: Password
+          type: string
+        scope:
+          title: Scope
+          type: string
+          default: ''
+        client_id:
+          title: Client Id
+          type: string
+        client_secret:
+          title: Client Secret
+          type: string
+    ChatGPTChatCompletitionConfig:
+      title: ChatGPTChatCompletitionConfig
+      type: object
+      properties:
+        model:
+          title: Model
+          minLength: 1
+          type: string
+        temperature:
+          title: Temperature
+          minimum: 0.0
+          type: number
+        top_p:
+          title: Top P
+          maximum: 1.0
+          minimum: 0.0
+          type: number
+        stop:
+          title: Stop
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: string
+        max_tokens:
+          title: Max Tokens
+          minimum: 1.0
+          type: integer
+        presence_penalty:
+          title: Presence Penalty
+          maximum: 2.0
+          minimum: -2.0
+          type: number
+        frequency_penalty:
+          title: Frequency Penalty
+          maximum: 2.0
+          minimum: -2.0
+          type: number
+        logit_bias:
+          title: Logit Bias
+          type: object
+          additionalProperties:
+            type: integer
+      additionalProperties: false
+    ChatGPTChatCompletitionRequest:
+      title: ChatGPTChatCompletitionRequest
+      required:
+      - messages
+      type: object
+      properties:
+        model:
+          title: Model
+          minLength: 1
+          type: string
+        temperature:
+          title: Temperature
+          minimum: 0.0
+          type: number
+        top_p:
+          title: Top P
+          maximum: 1.0
+          minimum: 0.0
+          type: number
+        stop:
+          title: Stop
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: string
+        max_tokens:
+          title: Max Tokens
+          minimum: 1.0
+          type: integer
+        presence_penalty:
+          title: Presence Penalty
+          maximum: 2.0
+          minimum: -2.0
+          type: number
+        frequency_penalty:
+          title: Frequency Penalty
+          maximum: 2.0
+          minimum: -2.0
+          type: number
+        logit_bias:
+          title: Logit Bias
+          type: object
+          additionalProperties:
+            type: integer
+        messages:
+          title: Messages
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatGPTMessage'
+        n:
+          title: N
+          minimum: 1.0
+          type: integer
+          default: 1
+        stream:
+          title: Stream
+          type: boolean
+          default: false
+        user:
+          title: User
+          type: string
+      additionalProperties: false
+    ChatGPTChatCompletitionResponse:
+      title: ChatGPTChatCompletitionResponse
+      required:
+      - id
+      - object
+      - created
+      - model
+      - usage
+      - choices
+      type: object
+      properties:
+        id:
+          title: Id
+          type: string
+        object:
+          title: Object
+          type: string
+        created:
+          title: Created
+          type: integer
+        model:
+          title: Model
+          type: string
+        usage:
+          $ref: '#/components/schemas/ChatGPTTokenUsage'
+        choices:
+          title: Choices
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatGPTCompletitionChoice'
+      additionalProperties: false
+    ChatGPTCompletitionChoice:
+      title: ChatGPTCompletitionChoice
+      required:
+      - message
+      - finish_reason
+      - index
+      type: object
+      properties:
+        message:
+          $ref: '#/components/schemas/ChatGPTMessage'
+        finish_reason:
+          title: Finish Reason
+          type: string
+        index:
+          title: Index
+          type: integer
+      additionalProperties: false
+    ChatGPTMessage:
+      title: ChatGPTMessage
+      required:
+      - role
+      - content
+      type: object
+      properties:
+        role:
+          $ref: '#/components/schemas/ChatGPTRole'
+        content:
+          title: Content
+          type: string
+        name:
+          title: Name
+          type: string
+      additionalProperties: false
+    ChatGPTRole:
+      title: ChatGPTRole
+      enum:
+      - system
+      - user
+      - assistant
+      type: string
+      description: An enumeration.
+    ChatGPTTokenUsage:
+      title: ChatGPTTokenUsage
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+      type: object
+      properties:
+        prompt_tokens:
+          title: Prompt Tokens
+          type: integer
+        completion_tokens:
+          title: Completion Tokens
+          type: integer
+        total_tokens:
+          title: Total Tokens
+          type: integer
+      additionalProperties: false
+    DBStatus:
+      title: DBStatus
+      required:
+      - status_code
+      - status_message
+      type: object
+      properties:
+        status_code:
+          title: Status Code
+          type: integer
+        status_message:
+          title: Status Message
+          type: string
+      additionalProperties: false
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    InferenceCreate:
+      title: InferenceCreate
+      required:
+      - end_user_id
+      - source
+      - prompt_version_id
+      type: object
+      properties:
+        end_user_id:
+          title: End User Id
+          minLength: 1
+          type: string
+        source:
+          title: Source
+          minLength: 1
+          type: string
+        template_args:
+          title: Template Args
+          type: object
+          additionalProperties:
+            type: string
+        metadata:
+          title: Metadata
+          type: object
+        request_timeout:
+          title: Request Timeout
+          type: number
+        prompt_version_id:
+          title: Prompt Version Id
+          type: string
+      additionalProperties: false
+    InferencePostResponse:
+      title: InferencePostResponse
+      required:
+      - id
+      - response
+      type: object
+      properties:
+        id:
+          title: Id
+          type: string
+        response:
+          title: Response
+          anyOf:
+          - $ref: '#/components/schemas/InferenceResponseData'
+          - $ref: '#/components/schemas/InferenceResponseError'
+      description: Used for FastAPI response model
+    InferenceRead:
+      title: InferenceRead
+      required:
+      - end_user_id
+      - source
+      - prompt_version_id
+      - prompt_id
+      type: object
+      properties:
+        _id:
+          title: ' Id'
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        created_by_user_id:
+          title: Created By User Id
+          type: string
+        created_by_org_id:
+          title: Created By Org Id
+          type: string
+        end_user_id:
+          title: End User Id
+          minLength: 1
+          type: string
+        source:
+          title: Source
+          minLength: 1
+          type: string
+        template_args:
+          title: Template Args
+          type: object
+          additionalProperties:
+            type: string
+        metadata:
+          title: Metadata
+          type: object
+        request_timeout:
+          title: Request Timeout
+          type: number
+        prompt_version_id:
+          title: Prompt Version Id
+          type: string
+        prompt_id:
+          title: Prompt Id
+          type: string
+        prompt_version_name:
+          title: Prompt Version Name
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/InferenceResponseStatus'
+          default: RequestReceived
+        request:
+          $ref: '#/components/schemas/InferenceRequestData'
+        response:
+          title: Response
+          anyOf:
+          - $ref: '#/components/schemas/InferenceResponseData'
+          - $ref: '#/components/schemas/InferenceResponseError'
+    InferenceRequestData:
+      title: InferenceRequestData
+      required:
+      - provider
+      - raw_request
+      type: object
+      properties:
+        provider:
+          $ref: '#/components/schemas/PromptVersionProviders'
+        raw_request:
+          $ref: '#/components/schemas/ChatGPTChatCompletitionRequest'
+      additionalProperties: false
+    InferenceResponseData:
+      title: InferenceResponseData
+      required:
+      - first_message
+      - token_usage
+      - raw_response
+      type: object
+      properties:
+        completed_at:
+          title: Completed At
+          type: string
+          format: date-time
+        completition_duration_seconds:
+          title: Completition Duration Seconds
+          type: number
+        is_client_connected_at_finish:
+          title: Is Client Connected At Finish
+          type: boolean
+        isError:
+          title: Iserror
+          type: boolean
+          default: false
+        first_message:
+          $ref: '#/components/schemas/ChatGPTMessage'
+        token_usage:
+          $ref: '#/components/schemas/ChatGPTTokenUsage'
+        raw_response:
+          $ref: '#/components/schemas/ChatGPTChatCompletitionResponse'
+      additionalProperties: false
+    InferenceResponseError:
+      title: InferenceResponseError
+      type: object
+      properties:
+        completed_at:
+          title: Completed At
+          type: string
+          format: date-time
+        completition_duration_seconds:
+          title: Completition Duration Seconds
+          type: number
+        is_client_connected_at_finish:
+          title: Is Client Connected At Finish
+          type: boolean
+        isError:
+          title: Iserror
+          type: boolean
+          default: true
+        error:
+          title: Error
+      additionalProperties: false
+    InferenceResponseStatus:
+      title: InferenceResponseStatus
+      enum:
+      - RequestReceived
+      - Processed
+      - CompletitionError
+      - CompletitionTimeout
+      type: string
+      description: An enumeration.
+    LoginCredentialsPost:
+      title: LoginCredentialsPost
+      required:
+      - username
+      - password
+      type: object
+      properties:
+        username:
+          title: Username
+          type: string
+          format: email
+        password:
+          title: Password
+          type: string
+          format: password
+          writeOnly: true
+      additionalProperties: false
+    OrgCreate:
+      title: OrgCreate
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          title: Name
+          minLength: 1
+          type: string
+        access_keys:
+          title: Access Keys
+          type: object
+          additionalProperties:
+            type: string
+      additionalProperties: false
+    OrgRead:
+      title: OrgRead
+      required:
+      - name
+      type: object
+      properties:
+        _id:
+          title: ' Id'
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        created_by_user_id:
+          title: Created By User Id
+          type: string
+        created_by_org_id:
+          title: Created By Org Id
+          type: string
+        name:
+          title: Name
+          minLength: 1
+          type: string
+        access_keys:
+          title: Access Keys
+          type: object
+          additionalProperties:
+            type: string
+    OrgUpdate:
+      title: OrgUpdate
+      type: object
+      properties:
+        name:
+          title: Name
+          minLength: 1
+          type: string
+        access_keys:
+          title: Access Keys
+          type: object
+          additionalProperties:
+            type: string
+      additionalProperties: false
+    PromptCreate:
+      title: PromptCreate
+      required:
+      - name
+      type: object
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/PromptStatus'
+          default: Active
+        name:
+          title: Name
+          minLength: 1
+          type: string
+        description:
+          title: Description
+          type: string
+      additionalProperties: false
+    PromptRead:
+      title: PromptRead
+      required:
+      - name
+      type: object
+      properties:
+        _id:
+          title: ' Id'
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        created_by_user_id:
+          title: Created By User Id
+          type: string
+        created_by_org_id:
+          title: Created By Org Id
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/PromptStatus'
+          default: Active
+        name:
+          title: Name
+          minLength: 1
+          type: string
+        description:
+          title: Description
+          type: string
+    PromptStatus:
+      title: PromptStatus
+      enum:
+      - Active
+      - Archived
+      type: string
+      description: An enumeration.
+    PromptUpdate:
+      title: PromptUpdate
+      type: object
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/PromptStatus'
+          default: Active
+        name:
+          title: Name
+          minLength: 1
+          type: string
+        description:
+          title: Description
+          type: string
+      additionalProperties: false
+    PromptVersionCreate:
+      title: PromptVersionCreate
+      required:
+      - name
+      - prompt_id
+      type: object
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/PromptVersionStatus'
+          default: Draft
+        provider:
+          allOf:
+          - $ref: '#/components/schemas/PromptVersionProviders'
+          default: OpenAI
+        name:
+          title: Name
+          minLength: 1
+          type: string
+        description:
+          title: Description
+          type: string
+        prompt_id:
+          title: Prompt Id
+          type: string
+        template:
+          title: Template
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatGPTMessage'
+        model_config:
+          $ref: '#/components/schemas/ChatGPTChatCompletitionConfig'
+      additionalProperties: false
+    PromptVersionProviders:
+      title: PromptVersionProviders
+      enum:
+      - OpenAI
+      type: string
+      description: Currently only OpenAI is supported
+    PromptVersionRead:
+      title: PromptVersionRead
+      required:
+      - name
+      - prompt_id
+      type: object
+      properties:
+        _id:
+          title: ' Id'
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        created_by_user_id:
+          title: Created By User Id
+          type: string
+        created_by_org_id:
+          title: Created By Org Id
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/PromptVersionStatus'
+          default: Draft
+        provider:
+          allOf:
+          - $ref: '#/components/schemas/PromptVersionProviders'
+          default: OpenAI
+        name:
+          title: Name
+          minLength: 1
+          type: string
+        description:
+          title: Description
+          type: string
+        prompt_id:
+          title: Prompt Id
+          type: string
+        template:
+          title: Template
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatGPTMessage'
+        model_config:
+          $ref: '#/components/schemas/ChatGPTChatCompletitionConfig'
+        template_arg_names:
+          title: Template Arg Names
+          type: array
+          items:
+            type: string
+          default: []
+    PromptVersionStatus:
+      title: PromptVersionStatus
+      enum:
+      - Draft
+      - Testing
+      - Live
+      - Archived
+      type: string
+      description: An enumeration.
+    PromptVersionUpdate:
+      title: PromptVersionUpdate
+      type: object
+      properties:
+        status:
+          allOf:
+          - $ref: '#/components/schemas/PromptVersionStatus'
+          default: Draft
+        provider:
+          allOf:
+          - $ref: '#/components/schemas/PromptVersionProviders'
+          default: OpenAI
+        name:
+          title: Name
+          minLength: 1
+          type: string
+        description:
+          title: Description
+          type: string
+        prompt_id:
+          title: Prompt Id
+          type: string
+        template:
+          title: Template
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatGPTMessage'
+        model_config:
+          $ref: '#/components/schemas/ChatGPTChatCompletitionConfig'
+      additionalProperties: false
+    Token:
+      title: Token
+      required:
+      - access_token
+      - token_type
+      type: object
+      properties:
+        access_token:
+          title: Access Token
+          type: string
+        token_type:
+          title: Token Type
+          type: string
+      additionalProperties: false
+    UserCreate:
+      title: UserCreate
+      required:
+      - org_id
+      - email
+      - plain_password
+      type: object
+      properties:
+        full_name:
+          title: Full Name
+          minLength: 1
+          type: string
+        disabled:
+          title: Disabled
+          type: boolean
+          default: false
+        role:
+          allOf:
+          - $ref: '#/components/schemas/UserRoles'
+          default: Basic
+        org_id:
+          title: Org Id
+          type: string
+        email:
+          title: Email
+          type: string
+          format: email
+        plain_password:
+          title: Plain Password
+          minLength: 1
+          type: string
+      additionalProperties: false
+    UserRead:
+      title: UserRead
+      required:
+      - org_id
+      - email
+      type: object
+      properties:
+        _id:
+          title: ' Id'
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        created_by_user_id:
+          title: Created By User Id
+          type: string
+        created_by_org_id:
+          title: Created By Org Id
+          type: string
+        full_name:
+          title: Full Name
+          minLength: 1
+          type: string
+        disabled:
+          title: Disabled
+          type: boolean
+          default: false
+        role:
+          allOf:
+          - $ref: '#/components/schemas/UserRoles'
+          default: Basic
+        org_id:
+          title: Org Id
+          type: string
+        email:
+          title: Email
+          type: string
+    UserRoles:
+      title: UserRoles
+      enum:
+      - Basic
+      - OrgAdmin
+      - SuperAdmin
+      type: string
+      description: An enumeration.
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+  securitySchemes:
+    JWT:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: token
