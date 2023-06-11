@@ -66,8 +66,8 @@ server-check server_url=default_local_server_url:
   echo -e "\nServer responded in time {{server_url}}"
 
 # normally you don't need to run this manually, it's run by the CI
-export-openapi-specs target_dir="./generated/openapi"::  
-  poetry run python -m scripts.extract_openapi target_dir
+export-openapi-specs target_dir="./generated/openapi":
+  poetry run python -m scripts.extract_openapi {{target_dir}}
 
 
   
