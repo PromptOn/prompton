@@ -8,16 +8,18 @@ defaults:
 on:
   pull_request:
     paths: "server/**"
+
   push:
     paths: "server/**"
 
 jobs:
-  test:
+  test-server:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
         with:
+          ref: ${{ github.event.pull_request.head.ref }} # works with push too b/c head.ref is replaced by def value if empty
           sparse-checkout: "server/"
 
       - name: Install just
@@ -76,7 +78,7 @@ jobs:
         run: just server-check http://localhost:8080
 
       # Generate OpenAPI specs for clients generator - it should be picked up by its gh action
-      - name: Commit OpenAPI specification for clients generator on push
+      - name: Commit OpenAPI specification for clients generator
         if: github.event_name == 'push'
         run: |
           just export-openapi-specs ./generated/openapi
