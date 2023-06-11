@@ -1,8 +1,10 @@
+# Client SDK generation scripts
+
 default: 
   just --list
 
 install:
   npm install
 
-build-clients:
+generate-clients:
   npx fern generate
