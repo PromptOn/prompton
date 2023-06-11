@@ -38,6 +38,7 @@ It's a REST API microservice designed to mix it into your existing ecosystem in 
  There is no public signup currently but drop an email for early access: <hello@prompton.ai>
 
  You can also try in local dev env: [Local setup](#local_dev_setup)
+ You can also try in local dev env: [Local setup](#local_dev_setup)
 
 The API is still in alpha, may change without notice. However, the schema is largely stable and it will soon enter production when  proper versioning will be introduced.
 
@@ -67,6 +68,7 @@ The API is still in alpha, may change without notice. However, the schema is lar
         { "access_keys": {"openai_api_key": "<your OpenAI API key>"  }}
         ```
 
+    TIP: if you just want to play around then set `openai_api_key` to any string and [mock responses](#mock_response_tip)
     TIP: if you just want to play around then set `openai_api_key` to any string and [mock responses](#mock_response_tip)
 
 1. Prompt
@@ -111,7 +113,11 @@ The API is still in alpha, may change without notice. However, the schema is lar
 
     It will:
 
+
     1. Populate the template with the passed values
+    2. Log the request
+    3. Send the request to provider
+    4. Log respnse and send it back to client.
     2. Log the request
     3. Send the request to provider
     4. Log respnse and send it back to client.
@@ -125,9 +131,18 @@ The API is still in alpha, may change without notice. However, the schema is lar
     - `"end_user_id": "mock_me_softly"`
     - `"end_user_id": "timeout_me_softly"`
     - `"end_user_id": "fail_me_softly"`
+     **Mock responses**<a id="mock_response_tip"></a>
+
+     You can use a few easter eggs to test without a valid api key:
+
+    - `"end_user_id": "mock_me_softly"`
+    - `"end_user_id": "timeout_me_softly"`
+    - `"end_user_id": "fail_me_softly"`
 
     Successfull response
+    Successfull response
 
+    _NB: full raw request data also accessible via `/inference` GET_
     _NB: full raw request data also accessible via `/inference` GET_
 
     ```json
