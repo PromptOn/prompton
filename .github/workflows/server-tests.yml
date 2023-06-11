@@ -11,9 +11,6 @@ on:
   push:
     paths: "server/**"
 
-permissions:
-  contents: read
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -88,4 +85,4 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add ./generated/openapi
           git commit -m "Update OpenAPI spec by ${{ github.workflow }} ${{ github.run_id }} ${{ github.run_number }}"
-          git push origin  ${{ github.ref }}
+          git push origin ${{ github.head_ref }}
