@@ -9,6 +9,7 @@ on:
   pull_request:
     paths:
       - "server/**"
+      - ".github/workflows/**"
     branches:
       - staging
       - main

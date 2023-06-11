@@ -7,10 +7,14 @@ defaults:
 
 on:
   pull_request:
-    paths: "server/**"
+    paths:
+      - "server/**"
+      - ".github/workflows/**"
 
   push:
-    paths: "server/**"
+    paths:
+      - "server/**"
+      - ".github/workflows/**"
 
 jobs:
   test-server:
