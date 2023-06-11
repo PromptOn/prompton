@@ -84,6 +84,8 @@ jobs:
 
       - name: Commit OpenAPI specification for clients generator
         run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add ./generated/openapi
           git commit -m "Update OpenAPI spec by ${{ github.workflow }} ${{ github.run_id }} ${{ github.run_number }}"
-          git push origin  ${{ github.ref }}
+          git push
