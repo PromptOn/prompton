@@ -83,6 +83,8 @@ jobs:
       # Generate OpenAPI specs for clients generator - it should be picked up by its gh action
       - name: Commit OpenAPI specification for clients generator
         if: github.event_name == 'push'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           just export-openapi-specs ./generated/openapi
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
