@@ -74,9 +74,6 @@ jobs:
           context: server
           file: ./server/Dockerfile
           tags: "citest"
-          context: server
-          file: ./server/Dockerfile
-          tags: "citest"
           push: false
           load: true
 

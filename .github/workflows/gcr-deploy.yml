@@ -4,11 +4,6 @@ name: Server Build and Deploy
 defaults:
   run:
     working-directory: server
-name: Server Build and Deploy
-
-defaults:
-  run:
-    working-directory: server
 
 on:
   pull_request:
@@ -20,8 +15,6 @@ on:
       - main
     types:
       - closed
-
-  workflow_dispatch:
 
   workflow_dispatch:
 
@@ -91,8 +84,6 @@ jobs:
         id: docker-build
         uses: docker/build-push-action@v4
         with:
-          context: server
-          file: ./server/Dockerfile
           context: server
           file: ./server/Dockerfile
           push: true
