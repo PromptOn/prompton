@@ -5,7 +5,7 @@ from deepdiff import DeepDiff
 
 from src.core.completition import get_openai_chat_completition
 
-from src.schemas.inference import InferenceCreate
+from src.schemas.inference import InferenceCreateByPromptVersionId
 from src.schemas.openAI import ChatGPTChatCompletitionRequest
 from tests.core.inferenceProcessing_test_data import (
     expected_error_response,

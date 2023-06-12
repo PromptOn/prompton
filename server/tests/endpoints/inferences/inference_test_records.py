@@ -51,6 +51,7 @@ PROCESSED_INFERENCE: Dict[str, Any] = {
     "prompt_id": PROMPT_ID1,
     "prompt_version_id": PROMPT_VERSION_ID1,
     "prompt_version_name": "random number v1",
+    "prompt_version_ids_considered": [],
     "status": "Processed",
     "request": {
         "provider": "OpenAI",
@@ -133,6 +134,7 @@ ERROR_INFERENCE = {
     "prompt_id": PROMPT_ID2,
     "prompt_version_id": PROMPT_VERSION_ID2,
     "prompt_version_name": "random number v1",
+    "prompt_version_ids_considered": [],
     "status": "CompletitionError",
     "request": {
         "provider": "OpenAI",
@@ -194,6 +196,7 @@ TIMEOUT_INFERENCE = {
     "prompt_id": PROMPT_ID2,
     "prompt_version_id": PROMPT_VERSION_ID2,
     "prompt_version_name": "random number v1",
+    "prompt_version_ids_considered": [],
     "status": "CompletitionTimeout",
     "request": {
         "provider": "OpenAI",

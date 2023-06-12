@@ -1,4 +1,3 @@
-from bson import ObjectId
 from pymongo.results import InsertOneResult
 
 
@@ -9,7 +8,7 @@ from src.crud.promptVersion import promptVersion_crud
 from src.endpoints.endpoint_exceptions import EndPointValidationError
 from src.schemas.inference import (
     InferenceInDB,
-    InferenceCreate,
+    InferenceCreateByPromptVersionId,
     InferenceRequestData,
     InferenceUpdate,
 )
@@ -18,9 +17,11 @@ from src.schemas.promptVersion import PromptVersionStatus
 from src.schemas.user import UserInDB
 
 
-class InferenceCRUD(CrudBase[InferenceInDB, InferenceCreate, InferenceUpdate]):
+class InferenceCRUD(
+    CrudBase[InferenceInDB, InferenceCreateByPromptVersionId, InferenceUpdate]
+):
     async def create(
-        self, db, obj_in: InferenceCreate, current_user: UserInDB
+        self, db, obj_in: InferenceCreateByPromptVersionId, current_user: UserInDB
     ) -> InsertOneResult:
         update_data_obj = await self.process_create_data(
             db, current_user=current_user, obj_in=obj_in
@@ -31,7 +32,7 @@ class InferenceCRUD(CrudBase[InferenceInDB, InferenceCreate, InferenceUpdate]):
         return update_res
 
     async def process_create_data(
-        self, db, *, current_user: UserInDB, obj_in: InferenceCreate
+        self, db, *, current_user: UserInDB, obj_in: InferenceCreateByPromptVersionId
     ) -> InferenceInDB:
         promptVersion = await promptVersion_crud.get(
             db, obj_in.prompt_version_id, current_user=current_user
@@ -68,6 +69,7 @@ class InferenceCRUD(CrudBase[InferenceInDB, InferenceCreate, InferenceUpdate]):
             prompt_id=promptVersion.prompt_id,
             prompt_version_id=obj_in.prompt_version_id,
             prompt_version_name=promptVersion.name,
+            prompt_version_ids_considered=[],  # FIXME: this needs to be populated if inference was called with prompt_id
             end_user_id=obj_in.end_user_id,
             source=obj_in.source,
             template_args=obj_in.template_args,
