@@ -145,18 +145,9 @@ The API is still in alpha, may change without notice. However, the schema is lar
     - `"end_user_id": "mock_me_softly"`
     - `"end_user_id": "timeout_me_softly"`
     - `"end_user_id": "fail_me_softly"`
-     **Mock responses**<a id="mock_response_tip"></a>
-
-     You can use a few easter eggs to test without a valid api key:
-
-    - `"end_user_id": "mock_me_softly"`
-    - `"end_user_id": "timeout_me_softly"`
-    - `"end_user_id": "fail_me_softly"`
 
     Successfull response
-    Successfull response
 
-    _NB: full raw request data also accessible via `/inference` GET_
     _NB: full raw request data also accessible via `/inference` GET_
 
     ```json
@@ -212,7 +203,7 @@ The API is still in alpha, may change without notice. However, the schema is lar
 1. Checkout repo:
 
     ```sh
-    gh repo clone szerintedmi/prompton
+    gh repo clone prompton/prompton
     cd prompton/server  # workdir needs to be server folder for these instructions
     ```
 
@@ -224,6 +215,7 @@ The API is still in alpha, may change without notice. However, the schema is lar
 1. Install packages with:
 
     ```sh
+    cd server
     just install
     ```
 
