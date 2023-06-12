@@ -1,4 +1,4 @@
-from inferences_post_test_spec import (
+from tests.endpoints.inferences.inferences_post_test_spec import (
     test_specs_post,
     test_db_data,
 )
