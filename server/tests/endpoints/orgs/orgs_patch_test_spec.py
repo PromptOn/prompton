@@ -27,6 +27,11 @@ test_specs_patch: TestSpecList = [
         "expected": {
             **ORG1,
             "name": "Hoo Inc",
+            "access_keys": {"openai_api_key": "**********", "ClosedAI": "**********"},
+        },
+        "expected_db": {
+            **ORG1,
+            "name": "Hoo Inc",
             "access_keys": {**ORG1["access_keys"], "ClosedAI": "666"},
         },
     },

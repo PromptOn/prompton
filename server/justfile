@@ -64,6 +64,10 @@ server-check server_url=default_local_server_url:
   done
   echo -e "\nServer responded in time {{server_url}}"
 
+git-branches-prune:
+  #!/usr/bin/env bash
+  git fetch -p ; git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d
+
 # normally you don't need to run this manually, it's run by the CI
 export-openapi-specs target_dir="./generated/openapi":
   poetry run python -m scripts.extract_openapi {{target_dir}}

@@ -49,7 +49,6 @@ async def get_org_by_id(
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
     db=Depends(get_db),
 ):
-    # TODO: hide access_keys.key values
     return await org_crud.get(db, id, current_user)
 
 

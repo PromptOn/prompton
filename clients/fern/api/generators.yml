@@ -3,19 +3,19 @@ groups:
   local:
     generators:
       - name: fernapi/fern-typescript-node-sdk
-        version: 0.6.0
+        version: 0.6.1
         output:
           location: local-file-system
-          path: .generated/typescript-node-sdk
+          path: node_sdk/prompton
 
       - name: fernapi/fern-python-sdk
         version: 0.3.7
         output:
           location: local-file-system
-          path: .generated/python_sdk
+          path: python_sdk/prompton
 
-      - name: fernapi/fern-typescript-browser-sdk
-        version: 0.6.4
-        output:
-          path: .generated/typescript-browser-sdk
-          location: local-file-system
+      # - name: fernapi/fern-typescript-browser-sdk
+      #   version: 0.6.4
+      #   output:
+      #     path: .generated/typescript-browser-sdk
+      #     location: local-file-system
