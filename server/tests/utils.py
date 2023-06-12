@@ -34,7 +34,7 @@ class TestSpecMin(TypedDict):
 
 class TestSpec(TestSpecMin, total=False):
     mock_exception: Exception
-    expected_db: Dict[str, Any]
+    expected_db: Dict[str, Any] | List[Any]
     expected_status_code: int
 
 
@@ -63,6 +63,29 @@ def format_test_specs(specs: TestSpecList):
     spec_user_tuples = [(spec, spec.get("mock_user", {})) for spec in specs]
     ids = [spec["spec_id"] for spec in specs]
     return spec_user_tuples, ids
+
+
+def _mask_access_keys(org: Dict[str, Any]) -> Dict[str, Any]:
+    masked_org = org.copy()
+    access_keys = org.get("access_keys")
+    if access_keys:
+        masked_org["access_keys"] = {k: "**********" for k in access_keys.keys()}
+
+    return masked_org
+
+
+def mask_access_keys(
+    orgs: List[Dict[str, Any]] | Dict[str, Any]
+) -> List[Dict[str, Any]] | Dict[str, Any]:
+    if isinstance(orgs, list):
+        masked_orgs = []
+        for org in orgs:
+            masked_org = _mask_access_keys(org)
+            masked_orgs.append(masked_org)
+
+        return masked_orgs
+    else:
+        return _mask_access_keys(orgs)
 
 
 def bson_obj_to_json(data):

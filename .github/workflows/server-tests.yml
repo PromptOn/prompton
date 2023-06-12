@@ -16,6 +16,8 @@ on:
       - "server/**"
       - ".github/workflows/**"
 
+  workflow_dispatch:
+
 permissions:
   contents: write
 

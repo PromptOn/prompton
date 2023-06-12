@@ -1,5 +1,5 @@
 from typing import Dict, List
-from pydantic import Extra
+from pydantic import Extra, SecretStr
 from src.schemas.base import (
     AllOptional,
     MongoBase,
@@ -21,8 +21,9 @@ class OrgInDB(OrgBase, MongoBase, extra=Extra.allow):
     pass
 
 
-class OrgRead(OrgBase, MongoBase, extra=Extra.ignore):
-    pass
+class OrgRead(MongoBase, extra=Extra.ignore):
+    name: str
+    access_keys: Dict[str, SecretStr] | None = None
 
 
 class OrgUpdate(OrgBase, metaclass=AllOptional, extra=Extra.forbid):
