@@ -6,22 +6,18 @@ defaults:
     working-directory: server
 
 on:
-  pull_request:
+  push:
     paths:
       - "server/**"
       - ".github/workflows/**"
     branches:
       - staging
       - main
-    types:
-      - closed
 
   workflow_dispatch:
 
 jobs:
   deploy-server:
-    if: github.event.pull_request.merged == true
-
     environment:
       name: ${{ github.ref == 'main' && 'production' || 'staging' }}
       url: ${{ steps.deploy.outputs.url }}
