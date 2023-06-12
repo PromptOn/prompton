@@ -33,16 +33,30 @@ It's a REST API microservice designed to mix it into your existing ecosystem in 
 
 ## Getting started
 
+ ### Endpoint UI & docs
  The easiest way to try is via the [Prompton API documentation UI](https://staging.api.prompton.ai) on our hosted staging environment.
 
  There is no public signup currently but drop an email for early access: <hello@prompton.ai>
 
- You can also try in local dev env: [Local setup](#local_dev_setup)
- You can also try in local dev env: [Local setup](#local_dev_setup)
+ ### Client SDKs
+
+ #### Python
+
+   ```sh
+   pip install prompton
+   ```
+
+   Basic [Streamlit UI example](./ui-examples/streamlit/main.py)
+
+ #### Typescript
+ 
+   Package is not published yet but you can try it from [clients folder in the repo](./clients/fern/api/node_sdk/prompton)
+ 
+ To install local dev env: [Local setup](#local_dev_setup)
 
 The API is still in alpha, may change without notice. However, the schema is largely stable and it will soon enter production when  proper versioning will be introduced.
 
-### End-to-end example
+## End-to-end example
 
 1. User Auth
 
