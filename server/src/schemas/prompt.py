@@ -5,7 +5,6 @@ from pydantic import Extra, Field
 from src.schemas.base import AllOptional, MongoBase, MyBaseModel, NameField
 
 
-# TODO: do we actually need to restrict statuses? is active only special and we could allow any string?
 class PromptStatus(str, Enum):
     ACTIVE = "Active"
     ARCHIVED = "Archived"
