@@ -83,7 +83,6 @@ The API is still in alpha, may change without notice. However, the schema is lar
         ```
 
     TIP: if you just want to play around then set `openai_api_key` to any string and [mock responses](#mock_response_tip)
-    TIP: if you just want to play around then set `openai_api_key` to any string and [mock responses](#mock_response_tip)
 
 1. Prompt
 
@@ -131,10 +130,7 @@ The API is still in alpha, may change without notice. However, the schema is lar
     1. Populate the template with the passed values
     2. Log the request
     3. Send the request to provider
-    4. Log respnse and send it back to client.
-    2. Log the request
-    3. Send the request to provider
-    4. Log respnse and send it back to client.
+    4. Log response and send it back to client.
 
     It also handles errors, timeouts and updates the inference accordingly. It will still process response if client disconnects before it arrives.
 
