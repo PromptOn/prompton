@@ -29,7 +29,6 @@ routers.use_route_names_as_operation_ids(app)  # for generated API clients
 
 handler = Mangum(app)  # handler for deploy FastAPI to lambdas
 
-# TODO: configure CORS
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 

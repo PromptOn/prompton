@@ -1836,14 +1836,15 @@
           },
           "name": {
             "title": "Name",
-            "minLength": 1,
             "type": "string"
           },
           "access_keys": {
             "title": "Access Keys",
             "type": "object",
             "additionalProperties": {
-              "type": "string"
+              "type": "string",
+              "format": "password",
+              "writeOnly": true
             }
           }
         }
