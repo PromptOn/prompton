@@ -1,5 +1,4 @@
-# TODO: hide access keys for everyone
-
+from typing import List, Dict, Any
 from tests.shared_test_data import (
     ORG1,
     ORG2,
@@ -7,10 +6,11 @@ from tests.shared_test_data import (
     USER_ORG_ADMIN,
     USER_SUPER_ADMIN,
 )
-from tests.utils import TestSpecList
+from tests.utils import TestSpecList, mask_access_keys
 
 
 test_db_data = {"orgs": [ORG1, ORG2]}
+
 
 test_specs_get: TestSpecList = [
     # list orgs
@@ -18,32 +18,33 @@ test_specs_get: TestSpecList = [
         "spec_id": "SuperAdmin org list",
         "mock_user": USER_SUPER_ADMIN,
         "input": {},
-        "expected": test_db_data["orgs"],
+        "expected": mask_access_keys(test_db_data["orgs"]),
+        "expected_db": test_db_data["orgs"],
     },
     # get org by id
     {
         "spec_id": "basic user own org /me",
         "mock_user": USER_BASIC,
         "input": {"id": "me"},
-        "expected": ORG1,
+        "expected": mask_access_keys(ORG1),
     },
     {
         "spec_id": "basic user own org",
         "mock_user": USER_BASIC,
         "input": {"id": str(ORG1["_id"])},
-        "expected": ORG1,
+        "expected": mask_access_keys(ORG1),
     },
     {
         "spec_id": "OrgAdmin user own org",
         "mock_user": USER_ORG_ADMIN,
         "input": {"id": str(ORG1["_id"])},
-        "expected": ORG1,
+        "expected": mask_access_keys(ORG1),
     },
     {
         "spec_id": "SuperAdmin user should get other org",
         "mock_user": USER_SUPER_ADMIN,
         "input": {"id": str(ORG2["_id"])},
-        "expected": ORG2,
+        "expected": mask_access_keys(ORG2),
     },
     #
     #  Permission tests
