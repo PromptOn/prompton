@@ -9,6 +9,7 @@ from src.endpoints.endpoint_exceptions import EndPointValidationError
 from src.schemas.inference import (
     InferenceInDB,
     InferenceCreateByPromptVersionId,
+    InferenceCreateByPromptId,
     InferenceRequestData,
     InferenceUpdate,
 )
@@ -21,7 +22,10 @@ class InferenceCRUD(
     CrudBase[InferenceInDB, InferenceCreateByPromptVersionId, InferenceUpdate]
 ):
     async def create(
-        self, db, obj_in: InferenceCreateByPromptVersionId, current_user: UserInDB
+        self,
+        db,
+        obj_in: InferenceCreateByPromptVersionId | InferenceCreateByPromptId,
+        current_user: UserInDB,
     ) -> InsertOneResult:
         update_data_obj = await self.process_create_data(
             db, current_user=current_user, obj_in=obj_in
@@ -32,11 +36,20 @@ class InferenceCRUD(
         return update_res
 
     async def process_create_data(
-        self, db, *, current_user: UserInDB, obj_in: InferenceCreateByPromptVersionId
+        self,
+        db,
+        *,
+        current_user: UserInDB,
+        obj_in: InferenceCreateByPromptVersionId | InferenceCreateByPromptId
     ) -> InferenceInDB:
-        promptVersion = await promptVersion_crud.get(
-            db, obj_in.prompt_version_id, current_user=current_user
-        )  # raises ItemNotFound HTTP if not found or not permitted
+        if isinstance(obj_in, InferenceCreateByPromptVersionId):
+            promptVersion = await promptVersion_crud.get(
+                db, obj_in.prompt_version_id, current_user=current_user
+            )  # raises ItemNotFound HTTP if not found or not permitted
+        else:
+            raise NotImplementedError(
+                "inference by prompt_id is WIP"
+            )  # FIXME: implement inference by prompt_id
 
         if promptVersion.status == PromptVersionStatus.DRAFT:
             raise EndPointValidationError(
