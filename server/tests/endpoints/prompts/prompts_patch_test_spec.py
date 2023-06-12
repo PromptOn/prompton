@@ -8,7 +8,6 @@ from tests.utils import TestSpecList
 
 test_db_data = {"prompts": [PROMPT_MIN_FIELDS, PROMPT_ARCHIVED_ORG2]}
 
-# TODO: test permissions: can only patch own org's prompts
 test_specs_patch: TestSpecList = [
     {
         "spec_id": "all fields",
