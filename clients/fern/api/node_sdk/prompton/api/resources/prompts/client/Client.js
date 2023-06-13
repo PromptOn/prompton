@@ -57,7 +57,7 @@ class Prompts {
     getPromptList() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "prompts"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "prompts"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -114,7 +114,7 @@ class Prompts {
     addPrompt(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "prompts"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "prompts"),
                 method: "POST",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -166,7 +166,7 @@ class Prompts {
     getPromptById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, `prompts/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), `prompts/${id}`),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -224,7 +224,7 @@ class Prompts {
     updatePrompt(id, request = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, `prompts/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), `prompts/${id}`),
                 method: "PATCH",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -282,7 +282,7 @@ class Prompts {
     deletePrompt(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, `prompts/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), `prompts/${id}`),
                 method: "DELETE",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),

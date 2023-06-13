@@ -11,7 +11,7 @@ import { Orgs } from "./api/resources/orgs/client/Client";
 import { Users } from "./api/resources/users/client/Client";
 export declare namespace PromptonApiClient {
     interface Options {
-        environment: string;
+        environment: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
