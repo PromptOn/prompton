@@ -20,16 +20,19 @@ class TestInput(TypedDict, total=False):
     id: str
 
 
+CustomValidatorFn = Callable[[dict[str, Any]], bool]
+
+
 class TestSpecMin(TypedDict):
     spec_id: str
     mock_user: Dict[str, Any] | None
     input: TestInput
-    expected: Dict[str, Any] | List[Any] | int
+    expected: Dict[str, Any] | List[Any] | int | CustomValidatorFn
 
 
 class TestSpec(TestSpecMin, total=False):
     mock_exception: Exception
-    expected_db: Dict[str, Any] | List[Any]
+    expected_db: Dict[str, Any] | List[Any] | CustomValidatorFn
     expected_status_code: int
 
 
