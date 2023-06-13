@@ -1,5 +1,5 @@
 from enum import Enum
-from pydantic import EmailStr, Extra, Field, SecretStr
+from pydantic import EmailStr, Extra, SecretStr
 
 from src.schemas.base import (
     AllOptional,

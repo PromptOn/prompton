@@ -2,18 +2,13 @@
 
 import copy
 from enum import Enum
-import enum
-import json
 import re
 from types import NoneType
-from typing import Any, Callable, Coroutine, Dict, List, Optional, TypeVar, TypedDict
+from typing import Any, Callable, Coroutine, Dict, List, TypeVar, TypedDict
 import bson
-from httpx import AsyncClient
+from httpx import AsyncClient, Response as HttpxResponse
 from datetime import datetime
 
-from httpx import AsyncClient, Response as HttpxResponse
-
-from tests.shared_test_data import ORG2
 
 MockDBData = Dict[str, List[Dict[str, Any]]]
 

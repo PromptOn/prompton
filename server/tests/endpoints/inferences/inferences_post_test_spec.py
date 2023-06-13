@@ -8,12 +8,7 @@ from tests.endpoints.inferences.inference_test_records import (
     VALID_TEMPLATE,
 )
 
-from tests.shared_test_data import (
-    DEFAULT_RAW_COMPLETITION_REQUEST,
-    ORG1,
-    USER_BASIC,
-    USER_SUPER_ADMIN,
-)
+from tests.shared_test_data import DEFAULT_RAW_COMPLETITION_REQUEST, ORG1, USER_BASIC
 from tests.utils import TestInput, TestSpecList
 
 
@@ -85,7 +80,6 @@ expected_all_fields_head = {
     "end_user_id": "u1",
     "source": "s1",
     "template_args": {"arg1": "v1", "arg2": "v2"},
-    "metadata": {"meta1": "m1"},
     "prompt_id": PROMPT_ID1,
     "prompt_version_id": LIVE_PROMPT_VERSION_DB["_id"],
     "prompt_version_name": "prompt v1",

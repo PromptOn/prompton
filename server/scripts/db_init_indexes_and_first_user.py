@@ -1,12 +1,11 @@
-""" Performs initial setup of the database:
-- indexes 
+"""Performs initial setup of the database:
+- indexes
 - initial SuperAdmin user + org set in env vars:
    - PROMPTON_ORG_NAME, PROMPTON_ORG_OPENAI_API_KEY
    - PROMPTON_USER_EMAIL, PROMPTON_USER_PASSWORD_HASH
 Should be part of a db migrations system when we have more than one migration to run.
 
-NB: this is practically a duplicate of the dev DB docker init scripts in mongo_init_docker-dev 
-
+NB: this is practically a duplicate of the dev DB docker init scripts in mongo_init_docker-dev
 """
 import asyncio
 import os

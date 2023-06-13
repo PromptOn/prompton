@@ -2,7 +2,6 @@ from bson import ObjectId
 import pytest
 
 from src.core.auth import get_hashed_password, verify_password
-from src.schemas.user import UserInDB
 
 PASSWORD_HASH_foo = "$2b$12$4MvKPux4R8AWrA/FFTW5muiVrYKqS.7NlQOA6N81U0lATUoijV4NK"
 PASSWORD_HASH_bar = "$2b$12$ZYZMqs2CsDA./fueQkwQceorkm1xOLm5j6yGLF206.Glfwncbo2PG"

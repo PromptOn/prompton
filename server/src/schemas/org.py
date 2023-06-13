@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict
 from pydantic import Extra, SecretStr
 from src.schemas.base import (
     AllOptional,

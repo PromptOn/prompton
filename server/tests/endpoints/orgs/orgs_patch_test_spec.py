@@ -1,5 +1,3 @@
-import pytest
-
 from tests.shared_test_data import (
     ORG1,
     ORG2,

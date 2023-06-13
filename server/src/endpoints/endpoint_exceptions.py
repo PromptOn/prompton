@@ -23,7 +23,7 @@ class NotImplementedException(HTTPException):
         if featureName:
             self.message = f"{featureName} not implemented"
         else:
-            self.message = f"Feature not implemented"
+            self.message = "Feature not implemented"
         super().__init__(
             status_code=status.HTTP_405_METHOD_NOT_ALLOWED, detail=self.message
         )
@@ -113,6 +113,6 @@ class EmailAlreadyExistsError(HTTPException):
 
 class CredentialExpiredError(HTTPException):
     def __init__(self):
-        self.message = f"Authorization token has expired. Re-authorize and try again"
+        self.message = "Authorization token has expired. Re-authorize and try again"
 
         super().__init__(status_code=status.HTTP_401_UNAUTHORIZED, detail=self.message)

@@ -9,7 +9,7 @@ from tests.shared_test_data import (
     USER_ORG_ADMIN,
     USER_SUPER_ADMIN,
 )
-from tests.utils import MockDBData, TestSpecList, remove_props
+from tests.utils import TestSpecList, remove_props
 
 test_db_data = {
     "prompts": [
