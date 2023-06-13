@@ -14,7 +14,9 @@ class UserRead(pydantic.BaseModel):
     created_at: typing.Optional[str]
     created_by_user_id: typing.Optional[str]
     created_by_org_id: typing.Optional[str]
-    full_name: typing.Optional[str] = pydantic.Field(description=("`non-empty`\n"))
+    full_name: typing.Optional[str] = pydantic.Field(
+        description=('<span style="white-space: nowrap">`non-empty`</span>\n')
+    )
     disabled: typing.Optional[bool]
     role: typing.Optional[UserRoles]
     org_id: str

@@ -2,10 +2,15 @@ from fastapi import HTTPException, status
 
 
 class ItemNotFoundException(HTTPException):
-    def __init__(self, id, collection_name: str | None = None):
+    def __init__(
+        self, id, collection_name: str | None = None, message: str | None = None
+    ):
         self.id = id
         self.collection_name = collection_name
-        self.message = f"Item id {id} not found or current user has no permission to access it. (collection: {collection_name})"
+        self.message = (
+            message
+            or f"Item id {id} not found or current user has no permission to access it. (collection: {collection_name})"
+        )
         super().__init__(status_code=status.HTTP_404_NOT_FOUND, detail=self.message)
 
 
@@ -23,7 +28,7 @@ class NotImplementedException(HTTPException):
         if featureName:
             self.message = f"{featureName} not implemented"
         else:
-            self.message = f"Feature not implemented"
+            self.message = "Feature not implemented"
         super().__init__(
             status_code=status.HTTP_405_METHOD_NOT_ALLOWED, detail=self.message
         )
@@ -113,6 +118,6 @@ class EmailAlreadyExistsError(HTTPException):
 
 class CredentialExpiredError(HTTPException):
     def __init__(self):
-        self.message = f"Authorization token has expired. Re-authorize and try again"
+        self.message = "Authorization token has expired. Re-authorize and try again"
 
         super().__init__(status_code=status.HTTP_401_UNAUTHORIZED, detail=self.message)

@@ -14,6 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+__exportStar(require("./NewInferenceRequest"), exports);
 __exportStar(require("./ApiStatusResponse"), exports);
 __exportStar(require("./BodyGetAccessTokenExtendedTokenPost"), exports);
 __exportStar(require("./ChatGptChatCompletitionConfig"), exports);
@@ -27,6 +28,8 @@ __exportStar(require("./ChatGptRole"), exports);
 __exportStar(require("./ChatGptTokenUsage"), exports);
 __exportStar(require("./DbStatus"), exports);
 __exportStar(require("./HttpValidationError"), exports);
+__exportStar(require("./InferenceCreateByPromptId"), exports);
+__exportStar(require("./InferenceCreateByPromptVersionId"), exports);
 __exportStar(require("./InferencePostResponse"), exports);
 __exportStar(require("./InferencePostResponseResponse"), exports);
 __exportStar(require("./InferenceRead"), exports);

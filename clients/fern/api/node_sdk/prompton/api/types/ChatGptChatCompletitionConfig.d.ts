@@ -3,7 +3,7 @@
  */
 import * as PromptonApi from "..";
 export interface ChatGptChatCompletitionConfig {
-    /** `non-empty` */
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     model?: string;
     temperature?: number;
     topP?: number;

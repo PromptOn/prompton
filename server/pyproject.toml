@@ -28,6 +28,11 @@ deepdiff = "^6.3.0"
 python-dotenv = "^1.0.0"
 pyyaml = "^6.0"
 types-pyyaml = "^6.0.12.10"
+types-python-jose = "^3.3.4.7"
+types-passlib = "^1.7.7.12"
+pyright = "^1.1.313"
+flake8 = "^6.0.0"
+flake8-black = "^0.3.6"
 
 [build-system]
 requires = ["poetry-core"]

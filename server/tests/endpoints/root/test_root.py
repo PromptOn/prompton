@@ -1,6 +1,5 @@
 import pytest
 from httpx import AsyncClient
-from deepdiff import DeepDiff
 
 
 @pytest.mark.anyio

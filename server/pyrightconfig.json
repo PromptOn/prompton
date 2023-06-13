@@ -1,0 +1,17 @@
+{
+    "include": [
+        "src",
+        "tests",
+        "scripts",
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/__pycache__"
+    ],
+    "reportUnusedImport": "warning",
+    "ignore": [
+        "*/deepdiff/*",
+        "**/motor/motor_asyncio.py",
+        "**/mongomock_motor/**/*.py"
+    ]
+}

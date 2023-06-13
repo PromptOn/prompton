@@ -17,6 +17,7 @@ export declare namespace InferenceRead {
         metadata?: Record<string, unknown> | null;
         request_timeout?: number | null;
         prompt_version_id: string;
+        prompt_version_ids_considered?: string[] | null;
         prompt_id: string;
         prompt_version_name?: string | null;
         status?: serializers.InferenceResponseStatus.Raw | null;

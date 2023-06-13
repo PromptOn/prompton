@@ -1,4 +1,3 @@
-from bson import ObjectId
 import pytest
 from httpx import AsyncClient
 
@@ -8,7 +7,6 @@ from src.asgi import app
 from .conftest_mock_db import *
 from .conftest_mock_openai import *
 from .conftest_mock_auth import *
-from src.core.settings import settings
 
 
 @pytest.fixture(scope="session")

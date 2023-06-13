@@ -16,12 +16,17 @@ class InferenceRead(pydantic.BaseModel):
     created_at: typing.Optional[str]
     created_by_user_id: typing.Optional[str]
     created_by_org_id: typing.Optional[str]
-    end_user_id: str = pydantic.Field(description=("`non-empty`\n"))
-    source: str = pydantic.Field(description=("`non-empty`\n"))
+    end_user_id: str = pydantic.Field(description=('<span style="white-space: nowrap">`non-empty`</span>\n'))
+    source: str = pydantic.Field(description=('<span style="white-space: nowrap">`non-empty`</span>\n'))
     template_args: typing.Optional[typing.Dict[str, str]]
     metadata: typing.Optional[typing.Dict[str, typing.Any]]
     request_timeout: typing.Optional[float]
     prompt_version_id: str
+    prompt_version_ids_considered: typing.Optional[typing.List[str]] = pydantic.Field(
+        description=(
+            "If inference was by prompt_id then a list of all other prompt versions considered for this inference. I.e. all prompt versions in Live status at the time of the inference\n"
+        )
+    )
     prompt_id: str
     prompt_version_name: typing.Optional[str]
     status: typing.Optional[InferenceResponseStatus]

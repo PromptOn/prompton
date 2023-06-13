@@ -1,6 +1,4 @@
-from typing import Any, Dict, List
 from bson import ObjectId
-import pytest
 
 from tests.shared_test_data import USER_BASIC
 from tests.utils import TestSpecList

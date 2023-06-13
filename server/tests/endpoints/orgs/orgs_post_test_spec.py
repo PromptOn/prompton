@@ -1,5 +1,3 @@
-import pytest
-
 from tests.shared_test_data import (
     USER_BASIC,
     USER_ORG_ADMIN,

@@ -17,7 +17,8 @@ from src.endpoints.endpoint_exceptions import (
 )
 
 from src.schemas.inference import (
-    InferenceCreate,
+    InferenceCreateByPromptId,
+    InferenceCreateByPromptVersionId,
     InferencePostResponse,
     InferenceRead,
     InferenceResponseError,
@@ -95,10 +96,37 @@ async def get_inference_by_id(
 )
 async def new_inference(
     request: Request,
-    inferenceRequest: InferenceCreate,
+    inferenceRequest: InferenceCreateByPromptVersionId | InferenceCreateByPromptId,
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
     db=Depends(get_db),
 ) -> InferencePostResponse:
+    """The core of the functionality:
+    1. Populating the template from prompt version with the passed values
+    2. Logging the request
+    3. Sending request to provider
+    4. Logging response
+    4. Returning response with `inference_id`
+
+    You can specify which prompt version you want to use in two ways by setting on of:
+
+     - `prompt_version_id` - uses the specified prompt version
+     - `prompt_id` - uses the `Live` status prompt version assigned to the given `prompt_id`. This allows to release new prompt versions using Prompton API if you only reference `prompt_id` in your client code.
+
+         If there are multiple  prompt versions in `Live` status for the prompt_id then it picks one randomly. It's useful for split testing.
+         This method will return an error if there is no `Live` status message.
+
+    It also handles errors, timeouts and sets the inference status accordingly. It will still process response if client disconnects before it arrives.
+
+    _Note: raw request data is also logged, GET `inferences/{id}` reponse includes it as well._
+
+    You can use a few easter eggs to test it without a valid api key:
+
+      - `"end_user_id": "mock_me_softly"`
+      - `"end_user_id": "timeout_me_softly"`
+      - `"end_user_id": "fail_me_softly"`
+
+    """
+
     # NB: The processing doesn't stop if client disconnects See: https://github.com/tiangolo/fastapi/discussions/8805
 
     try:

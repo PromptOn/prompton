@@ -1,11 +1,10 @@
-""" DB Creates a DB user for the API 
-Not in use currently because using Mongo Atlas provided user 
+""" DB Creates a DB user for the API
+Not in use currently because using Mongo Atlas provided user
 using the env vars:
- - MONGO_DATABASE, MONGO_USER, MONGO_PASSWORD, 
+ - MONGO_DATABASE, MONGO_USER, MONGO_PASSWORD,
  - MONGO_INITDB_ADMIN_URL, MONGO_INITDB_ROOT_USERNAME, MONGO_INITDB_ROOT_PASSWORD
 
-NB: this is practially a duplicate of the dev DB docker init script in mongo_init_docker-dev 
-
+NB: this is practially a duplicate of the dev DB docker init script in mongo_init_docker-dev
 """
 import asyncio
 import os

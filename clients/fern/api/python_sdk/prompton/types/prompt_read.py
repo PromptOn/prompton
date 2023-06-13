@@ -15,7 +15,7 @@ class PromptRead(pydantic.BaseModel):
     created_by_user_id: typing.Optional[str]
     created_by_org_id: typing.Optional[str]
     status: typing.Optional[PromptStatus]
-    name: str = pydantic.Field(description=("`non-empty`\n"))
+    name: str = pydantic.Field(description=('<span style="white-space: nowrap">`non-empty`</span>\n'))
     description: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:

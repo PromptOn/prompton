@@ -26,9 +26,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InferenceCreate = void 0;
-const core = __importStar(require("../../../../../core"));
-exports.InferenceCreate = core.serialization.object({
+exports.InferenceCreateByPromptVersionId = void 0;
+const core = __importStar(require("../../core"));
+exports.InferenceCreateByPromptVersionId = core.serialization.object({
     endUserId: core.serialization.property("end_user_id", core.serialization.string()),
     source: core.serialization.string(),
     templateArgs: core.serialization.property("template_args", core.serialization.record(core.serialization.string(), core.serialization.string()).optional()),

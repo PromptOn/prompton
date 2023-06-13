@@ -7,14 +7,16 @@ export interface InferenceRead {
     createdAt?: string;
     createdByUserId?: string;
     createdByOrgId?: string;
-    /** `non-empty` */
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     endUserId: string;
-    /** `non-empty` */
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     source: string;
     templateArgs?: Record<string, string>;
     metadata?: Record<string, unknown>;
     requestTimeout?: number;
     promptVersionId: string;
+    /** If inference was by prompt_id then a list of all other prompt versions considered for this inference. I.e. all prompt versions in Live status at the time of the inference */
+    promptVersionIdsConsidered?: string[];
     promptId: string;
     promptVersionName?: string;
     status?: PromptonApi.InferenceResponseStatus;

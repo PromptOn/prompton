@@ -2,9 +2,6 @@ import asyncio
 import time
 import openai
 
-from src.core.database import get_db
-from src.crud.promptVersion import promptVersion_crud
-from src.core.utils import str_to_ObjectId
 from src.schemas.openAI import (
     ChatGPTChatCompletitionRequest,
     ChatGPTChatCompletitionResponse,
@@ -13,7 +10,6 @@ from src.schemas.inference import (
     InferenceResponseData,
     InferenceResponseError,
 )
-from src.schemas.promptVersion import PromptVersionStatus
 from src.core.settings import settings
 
 

@@ -8,7 +8,7 @@ export interface PromptRead {
     createdByUserId?: string;
     createdByOrgId?: string;
     status?: PromptonApi.PromptStatus;
-    /** `non-empty` */
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
     description?: string;
 }

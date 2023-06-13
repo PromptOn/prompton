@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "prompton-ui-streamlit"
-version = "0.1.0"
+version = "0.1.1"
 description = "Example UI for prompton API using prompton Python SDK and Streamit"
 authors = ["PromptOn <hello@prompton.ai>"]
 license = "MIT"
@@ -9,7 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.10"
 streamlit = "^1.23.1"
-prompton = "^0.0.2"
+prompton = "^0.0.3"
 
 
 [build-system]
