@@ -47,6 +47,13 @@ devdb-init-purge:
   poetry run python -m scripts.db_init_add_api_user
   poetry run python -m scripts.db_init_indexes_and_first_user
 
+lint:
+  poetry run mypy src/ tests/ scripts/
+  poetry run pyright
+
+lint-flake8:
+  poetry run flake8 src/ tests/ scripts/
+
 build-docker:
   docker build -t prompton-api-server:localdev . 
 
