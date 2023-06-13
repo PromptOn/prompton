@@ -3,12 +3,12 @@
  */
 import * as PromptonApi from "../../../..";
 export interface UserCreate {
-    /** `non-empty` */
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     fullName?: string;
     disabled?: boolean;
     role?: PromptonApi.UserRoles;
     orgId: string;
     email: string;
-    /** `non-empty` */
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     plainPassword: string;
 }

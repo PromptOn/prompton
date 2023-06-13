@@ -19,7 +19,7 @@ class PromptVersionRead(pydantic.BaseModel):
     created_by_org_id: typing.Optional[str]
     status: typing.Optional[PromptVersionStatus]
     provider: typing.Optional[PromptVersionProviders]
-    name: str = pydantic.Field(description=("`non-empty`\n"))
+    name: str = pydantic.Field(description=('<span style="white-space: nowrap">`non-empty`</span>\n'))
     description: typing.Optional[str]
     prompt_id: str
     template: typing.Optional[typing.List[ChatGptMessage]]

@@ -74,7 +74,6 @@ test_specs_post: TestSpecList = [
             **MIN_VALID_TESTING,
             "provider": "OpenAI",
             "description": None,
-            "model_config": VALID_CONFIG,
             "template": [{**VALID_TEMPLATE, "name": None}],
             "model_config": {**DEFAULT_MODEL_CONFIG, **VALID_CONFIG},
             "template_arg_names": ["var"],

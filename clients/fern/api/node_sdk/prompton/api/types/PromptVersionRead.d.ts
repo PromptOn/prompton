@@ -9,7 +9,7 @@ export interface PromptVersionRead {
     createdByOrgId?: string;
     status?: PromptonApi.PromptVersionStatus;
     provider?: PromptonApi.PromptVersionProviders;
-    /** `non-empty` */
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
     description?: string;
     promptId: string;

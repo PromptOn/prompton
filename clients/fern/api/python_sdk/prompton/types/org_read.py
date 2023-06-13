@@ -13,7 +13,7 @@ class OrgRead(pydantic.BaseModel):
     created_at: typing.Optional[str]
     created_by_user_id: typing.Optional[str]
     created_by_org_id: typing.Optional[str]
-    name: str = pydantic.Field(description=("`non-empty`\n"))
+    name: str
     access_keys: typing.Optional[typing.Dict[str, str]]
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -16,7 +16,6 @@ PROMPT_VERSION_ID2 = ObjectId("646bae490e5a37458856d10d")
 PROMPT_ID3 = ObjectId("6468b05c1e5a374588560000")
 PROMPT_VERSION_ID3 = ObjectId("646bae490e5a374588511111")
 
-
 LIVE_PROMPT_VERSION_DB: Dict[str, Any] = {
     "_id": ObjectId("645d786f180786983c9eede6"),
     "created_at": "2023-05-15T15:46:02.051309",
@@ -31,6 +30,7 @@ LIVE_PROMPT_VERSION_DB: Dict[str, Any] = {
     "model_config": {"model": "gpt-5", "temperature": 0.5, "max_tokens": 100},
     "template_arg_names": ["arg1", "arg2"],
 }
+
 
 DRAFT_PROMPT_VERSION_DB = {
     **LIVE_PROMPT_VERSION_DB,
@@ -51,6 +51,10 @@ PROCESSED_INFERENCE: Dict[str, Any] = {
     "prompt_id": PROMPT_ID1,
     "prompt_version_id": PROMPT_VERSION_ID1,
     "prompt_version_name": "random number v1",
+    "prompt_version_ids_considered": [
+        ObjectId("ffffffffffffffffffffffff"),
+        ObjectId("eeeeeeeeeeeeeeeeeeeeeeee"),
+    ],
     "status": "Processed",
     "request": {
         "provider": "OpenAI",
@@ -133,6 +137,7 @@ ERROR_INFERENCE = {
     "prompt_id": PROMPT_ID2,
     "prompt_version_id": PROMPT_VERSION_ID2,
     "prompt_version_name": "random number v1",
+    "prompt_version_ids_considered": [],
     "status": "CompletitionError",
     "request": {
         "provider": "OpenAI",
@@ -194,6 +199,7 @@ TIMEOUT_INFERENCE = {
     "prompt_id": PROMPT_ID2,
     "prompt_version_id": PROMPT_VERSION_ID2,
     "prompt_version_name": "random number v1",
+    "prompt_version_ids_considered": [],
     "status": "CompletitionTimeout",
     "request": {
         "provider": "OpenAI",

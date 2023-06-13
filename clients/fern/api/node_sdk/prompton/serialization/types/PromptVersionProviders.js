@@ -28,4 +28,4 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PromptVersionProviders = void 0;
 const core = __importStar(require("../../core"));
-exports.PromptVersionProviders = core.serialization.enum_(["OpenAI"]);
+exports.PromptVersionProviders = core.serialization.stringLiteral("OpenAI");

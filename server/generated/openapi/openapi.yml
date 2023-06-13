@@ -396,12 +396,32 @@ paths:
       tags:
       - inferences
       summary: New Inference
+      description: "The core of the functionality:\n1. Populating the template from\
+        \ prompt version with the passed values\n2. Logging the request\n3. Sending\
+        \ request to provider\n4. Logging response\n4. Returning response with `inference_id`\n\
+        \nYou can specify which prompt version you want to use in two ways by setting\
+        \ on of:\n\n - `prompt_version_id` - uses the specified prompt version\n -\
+        \ `prompt_id` - uses the `Live` status prompt version assigned to the given\
+        \ `prompt_id`. This allows to release new prompt versions using Prompton API\
+        \ if you only reference `prompt_id` in your client code.\n\n     If there\
+        \ are multiple  prompt versions in `Live` status for the prompt_id then it\
+        \ picks one randomly. It's useful for split testing.\n     This method will\
+        \ return an error if there is no `Live` status message.\n\nIt also handles\
+        \ errors, timeouts and sets the inference status accordingly. It will still\
+        \ process response if client disconnects before it arrives.\n\n_Note: raw\
+        \ request data is also logged, GET `inferences/{id}` reponse includes it as\
+        \ well._\n\nYou can use a few easter eggs to test it without a valid api key:\n\
+        \n  - `\"end_user_id\": \"mock_me_softly\"`\n  - `\"end_user_id\": \"timeout_me_softly\"\
+        `\n  - `\"end_user_id\": \"fail_me_softly\"`"
       operationId: new_inference
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/InferenceCreate'
+              title: Inferencerequest
+              anyOf:
+              - $ref: '#/components/schemas/InferenceCreateByPromptVersionId'
+              - $ref: '#/components/schemas/InferenceCreateByPromptId'
         required: true
       responses:
         '201':
@@ -981,8 +1001,47 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ValidationError'
-    InferenceCreate:
-      title: InferenceCreate
+    InferenceCreateByPromptId:
+      title: InferenceCreateByPromptId
+      required:
+      - end_user_id
+      - source
+      - prompt_id
+      type: object
+      properties:
+        end_user_id:
+          title: End User Id
+          minLength: 1
+          type: string
+        source:
+          title: Source
+          minLength: 1
+          type: string
+        template_args:
+          title: Template Args
+          type: object
+          additionalProperties:
+            type: string
+        metadata:
+          title: Metadata
+          type: object
+        request_timeout:
+          title: Request Timeout
+          type: number
+        prompt_id:
+          title: Prompt Id
+          type: string
+      additionalProperties: false
+      description: 'Create inference by `prompt_id`. It can only be used if there
+        is at least one ''Live'' status prompt version for the provided `prompt_id`.
+
+        If there are multiple prompt versions in Live status it will pick one randomly.
+        Useful for split testing prompt versions.
+
+        It stores all other `prompt_version_id`s in Live status at the time of the
+        inference in `prompt_version_ids_considered` field.'
+    InferenceCreateByPromptVersionId:
+      title: InferenceCreateByPromptVersionId
       required:
       - end_user_id
       - source
@@ -1072,6 +1131,15 @@ components:
         prompt_version_id:
           title: Prompt Version Id
           type: string
+        prompt_version_ids_considered:
+          title: Prompt Version Ids Considered
+          type: array
+          items:
+            type: string
+          description: If inference was by prompt_id then a list of all other prompt
+            versions considered for this inference. I.e. all prompt versions in Live
+            status at the time of the inference
+          default: []
         prompt_id:
           title: Prompt Id
           type: string

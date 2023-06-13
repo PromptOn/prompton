@@ -2,18 +2,13 @@
 
 import copy
 from enum import Enum
-import enum
-import json
 import re
 from types import NoneType
-from typing import Any, Callable, Coroutine, Dict, List, Optional, TypeVar, TypedDict
+from typing import Any, Callable, Coroutine, Dict, List, TypeVar, TypedDict
 import bson
-from httpx import AsyncClient
+from httpx import AsyncClient, Response as HttpxResponse
 from datetime import datetime
 
-from httpx import AsyncClient, Response as HttpxResponse
-
-from tests.shared_test_data import ORG2
 
 MockDBData = Dict[str, List[Dict[str, Any]]]
 
@@ -25,16 +20,19 @@ class TestInput(TypedDict, total=False):
     id: str
 
 
+CustomValidatorFn = Callable[[dict[str, Any]], bool]
+
+
 class TestSpecMin(TypedDict):
     spec_id: str
     mock_user: Dict[str, Any] | None
     input: TestInput
-    expected: Dict[str, Any] | List[Any] | int
+    expected: Dict[str, Any] | List[Any] | int | CustomValidatorFn
 
 
 class TestSpec(TestSpecMin, total=False):
     mock_exception: Exception
-    expected_db: Dict[str, Any] | List[Any]
+    expected_db: Dict[str, Any] | List[Any] | CustomValidatorFn
     expected_status_code: int
 
 

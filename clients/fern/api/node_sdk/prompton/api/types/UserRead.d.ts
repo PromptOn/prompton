@@ -7,7 +7,7 @@ export interface UserRead {
     createdAt?: string;
     createdByUserId?: string;
     createdByOrgId?: string;
-    /** `non-empty` */
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     fullName?: string;
     disabled?: boolean;
     role?: PromptonApi.UserRoles;
