@@ -1,4 +1,5 @@
 # Client SDK generation scripts
+# TODO: clean and build all clients before generating
 
 default: 
   just --list
@@ -6,5 +7,7 @@ default:
 install:
   npm install
 
+# updates openapi.yml from server/generated and generates clients with fern
 generate-clients:
+  cp ../server/generated/openapi/openapi.yml fern/api/openapi
   npx fern generate
