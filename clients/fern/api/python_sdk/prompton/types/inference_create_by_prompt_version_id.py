@@ -6,21 +6,15 @@ import typing
 import pydantic
 
 from ..core.datetime_utils import serialize_datetime
-from .user_roles import UserRoles
 
 
-class UserRead(pydantic.BaseModel):
-    id: typing.Optional[str] = pydantic.Field(alias="_id")
-    created_at: typing.Optional[str]
-    created_by_user_id: typing.Optional[str]
-    created_by_org_id: typing.Optional[str]
-    full_name: typing.Optional[str] = pydantic.Field(
-        description=('<span style="white-space: nowrap">`non-empty`</span>\n')
-    )
-    disabled: typing.Optional[bool]
-    role: typing.Optional[UserRoles]
-    org_id: str
-    email: str
+class InferenceCreateByPromptVersionId(pydantic.BaseModel):
+    end_user_id: str = pydantic.Field(description=('<span style="white-space: nowrap">`non-empty`</span>\n'))
+    source: str = pydantic.Field(description=('<span style="white-space: nowrap">`non-empty`</span>\n'))
+    template_args: typing.Optional[typing.Dict[str, str]]
+    metadata: typing.Optional[typing.Dict[str, typing.Any]]
+    request_timeout: typing.Optional[float]
+    prompt_version_id: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -32,5 +26,4 @@ class UserRead(pydantic.BaseModel):
 
     class Config:
         frozen = True
-        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

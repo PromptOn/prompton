@@ -16,9 +16,7 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.inference_post_response import InferencePostResponse
 from ...types.inference_read import InferenceRead
-
-# this is used as the default value for optional parameters
-OMIT = typing.cast(typing.Any, ...)
+from ...types.new_inference_request import NewInferenceRequest
 
 
 class InferencesClient:
@@ -54,31 +52,11 @@ class InferencesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def new_inference(
-        self,
-        *,
-        end_user_id: str,
-        source: str,
-        template_args: typing.Optional[typing.Dict[str, str]] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
-        request_timeout: typing.Optional[float] = OMIT,
-        prompt_version_id: str,
-    ) -> InferencePostResponse:
-        _request: typing.Dict[str, typing.Any] = {
-            "end_user_id": end_user_id,
-            "source": source,
-            "prompt_version_id": prompt_version_id,
-        }
-        if template_args is not OMIT:
-            _request["template_args"] = template_args
-        if metadata is not OMIT:
-            _request["metadata"] = metadata
-        if request_timeout is not OMIT:
-            _request["request_timeout"] = request_timeout
+    def new_inference(self, *, request: NewInferenceRequest) -> InferencePostResponse:
         _response = httpx.request(
             "POST",
             urllib.parse.urljoin(f"{self._environment}/", "inferences"),
-            json=jsonable_encoder(_request),
+            json=jsonable_encoder(request),
             headers=remove_none_from_headers(
                 {"Authorization": f"Bearer {self._token}" if self._token is not None else None}
             ),
@@ -158,32 +136,12 @@ class AsyncInferencesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def new_inference(
-        self,
-        *,
-        end_user_id: str,
-        source: str,
-        template_args: typing.Optional[typing.Dict[str, str]] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
-        request_timeout: typing.Optional[float] = OMIT,
-        prompt_version_id: str,
-    ) -> InferencePostResponse:
-        _request: typing.Dict[str, typing.Any] = {
-            "end_user_id": end_user_id,
-            "source": source,
-            "prompt_version_id": prompt_version_id,
-        }
-        if template_args is not OMIT:
-            _request["template_args"] = template_args
-        if metadata is not OMIT:
-            _request["metadata"] = metadata
-        if request_timeout is not OMIT:
-            _request["request_timeout"] = request_timeout
+    async def new_inference(self, *, request: NewInferenceRequest) -> InferencePostResponse:
         async with httpx.AsyncClient() as _client:
             _response = await _client.request(
                 "POST",
                 urllib.parse.urljoin(f"{self._environment}/", "inferences"),
-                json=jsonable_encoder(_request),
+                json=jsonable_encoder(request),
                 headers=remove_none_from_headers(
                     {"Authorization": f"Bearer {self._token}" if self._token is not None else None}
                 ),

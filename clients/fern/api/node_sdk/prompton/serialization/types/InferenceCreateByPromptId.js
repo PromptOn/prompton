@@ -26,6 +26,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PromptVersionProviders = void 0;
+exports.InferenceCreateByPromptId = void 0;
 const core = __importStar(require("../../core"));
-exports.PromptVersionProviders = core.serialization.stringLiteral("OpenAI");
+exports.InferenceCreateByPromptId = core.serialization.object({
+    endUserId: core.serialization.property("end_user_id", core.serialization.string()),
+    source: core.serialization.string(),
+    templateArgs: core.serialization.property("template_args", core.serialization.record(core.serialization.string(), core.serialization.string()).optional()),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    requestTimeout: core.serialization.property("request_timeout", core.serialization.number().optional()),
+    promptId: core.serialization.property("prompt_id", core.serialization.string()),
+});

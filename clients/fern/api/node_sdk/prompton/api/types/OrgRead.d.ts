@@ -6,7 +6,6 @@ export interface OrgRead {
     createdAt?: string;
     createdByUserId?: string;
     createdByOrgId?: string;
-    /** `non-empty` */
     name: string;
     accessKeys?: Record<string, string>;
 }

@@ -13,6 +13,8 @@ from .chat_gpt_role import ChatGptRole
 from .chat_gpt_token_usage import ChatGptTokenUsage
 from .db_status import DbStatus
 from .http_validation_error import HttpValidationError
+from .inference_create_by_prompt_id import InferenceCreateByPromptId
+from .inference_create_by_prompt_version_id import InferenceCreateByPromptVersionId
 from .inference_post_response import InferencePostResponse
 from .inference_post_response_response import InferencePostResponseResponse
 from .inference_read import InferenceRead
@@ -21,6 +23,7 @@ from .inference_request_data import InferenceRequestData
 from .inference_response_data import InferenceResponseData
 from .inference_response_error import InferenceResponseError
 from .inference_response_status import InferenceResponseStatus
+from .new_inference_request import NewInferenceRequest
 from .org_read import OrgRead
 from .prompt_read import PromptRead
 from .prompt_status import PromptStatus
@@ -47,6 +50,8 @@ __all__ = [
     "ChatGptTokenUsage",
     "DbStatus",
     "HttpValidationError",
+    "InferenceCreateByPromptId",
+    "InferenceCreateByPromptVersionId",
     "InferencePostResponse",
     "InferencePostResponseResponse",
     "InferenceRead",
@@ -55,6 +60,7 @@ __all__ = [
     "InferenceResponseData",
     "InferenceResponseError",
     "InferenceResponseStatus",
+    "NewInferenceRequest",
     "OrgRead",
     "PromptRead",
     "PromptStatus",

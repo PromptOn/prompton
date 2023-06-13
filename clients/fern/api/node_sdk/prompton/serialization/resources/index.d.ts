@@ -7,6 +7,5 @@ export * as authentication from "./authentication";
 export * from "./authentication/client/requests";
 export * from "./prompts/client/requests";
 export * from "./promptVersions/client/requests";
-export * from "./inferences/client/requests";
 export * from "./orgs/client/requests";
 export * from "./users/client/requests";

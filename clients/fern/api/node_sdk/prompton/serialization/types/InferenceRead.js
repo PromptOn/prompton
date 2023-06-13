@@ -48,6 +48,7 @@ exports.InferenceRead = core.serialization.object({
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     requestTimeout: core.serialization.property("request_timeout", core.serialization.number().optional()),
     promptVersionId: core.serialization.property("prompt_version_id", core.serialization.string()),
+    promptVersionIdsConsidered: core.serialization.property("prompt_version_ids_considered", core.serialization.list(core.serialization.string()).optional()),
     promptId: core.serialization.property("prompt_id", core.serialization.string()),
     promptVersionName: core.serialization.property("prompt_version_name", core.serialization.string().optional()),
     status: core.serialization.lazy(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).InferenceResponseStatus; })).optional(),

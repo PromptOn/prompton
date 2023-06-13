@@ -36,6 +36,5 @@ exports.authentication = __importStar(require("./authentication"));
 __exportStar(require("./authentication/client/requests"), exports);
 __exportStar(require("./prompts/client/requests"), exports);
 __exportStar(require("./promptVersions/client/requests"), exports);
-__exportStar(require("./inferences/client/requests"), exports);
 __exportStar(require("./orgs/client/requests"), exports);
 __exportStar(require("./users/client/requests"), exports);

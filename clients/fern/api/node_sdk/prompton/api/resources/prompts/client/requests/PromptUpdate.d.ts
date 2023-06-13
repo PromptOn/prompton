@@ -4,7 +4,7 @@
 import * as PromptonApi from "../../../..";
 export interface PromptUpdate {
     status?: PromptonApi.PromptStatus;
-    /** `non-empty` */
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     name?: string;
     description?: string;
 }
