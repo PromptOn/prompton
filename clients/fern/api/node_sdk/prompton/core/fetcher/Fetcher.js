@@ -64,7 +64,7 @@ function fetcherImpl(args) {
                     };
                 }
             }
-            if (response.status >= 200 && response.status < 300) {
+            if (response.status >= 200 && response.status < 400) {
                 return {
                     ok: true,
                     body,

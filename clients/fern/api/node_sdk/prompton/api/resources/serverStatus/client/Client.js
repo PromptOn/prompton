@@ -50,7 +50,7 @@ class ServerStatus {
     getStatus() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "status"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "status"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),

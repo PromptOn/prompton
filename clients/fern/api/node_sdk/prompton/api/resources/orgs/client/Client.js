@@ -51,7 +51,7 @@ class Orgs {
     getOrgList() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "orgs"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "orgs"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -97,7 +97,7 @@ class Orgs {
     addOrg(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "orgs"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "orgs"),
                 method: "POST",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -149,7 +149,7 @@ class Orgs {
     getCurrentUserOrg() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "orgs/me"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "orgs/me"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -207,7 +207,7 @@ class Orgs {
     getOrgById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, `orgs/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), `orgs/${id}`),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -265,7 +265,7 @@ class Orgs {
     updateOrg(id, request = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, `orgs/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), `orgs/${id}`),
                 method: "PATCH",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),

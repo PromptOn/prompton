@@ -57,7 +57,7 @@ class Users {
     getUsersList() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "users"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "users"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -114,7 +114,7 @@ class Users {
     addNewUser(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "users"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "users"),
                 method: "POST",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -166,7 +166,7 @@ class Users {
     getCurrentUser() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "users/me"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "users/me"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -224,7 +224,7 @@ class Users {
     getUserById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, `users/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), `users/${id}`),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
