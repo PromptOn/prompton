@@ -1,0 +1,21 @@
+# Node SDK buld & deploy scripts
+default: 
+  just --list
+
+set dotenv-load
+set positional-arguments  
+
+
+build *params='':
+  cd dist && npm pack .. $@
+
+npm-info *params='':
+  npm config list
+  npm whoami
+
+whoami:
+  npm whoami
+
+# to PyPi - set NPM_ACCES_TOKEN in your .env
+publish *params='':
+  npm publish $@
