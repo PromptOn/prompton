@@ -36,7 +36,10 @@ class InferenceBase(MyBaseModel):
     )
     template_args: Optional[dict[str, str]] = Field(None)
     metadata: Optional[dict[str, Any]] = Field(None)
-    request_timeout: Optional[float] = Field(None)
+    request_timeout: Optional[float] = Field(
+        None,
+        description="Provider request timout in seconds. If not provided, then Prompton API's default timeout for the provider will be used (90sec or `DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS` env var if provided).",
+    )
 
 
 class InferenceCreateByPromptVersionId(InferenceBase, extra=Extra.forbid):
