@@ -36,9 +36,10 @@ async def run():
     await db.inferences.create_index([("created_by_org_id", ASCENDING)])
 
     await db.promptVersions.create_index([("prompt_id", ASCENDING)])
-    await db.inferences.create_index([("prompt_id", ASCENDING)])
 
+    await db.inferences.create_index([("prompt_id", ASCENDING)])
     await db.inferences.create_index([("prompt_version_id", ASCENDING)])
+    await db.inferences.create_index([("end_user_id", ASCENDING)])
 
     print("Adding inital user: ", os.getenv("PROMPTON_USER_EMAIL"))
     org = {
