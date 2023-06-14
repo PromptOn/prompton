@@ -16,6 +16,7 @@ npm-info *params='':
 whoami:
   npm whoami
 
-# to PyPi - set NPM_ACCES_TOKEN in your .env
+# to PyPi - set NPM_ACCESS_TOKEN in your .env
 publish *params='':
+  npm config set //registry.npmjs.org/:_authToken $NPM_ACCESS_TOKEN
   npm publish $@
