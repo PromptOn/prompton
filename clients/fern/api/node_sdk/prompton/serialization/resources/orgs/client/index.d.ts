@@ -1,2 +1,2 @@
-export * as getOrgList from "./getOrgList";
+export * as getOrgsList from "./getOrgsList";
 export * from "./requests";

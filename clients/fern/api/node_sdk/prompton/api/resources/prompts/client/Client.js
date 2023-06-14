@@ -54,7 +54,7 @@ class Prompts {
      * @throws {@link PromptonApi.NotFoundError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
-    getPromptList() {
+    getPromptsList() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "prompts"),
@@ -67,7 +67,7 @@ class Prompts {
                 timeoutMs: 60000,
             });
             if (_response.ok) {
-                return yield serializers.prompts.getPromptList.Response.parseOrThrow(_response.body, {
+                return yield serializers.prompts.getPromptsList.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

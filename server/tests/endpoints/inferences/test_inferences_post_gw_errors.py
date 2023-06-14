@@ -28,7 +28,9 @@ async def test_inference_post_openai_errors(
     input = test_spec.get("input", {})
     request_body = bson_to_json(input.get("request_body", {}))
     expected_response = bson_to_json(test_spec["expected"])
+    print(" --> expected response:", json.dumps(expected_response, indent=4))
     expected_db = bson_to_json(test_spec.get("expected_db", expected_response))
+    print(" --> expected db:", json.dumps(expected_db, indent=4))
 
     input_id = input.get("id")
     url = f"/inferences/{input_id}" if input_id else "/inferences"

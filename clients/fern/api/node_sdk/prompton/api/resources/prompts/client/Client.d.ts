@@ -18,7 +18,7 @@ export declare class Prompts {
      * @throws {@link PromptonApi.NotFoundError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
-    getPromptList(): Promise<PromptonApi.PromptRead[]>;
+    getPromptsList(): Promise<PromptonApi.PromptRead[]>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

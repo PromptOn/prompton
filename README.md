@@ -124,9 +124,8 @@ _The API is still in alpha, may change without notice. However, the schema is la
 
     ```json
     {
-        "prompt_version_id": "<your prompt version id>",
-        "end_user_id": "your_end_user_id_for_linking", 
-        "source": "swaggerdocs", 
+        "prompt_version_id": "<your prompt version id>", // or prompt_id and it will pick one of the Live prompt versions
+        "end_user_id": "your_end_user_id_for_linking",  // optional, passed on to provider
         "template_args": {"words_limit": "10", "what": "crazy"}
     }
     ```

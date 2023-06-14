@@ -7,7 +7,6 @@ export interface InferenceResponseData {
     completitionDurationSeconds?: number;
     isClientConnectedAtFinish?: boolean;
     isError?: boolean;
-    firstMessage: PromptonApi.ChatGptMessage;
     tokenUsage: PromptonApi.ChatGptTokenUsage;
     rawResponse: PromptonApi.ChatGptChatCompletitionResponse;
 }

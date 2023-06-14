@@ -15,3 +15,7 @@ build *params='':
 # to PyPi - set POETRY_PYPI_TOKEN_PYPI in your .env
 publish *params='':
   poetry publish $@
+
+build-publish:
+  just build
+  just publish

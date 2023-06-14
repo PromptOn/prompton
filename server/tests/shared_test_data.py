@@ -14,7 +14,12 @@ DEFAULT_MODEL_CONFIG = {
     "logit_bias": None,
 }
 
-DEFAULT_RAW_COMPLETITION_REQUEST = {**DEFAULT_MODEL_CONFIG, "n": 1, "stream": False}  # type: ignore[arg-type]
+DEFAULT_RAW_COMPLETITION_REQUEST = {
+    **DEFAULT_MODEL_CONFIG,
+    "n": 1,
+    "stream": False,
+    "user": None,
+}
 
 
 ORG_ID1 = ObjectId("bbbbbbbbbbbbbbbbbbbbbbb1")

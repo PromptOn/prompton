@@ -79,7 +79,6 @@ async def get_openai_chat_completition(
 
         response = InferenceResponseData(
             token_usage=raw_response.usage,
-            first_message=raw_response.choices[0].message,
             raw_response=raw_response,
         )
 

@@ -26,7 +26,7 @@ class PromptsClient:
         self._environment = environment
         self._token = token
 
-    def get_prompt_list(self) -> typing.List[PromptRead]:
+    def get_prompts_list(self) -> typing.List[PromptRead]:
         _response = httpx.request(
             "GET",
             urllib.parse.urljoin(f"{self._environment}/", "prompts"),
@@ -174,7 +174,7 @@ class AsyncPromptsClient:
         self._environment = environment
         self._token = token
 
-    async def get_prompt_list(self) -> typing.List[PromptRead]:
+    async def get_prompts_list(self) -> typing.List[PromptRead]:
         async with httpx.AsyncClient() as _client:
             _response = await _client.request(
                 "GET",

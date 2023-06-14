@@ -5,14 +5,12 @@ from pydantic import Extra, Field
 from src.schemas.openAI import (
     ChatGPTChatCompletitionRequest,
     ChatGPTChatCompletitionResponse,
-    ChatGPTMessage,
     ChatGPTTokenUsage,
 )
 
 from src.schemas.base import (
     MongoBase,
     MyBaseModel,
-    NonEmptyStrField,
     PyObjectId,
 )
 from src.schemas.promptVersion import PromptVersionProviders
@@ -28,11 +26,24 @@ class InferenceResponseStatus(str, Enum):
 # TODO: num_samples
 # TODO: streaming
 class InferenceBase(MyBaseModel):
-    end_user_id: NonEmptyStrField
-    source: NonEmptyStrField
+    end_user_id: str | None = Field(
+        None,
+        description="The API consumer's internal user reference for metrics. It is also relayed to the provider as part of the request if the provider supports it (eg. OpenAI's user field).",
+    )
+    source: str | None = Field(
+        None,
+        description="The API consumer's source for metrics (e.g. AndroidApp etc).",
+    )
+    client_ref_id: str | None = Field(
+        None,
+        description="The API consumer's internal reference id to able to link references to their sessions.",
+    )
     template_args: Optional[dict[str, str]] = Field(None)
     metadata: Optional[dict[str, Any]] = Field(None)
-    request_timeout: Optional[float] = Field(None)
+    request_timeout: Optional[float] = Field(
+        None,
+        description="Provider request timout in seconds. If not provided, then Prompton API's default timeout for the provider will be used (90sec or `DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS` env var if provided).",
+    )
 
 
 class InferenceCreateByPromptVersionId(InferenceBase, extra=Extra.forbid):
@@ -62,7 +73,6 @@ class InferenceResponseError(InferenceResponseBase):
 class InferenceResponseData(InferenceResponseBase):
     isError: bool = False
     # time_to_first: int = Field(None) # if streaming
-    first_message: ChatGPTMessage
     token_usage: ChatGPTTokenUsage
     raw_response: ChatGPTChatCompletitionResponse
 

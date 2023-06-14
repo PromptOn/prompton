@@ -7,7 +7,7 @@ class Settings(BaseSettings):
 
     DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS: float = 90
 
-    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     JWT_SECRET_KEY: str
     JWT_ALGORITHM: str = "HS256"
 
