@@ -31,7 +31,6 @@ expected_response = {
     "isError": False,
     "completition_duration_seconds": 66.6,  # ignored in test
     "is_client_connected_at_finish": None,
-    "first_message": mock_completition_data["choices"][0]["message"],  # type: ignore[index]
     "token_usage": mock_completition_data["usage"],
     "raw_response": mock_completition_data,
 }

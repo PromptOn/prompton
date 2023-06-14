@@ -185,7 +185,6 @@ test_specs_post: TestSpecList = [
                 "isError": False,
                 "completition_duration_seconds": 6.6,  # value ignored in tests
                 "is_client_connected_at_finish": True,
-                "first_message": {"name": None, **mock_completition_data["choices"][0]["message"]},  # type: ignore[index]
                 "token_usage": mock_completition_data["usage"],
                 "raw_response": mock_completition_data,
             },
@@ -202,7 +201,6 @@ test_specs_post: TestSpecList = [
                 "isError": False,
                 "completition_duration_seconds": 6.6,  # value ignored in tests
                 "is_client_connected_at_finish": True,
-                "first_message": {"name": None, **mock_completition_data["choices"][0]["message"]},  # type: ignore[index]
                 "token_usage": mock_completition_data["usage"],
                 "raw_response": mock_completition_data,
             },

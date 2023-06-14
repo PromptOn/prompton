@@ -62,7 +62,6 @@ class InferenceResponseError(InferenceResponseBase):
 class InferenceResponseData(InferenceResponseBase):
     isError: bool = False
     # time_to_first: int = Field(None) # if streaming
-    first_message: ChatGPTMessage
     token_usage: ChatGPTTokenUsage
     raw_response: ChatGPTChatCompletitionResponse
 

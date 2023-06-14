@@ -84,7 +84,6 @@ PROCESSED_INFERENCE: Dict[str, Any] = {
         "completition_duration_seconds": 1.1,
         "is_client_connected_at_finish": True,
         "isError": False,
-        "first_message": {"role": "assistant", "content": "71", "name": None},
         "token_usage": {
             "prompt_tokens": 25,
             "completion_tokens": 1,
