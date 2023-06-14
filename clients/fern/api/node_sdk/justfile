@@ -7,16 +7,13 @@ set positional-arguments
 
 
 build *params='':
-  cd dist && npm pack .. $@
+  npm pack
 
 npm-info *params='':
   npm config list
-  npm whoami
 
-whoami:
-  npm whoami
 
 # to PyPi - set NPM_ACCESS_TOKEN in your .env
 publish *params='':
   npm config set //registry.npmjs.org/:_authToken $NPM_ACCESS_TOKEN
-  npm publish $@
+  npm publish  $@
