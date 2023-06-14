@@ -127,7 +127,7 @@ async def new_inference(
 
     """
 
-    # NB: The processing doesn't stop if client disconnects See: https://github.com/tiangolo/fastapi/discussions/8805
+    # TODO: refactor response schema - it's a pain to get id in client code from OPENAI_ERROR | OPENAI_TIMEOUT
 
     try:
         user_org = await org_crud.get(db, current_user.org_id, current_user)
