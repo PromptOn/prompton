@@ -5,14 +5,12 @@ from pydantic import Extra, Field
 from src.schemas.openAI import (
     ChatGPTChatCompletitionRequest,
     ChatGPTChatCompletitionResponse,
-    ChatGPTMessage,
     ChatGPTTokenUsage,
 )
 
 from src.schemas.base import (
     MongoBase,
     MyBaseModel,
-    NonEmptyStrField,
     PyObjectId,
 )
 from src.schemas.promptVersion import PromptVersionProviders
@@ -28,8 +26,14 @@ class InferenceResponseStatus(str, Enum):
 # TODO: num_samples
 # TODO: streaming
 class InferenceBase(MyBaseModel):
-    end_user_id: NonEmptyStrField
-    source: NonEmptyStrField
+    end_user_id: str | None = Field(
+        None,
+        description="The API consumer's internal user reference for metrics. It is also relayed to the provider as part of the request if the provider supports it (eg. OpenAI's user field).",
+    )
+    source: str | None = Field(
+        None,
+        description="The API consumer's source for metrics (e.g. AndroidApp etc).",
+    )
     template_args: Optional[dict[str, str]] = Field(None)
     metadata: Optional[dict[str, Any]] = Field(None)
     request_timeout: Optional[float] = Field(None)

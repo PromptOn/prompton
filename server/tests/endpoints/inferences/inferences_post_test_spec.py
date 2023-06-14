@@ -83,8 +83,6 @@ test_db_data = {
 min_input: TestInput = {
     "request_body": {
         "prompt_version_id": str(LIVE_PROMPT_VERSION_DB["_id"]),
-        "end_user_id": "u1",
-        "source": "s1",
     }
 }
 
@@ -126,10 +124,10 @@ expected_all_fields_head = {
 expected_min_fields_head = {
     "created_by_user_id": USER_BASIC["_id"],
     "created_by_org_id": ORG1["_id"],
-    "end_user_id": "u1",
-    "source": "s1",
     "template_args": None,
     "metadata": None,
+    "end_user_id": None,
+    "source": None,
     "prompt_id": PROMPT_ID1,
     "prompt_version_id": LIVE_PROMPT_VERSION_DB["_id"],
     "prompt_version_ids_considered": [],
@@ -143,7 +141,6 @@ expected_min_fields_head = {
             **DEFAULT_RAW_COMPLETITION_REQUEST,  # type: ignore[arg-type]
             **LIVE_PROMPT_VERSION_DB["model_config"],
             "messages": [VALID_TEMPLATE],
-            "user": "u1",
         },
     },
 }
@@ -212,13 +209,7 @@ test_specs_post: TestSpecList = [
     {
         "spec_id": "post by prompt id",
         "mock_user": USER_BASIC,
-        "input": {
-            "request_body": {
-                "prompt_id": str(PROMPT_ID1),
-                "end_user_id": "u1",
-                "source": "s1",
-            }
-        },
+        "input": {"request_body": {"prompt_id": str(PROMPT_ID1)}},
         "expected": {
             "this_is": "ignored by post test generator currently bc of custom db validator fn in  expected_db "
         },
@@ -227,13 +218,7 @@ test_specs_post: TestSpecList = [
     {
         "spec_id": "no live prompt_version for post by prompt_id",
         "mock_user": USER_BASIC,
-        "input": {
-            "request_body": {
-                "prompt_id": str(PROMPT_ID2_NO_LIVE_VERSION),
-                "end_user_id": "u1",
-                "source": "s1",
-            }
-        },
+        "input": {"request_body": {"prompt_id": str(PROMPT_ID2_NO_LIVE_VERSION)}},
         "expected": 404,
     },
     #
@@ -244,9 +229,7 @@ test_specs_post: TestSpecList = [
         "mock_user": USER_BASIC,
         "input": {
             "request_body": {
-                "prompt_version_id": str(LIVE_PROMPT_VERSION_DB2_ORG2["_id"]),
-                "end_user_id": "u1",
-                "source": "s1",
+                "prompt_version_id": str(LIVE_PROMPT_VERSION_DB2_ORG2["_id"])
             }
         },
         "expected": 404,
@@ -255,11 +238,7 @@ test_specs_post: TestSpecList = [
         "spec_id": "no org token",
         "mock_user": USER_BASIC_ORG2_NO_ACCESS_KEY,
         "input": {
-            "request_body": {
-                "prompt_version_id": str(PROMPT_ID2_NO_LIVE_VERSION),
-                "end_user_id": "u1",
-                "source": "s1",
-            }
+            "request_body": {"prompt_version_id": str(PROMPT_ID2_NO_LIVE_VERSION)}
         },
         "expected": 400,
     },
@@ -297,30 +276,6 @@ test_specs_post: TestSpecList = [
                 "prompt_version_id": str(DRAFT_PROMPT_VERSION_DB["_id"]),
             }
         },
-        "expected": 422,
-    },
-    {
-        "spec_id": "empty source field",
-        "mock_user": USER_BASIC,
-        "input": {"request_body": {**VALID_REQ, "source": " "}},
-        "expected": 422,
-    },
-    {
-        "spec_id": "None source field",
-        "mock_user": USER_BASIC,
-        "input": {"request_body": {**VALID_REQ, "source": None}},
-        "expected": 422,
-    },
-    {
-        "spec_id": "empty end_user_id field",
-        "mock_user": USER_BASIC,
-        "input": {"request_body": {**VALID_REQ, "end_user_id": " "}},
-        "expected": 422,
-    },
-    {
-        "spec_id": "None end_user_id field",
-        "mock_user": USER_BASIC,
-        "input": {"request_body": {**VALID_REQ, "end_user_id": None}},
         "expected": 422,
     },
     {
