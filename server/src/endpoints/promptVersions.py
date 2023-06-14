@@ -27,7 +27,7 @@ router = APIRouter()
     responses={**ReqResponses.GET_RESPONSES},
     response_model=List[PromptVersionRead],
 )
-async def get_promptVersions_list(
+async def get_prompt_versions_list(
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
     db=Depends(get_db),
     prompt_id: str | None = None,

@@ -17,7 +17,7 @@ router = APIRouter()
 
 
 @router.get("/orgs", tags=["orgs"], response_model=List[OrgRead])
-async def get_org_list(
+async def get_orgs_list(
     current_user: Annotated[UserInDB, Depends(get_current_super_user)],
     db=Depends(get_db),
 ):
