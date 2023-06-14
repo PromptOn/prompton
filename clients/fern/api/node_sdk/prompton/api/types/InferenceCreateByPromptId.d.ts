@@ -7,12 +7,15 @@
  * It stores all other `prompt_version_id`s in Live status at the time of the inference in `prompt_version_ids_considered` field.
  */
 export interface InferenceCreateByPromptId {
-    /** <span style="white-space: nowrap">`non-empty`</span> */
-    endUserId: string;
-    /** <span style="white-space: nowrap">`non-empty`</span> */
-    source: string;
+    /** The API consumer's internal user reference for metrics. It is also relayed to the provider as part of the request if the provider supports it (eg. OpenAI's user field). */
+    endUserId?: string;
+    /** The API consumer's source for metrics (e.g. AndroidApp etc). */
+    source?: string;
+    /** The API consumer's internal reference id to able to link references to their sessions. */
+    clientRefId?: string;
     templateArgs?: Record<string, string>;
     metadata?: Record<string, unknown>;
+    /** Provider request timout in seconds. If not provided, then Prompton API's default timeout for the provider will be used (90sec or `DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS` env var if provided). */
     requestTimeout?: number;
     promptId: string;
 }

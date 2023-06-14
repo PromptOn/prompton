@@ -48,7 +48,7 @@ class Orgs {
     constructor(options) {
         this.options = options;
     }
-    getOrgList() {
+    getOrgsList() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
                 url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "orgs"),
@@ -61,7 +61,7 @@ class Orgs {
                 timeoutMs: 60000,
             });
             if (_response.ok) {
-                return yield serializers.orgs.getOrgList.Response.parseOrThrow(_response.body, {
+                return yield serializers.orgs.getOrgsList.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

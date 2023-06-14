@@ -25,7 +25,7 @@ class OrgsClient:
         self._environment = environment
         self._token = token
 
-    def get_org_list(self) -> typing.List[OrgRead]:
+    def get_orgs_list(self) -> typing.List[OrgRead]:
         _response = httpx.request(
             "GET",
             urllib.parse.urljoin(f"{self._environment}/", "orgs"),
@@ -158,7 +158,7 @@ class AsyncOrgsClient:
         self._environment = environment
         self._token = token
 
-    async def get_org_list(self) -> typing.List[OrgRead]:
+    async def get_orgs_list(self) -> typing.List[OrgRead]:
         async with httpx.AsyncClient() as _client:
             _response = await _client.request(
                 "GET",

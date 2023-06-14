@@ -1,2 +1,2 @@
-export * as getPromptList from "./getPromptList";
+export * as getPromptsList from "./getPromptsList";
 export * from "./requests";

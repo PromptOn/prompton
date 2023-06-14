@@ -29,8 +29,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.InferenceCreateByPromptVersionId = void 0;
 const core = __importStar(require("../../core"));
 exports.InferenceCreateByPromptVersionId = core.serialization.object({
-    endUserId: core.serialization.property("end_user_id", core.serialization.string()),
-    source: core.serialization.string(),
+    endUserId: core.serialization.property("end_user_id", core.serialization.string().optional()),
+    source: core.serialization.string().optional(),
+    clientRefId: core.serialization.property("client_ref_id", core.serialization.string().optional()),
     templateArgs: core.serialization.property("template_args", core.serialization.record(core.serialization.string(), core.serialization.string()).optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     requestTimeout: core.serialization.property("request_timeout", core.serialization.number().optional()),

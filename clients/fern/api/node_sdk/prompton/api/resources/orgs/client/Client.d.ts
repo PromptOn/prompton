@@ -12,7 +12,7 @@ export declare namespace Orgs {
 export declare class Orgs {
     protected readonly options: Orgs.Options;
     constructor(options: Orgs.Options);
-    getOrgList(): Promise<PromptonApi.OrgRead[]>;
+    getOrgsList(): Promise<PromptonApi.OrgRead[]>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

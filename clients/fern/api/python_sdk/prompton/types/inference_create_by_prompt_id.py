@@ -15,11 +15,24 @@ class InferenceCreateByPromptId(pydantic.BaseModel):
     It stores all other `prompt_version_id`s in Live status at the time of the inference in `prompt_version_ids_considered` field.
     """
 
-    end_user_id: str = pydantic.Field(description=('<span style="white-space: nowrap">`non-empty`</span>\n'))
-    source: str = pydantic.Field(description=('<span style="white-space: nowrap">`non-empty`</span>\n'))
+    end_user_id: typing.Optional[str] = pydantic.Field(
+        description=(
+            "The API consumer's internal user reference for metrics. It is also relayed to the provider as part of the request if the provider supports it (eg. OpenAI's user field).\n"
+        )
+    )
+    source: typing.Optional[str] = pydantic.Field(
+        description=("The API consumer's source for metrics (e.g. AndroidApp etc).\n")
+    )
+    client_ref_id: typing.Optional[str] = pydantic.Field(
+        description=("The API consumer's internal reference id to able to link references to their sessions.\n")
+    )
     template_args: typing.Optional[typing.Dict[str, str]]
     metadata: typing.Optional[typing.Dict[str, typing.Any]]
-    request_timeout: typing.Optional[float]
+    request_timeout: typing.Optional[float] = pydantic.Field(
+        description=(
+            "Provider request timout in seconds. If not provided, then Prompton API's default timeout for the provider will be used (90sec or `DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS` env var if provided).\n"
+        )
+    )
     prompt_id: str
 
     def json(self, **kwargs: typing.Any) -> str:

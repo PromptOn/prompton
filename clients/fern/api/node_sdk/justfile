@@ -17,3 +17,7 @@ npm-info *params='':
 publish *params='':
   npm config set //registry.npmjs.org/:_authToken $NPM_ACCESS_TOKEN
   npm publish  $@
+
+build-publish:
+  just build
+  just publish  # npm packs no need separetly with npm publish

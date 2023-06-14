@@ -11,7 +11,6 @@ export declare namespace InferenceResponseData {
         completition_duration_seconds?: number | null;
         is_client_connected_at_finish?: boolean | null;
         isError?: boolean | null;
-        first_message: serializers.ChatGptMessage.Raw;
         token_usage: serializers.ChatGptTokenUsage.Raw;
         raw_response: serializers.ChatGptChatCompletitionResponse.Raw;
     }
