@@ -34,6 +34,10 @@ class InferenceBase(MyBaseModel):
         None,
         description="The API consumer's source for metrics (e.g. AndroidApp etc).",
     )
+    client_ref_id: str | None = Field(
+        None,
+        description="The API consumer's internal reference id to able to link references to their sessions.",
+    )
     template_args: Optional[dict[str, str]] = Field(None)
     metadata: Optional[dict[str, Any]] = Field(None)
     request_timeout: Optional[float] = Field(

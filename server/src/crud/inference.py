@@ -120,6 +120,7 @@ class InferenceCRUD(
             prompt_version_ids_considered=prompt_version_ids_considered,
             end_user_id=obj_in.end_user_id,
             source=obj_in.source,
+            client_ref_id=obj_in.client_ref_id,
             template_args=obj_in.template_args,
             metadata=obj_in.metadata,
             request=inference_request_data,
