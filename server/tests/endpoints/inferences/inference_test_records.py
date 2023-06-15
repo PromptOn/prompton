@@ -167,6 +167,8 @@ ERROR_INFERENCE = {
         "completed_at": "2023-05-24T15:18:45.531000",
         "completition_duration_seconds": 1.1,
         "is_client_connected_at_finish": True,
+        # TODO: ignore extra fields in nested schemas. see core/test_pydantic_bases.py
+        # "extra_field2": "nested extra field should be ignoreded too",
         "isError": True,
         "error": {
             "error_class": "openai.error.APIError",
