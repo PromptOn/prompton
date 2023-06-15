@@ -7,8 +7,9 @@ import * as core from "../../core";
 export declare const InferenceCreateByPromptVersionId: core.serialization.ObjectSchema<serializers.InferenceCreateByPromptVersionId.Raw, PromptonApi.InferenceCreateByPromptVersionId>;
 export declare namespace InferenceCreateByPromptVersionId {
     interface Raw {
-        end_user_id: string;
-        source: string;
+        end_user_id?: string | null;
+        source?: string | null;
+        client_ref_id?: string | null;
         template_args?: Record<string, string> | null;
         metadata?: Record<string, unknown> | null;
         request_timeout?: number | null;

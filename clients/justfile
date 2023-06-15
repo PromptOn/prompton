@@ -11,3 +11,22 @@ install:
 generate-clients:
   cp ../server/generated/openapi/openapi.yml fern/api/openapi
   npx fern generate
+
+# bump version numbers manually in all packages before! 
+publish-all-clients:
+  just publish-fern-python
+  just publish-fern-node
+
+# requires manual version bump in pyproject.toml before!
+publish-fern-python:
+  #!/usr/bin/env bash
+  cd fern/api/python_sdk
+  just install
+  just build-publish
+
+# requires manual version bump in package.json before!
+publish-fern-node:
+  #!/usr/bin/env bash
+  cd fern/api/node_sdk
+  just install
+  just build-publish

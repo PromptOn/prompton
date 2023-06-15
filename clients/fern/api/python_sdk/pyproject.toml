@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "prompton"
-version = "0.0.3"
+version = "0.0.4"
 description = "Chat prompt template evaluation and inference monitoring"
 authors = ["PromptOn <hello@prompton.ai>"]
 readme = "README.md"

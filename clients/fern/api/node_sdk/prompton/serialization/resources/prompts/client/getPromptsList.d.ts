@@ -4,7 +4,7 @@
 import * as serializers from "../../..";
 import * as PromptonApi from "../../../../api";
 import * as core from "../../../../core";
-export declare const Response: core.serialization.Schema<serializers.prompts.getPromptList.Response.Raw, PromptonApi.PromptRead[]>;
+export declare const Response: core.serialization.Schema<serializers.prompts.getPromptsList.Response.Raw, PromptonApi.PromptRead[]>;
 export declare namespace Response {
     type Raw = serializers.PromptRead.Raw[];
 }

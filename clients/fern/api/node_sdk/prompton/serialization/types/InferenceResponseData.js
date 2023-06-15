@@ -42,7 +42,6 @@ exports.InferenceResponseData = core.serialization.object({
     completitionDurationSeconds: core.serialization.property("completition_duration_seconds", core.serialization.number().optional()),
     isClientConnectedAtFinish: core.serialization.property("is_client_connected_at_finish", core.serialization.boolean().optional()),
     isError: core.serialization.boolean().optional(),
-    firstMessage: core.serialization.property("first_message", core.serialization.lazyObject(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).ChatGptMessage; }))),
     tokenUsage: core.serialization.property("token_usage", core.serialization.lazyObject(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).ChatGptTokenUsage; }))),
     rawResponse: core.serialization.property("raw_response", core.serialization.lazyObject(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).ChatGptChatCompletitionResponse; }))),
 });

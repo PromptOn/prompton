@@ -28,7 +28,7 @@ router = APIRouter()
     responses={**ReqResponses.GET_RESPONSES},
     response_model=List[PromptRead],
 )
-async def get_prompt_list(
+async def get_prompts_list(
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
     db=Depends(get_db),
 ):

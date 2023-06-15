@@ -11,8 +11,9 @@ export declare namespace InferenceRead {
         created_at?: string | null;
         created_by_user_id?: string | null;
         created_by_org_id?: string | null;
-        end_user_id: string;
-        source: string;
+        end_user_id?: string | null;
+        source?: string | null;
+        client_ref_id?: string | null;
         template_args?: Record<string, string> | null;
         metadata?: Record<string, unknown> | null;
         request_timeout?: number | null;

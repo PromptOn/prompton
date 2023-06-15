@@ -85,15 +85,15 @@ paths:
     get:
       tags:
       - prompts
-      summary: Get Prompt List
-      operationId: get_prompt_list
+      summary: Get Prompts List
+      operationId: get_prompts_list
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema:
-                title: Response Get Prompt List Prompts Get
+                title: Response Get Prompts List Prompts Get
                 type: array
                 items:
                   $ref: '#/components/schemas/PromptRead'
@@ -230,8 +230,8 @@ paths:
     get:
       tags:
       - promptVersions
-      summary: Get Promptversions List
-      operationId: get_promptVersions_list
+      summary: Get Prompt Versions List
+      operationId: get_prompt_versions_list
       parameters:
       - required: false
         schema:
@@ -245,7 +245,7 @@ paths:
           content:
             application/json:
               schema:
-                title: Response Get Promptversions List Promptversions Get
+                title: Response Get Prompt Versions List Promptversions Get
                 type: array
                 items:
                   $ref: '#/components/schemas/PromptVersionRead'
@@ -480,15 +480,15 @@ paths:
     get:
       tags:
       - orgs
-      summary: Get Org List
-      operationId: get_org_list
+      summary: Get Orgs List
+      operationId: get_orgs_list
       responses:
         '200':
           description: Successful Response
           content:
             application/json:
               schema:
-                title: Response Get Org List Orgs Get
+                title: Response Get Orgs List Orgs Get
                 type: array
                 items:
                   $ref: '#/components/schemas/OrgRead'
@@ -1004,19 +1004,24 @@ components:
     InferenceCreateByPromptId:
       title: InferenceCreateByPromptId
       required:
-      - end_user_id
-      - source
       - prompt_id
       type: object
       properties:
         end_user_id:
           title: End User Id
-          minLength: 1
           type: string
+          description: The API consumer's internal user reference for metrics. It
+            is also relayed to the provider as part of the request if the provider
+            supports it (eg. OpenAI's user field).
         source:
           title: Source
-          minLength: 1
           type: string
+          description: The API consumer's source for metrics (e.g. AndroidApp etc).
+        client_ref_id:
+          title: Client Ref Id
+          type: string
+          description: The API consumer's internal reference id to able to link references
+            to their sessions.
         template_args:
           title: Template Args
           type: object
@@ -1028,6 +1033,9 @@ components:
         request_timeout:
           title: Request Timeout
           type: number
+          description: Provider request timout in seconds. If not provided, then Prompton
+            API's default timeout for the provider will be used (90sec or `DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS`
+            env var if provided).
         prompt_id:
           title: Prompt Id
           type: string
@@ -1043,19 +1051,24 @@ components:
     InferenceCreateByPromptVersionId:
       title: InferenceCreateByPromptVersionId
       required:
-      - end_user_id
-      - source
       - prompt_version_id
       type: object
       properties:
         end_user_id:
           title: End User Id
-          minLength: 1
           type: string
+          description: The API consumer's internal user reference for metrics. It
+            is also relayed to the provider as part of the request if the provider
+            supports it (eg. OpenAI's user field).
         source:
           title: Source
-          minLength: 1
           type: string
+          description: The API consumer's source for metrics (e.g. AndroidApp etc).
+        client_ref_id:
+          title: Client Ref Id
+          type: string
+          description: The API consumer's internal reference id to able to link references
+            to their sessions.
         template_args:
           title: Template Args
           type: object
@@ -1067,6 +1080,9 @@ components:
         request_timeout:
           title: Request Timeout
           type: number
+          description: Provider request timout in seconds. If not provided, then Prompton
+            API's default timeout for the provider will be used (90sec or `DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS`
+            env var if provided).
         prompt_version_id:
           title: Prompt Version Id
           type: string
@@ -1090,8 +1106,6 @@ components:
     InferenceRead:
       title: InferenceRead
       required:
-      - end_user_id
-      - source
       - prompt_version_id
       - prompt_id
       type: object
@@ -1111,12 +1125,19 @@ components:
           type: string
         end_user_id:
           title: End User Id
-          minLength: 1
           type: string
+          description: The API consumer's internal user reference for metrics. It
+            is also relayed to the provider as part of the request if the provider
+            supports it (eg. OpenAI's user field).
         source:
           title: Source
-          minLength: 1
           type: string
+          description: The API consumer's source for metrics (e.g. AndroidApp etc).
+        client_ref_id:
+          title: Client Ref Id
+          type: string
+          description: The API consumer's internal reference id to able to link references
+            to their sessions.
         template_args:
           title: Template Args
           type: object
@@ -1128,6 +1149,9 @@ components:
         request_timeout:
           title: Request Timeout
           type: number
+          description: Provider request timout in seconds. If not provided, then Prompton
+            API's default timeout for the provider will be used (90sec or `DEFAULT_OPENAI_REQUEST_TIMEOUT_SECONDS`
+            env var if provided).
         prompt_version_id:
           title: Prompt Version Id
           type: string
@@ -1172,7 +1196,6 @@ components:
     InferenceResponseData:
       title: InferenceResponseData
       required:
-      - first_message
       - token_usage
       - raw_response
       type: object
@@ -1191,8 +1214,6 @@ components:
           title: Iserror
           type: boolean
           default: false
-        first_message:
-          $ref: '#/components/schemas/ChatGPTMessage'
         token_usage:
           $ref: '#/components/schemas/ChatGPTTokenUsage'
         raw_response:
