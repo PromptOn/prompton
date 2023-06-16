@@ -9,7 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.10"
 streamlit = "^1.23.1"
-prompton = "^0.0.3"
+prompton = "^0.0.4"
 
 
 [build-system]
