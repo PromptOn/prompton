@@ -8,11 +8,7 @@ from src.schemas.openAI import (
     ChatGPTTokenUsage,
 )
 
-from src.schemas.base import (
-    MongoBase,
-    MyBaseModel,
-    PyObjectId,
-)
+from src.schemas.base import MongoBase, MyBaseModel, PyObjectId
 from src.schemas.promptVersion import PromptVersionProviders
 
 
