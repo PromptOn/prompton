@@ -61,7 +61,7 @@ if st.session_state["auth_token"]:
 
     st.write("## My Prompts")
     with st.spinner("Loading prompts..."):
-        my_prompts = prompton.prompts.get_prompt_list()
+        my_prompts = prompton.prompts.get_prompts_list()
         st.write(my_prompts)
 
     st.write("## My Prompt Versions")
