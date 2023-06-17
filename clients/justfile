@@ -30,3 +30,9 @@ publish-fern-node:
   cd fern/api/node_sdk
   just install
   just build-publish
+
+# testing node lient with openapi-generator
+generate-node-client:
+  #!/usr/bin/env bash
+  # npx @openapitools/openapi-generator-cli generate -i openapi/openapi.yml -g typescript-axios -o openapi/generated
+  npx openapi-generator-cli generate  -i ./fern/api/openapi/openapi.yml -g typescript-node -o ./openapi-generator/typescript-node --additional-properties=supportsES6=true,npmName=@prompton/api
