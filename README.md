@@ -49,7 +49,7 @@ _The API is still in alpha, may change without notice. However, the schema is la
    pip install prompton
    ```
 
-   [Streamlit UI example](./ui-examples/streamlit/main.py)
+   [Streamlit UI example](https://github.com/PromptOn/ui-example-streamlit)
 
 #### Typescript
 

@@ -17,10 +17,6 @@
 		{
 			"name": "node_sdk",
 			"path": "clients/fern/api/node_sdk"
-		},
-		{
-			"name": "ui-examples/streamlit",
-			"path": "ui-examples/streamlit"
 		}
 	],
 	"settings": {
