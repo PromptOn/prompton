@@ -2,12 +2,14 @@ default-group: local
 groups:
   local:
     generators:
+      # Check for newer versions: https://github.com/fern-api/fern-typescript
       - name: fernapi/fern-typescript-node-sdk
-        version: 0.6.4
+        version: 0.7.1
         output:
           location: local-file-system
           path: node_sdk/prompton
 
+      # Check for newer versions: https://github.com/fern-api/fern-python
       - name: fernapi/fern-python-sdk
         version: 0.3.7
         output:
