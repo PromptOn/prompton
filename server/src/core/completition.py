@@ -21,7 +21,10 @@ MOCK_COMPLETITION = {
     "usage": {"prompt_tokens": 25, "completion_tokens": 1, "total_tokens": 26},
     "choices": [
         {
-            "message": {"role": "assistant", "content": "71"},
+            "message": {
+                "role": "assistant",
+                "content": "This is a mocked response - called with 'mock_me_softly'",
+            },
             "finish_reason": "stop",
             "index": 0,
         }
