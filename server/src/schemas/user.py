@@ -3,7 +3,8 @@ from pydantic import EmailStr, Extra, SecretStr
 
 from src.schemas.base import (
     AllOptional,
-    MongoBase,
+    MongoBaseCreate,
+    MongoBaseRead,
     MyBaseModel,
     NonEmptyStrField,
     PyObjectId,
@@ -38,14 +39,16 @@ class UserCreate(User, extra=Extra.forbid):
     pass
 
 
-class UserInDB(User, MongoBase, extra=Extra.allow):
+class UserInDB(User, MongoBaseCreate, extra=Extra.allow):
     email: str
     hashed_password: str
 
 
-class UserRead(User, MongoBase, extra=Extra.ignore):
+class UserRead(User, MongoBaseRead, extra=Extra.ignore):
     # we ignore extra fields to prevent hashed_password to be returned
+    # override all fields with default values as mandatory so clients don't need to check None values
     email: str
+    disabled: bool
     pass
 
 

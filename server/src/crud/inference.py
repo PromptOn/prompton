@@ -16,6 +16,7 @@ from src.schemas.inference import (
     InferenceCreateByPromptVersionId,
     InferenceCreateByPromptId,
     InferenceRequestData,
+    InferenceResponseStatus,
     InferenceUpdate,
 )
 from src.schemas.openAI import ChatGPTChatCompletitionRequest
@@ -114,6 +115,7 @@ class InferenceCRUD(
         )
 
         inferenceDB = InferenceInDB(
+            status=InferenceResponseStatus.REQUEST_RECEIVED,
             prompt_id=prompt_version.prompt_id,
             prompt_version_id=selected_prompt_version_id,
             prompt_version_name=prompt_version.name,

@@ -82,7 +82,7 @@ PROMPT_VER_DRAFT: Dict[str, Any] = {
     "description": None,
     "prompt_id": PROMPT_WITH_1_VER["_id"],
     "provider": "OpenAI",
-    "template": None,
+    "template": [],
     "model_config": None,
     "template_arg_names": [],
 }
