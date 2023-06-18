@@ -2,7 +2,8 @@ from typing import Dict
 from pydantic import Extra, SecretStr
 from src.schemas.base import (
     AllOptional,
-    MongoBase,
+    MongoBaseCreate,
+    MongoBaseRead,
     MyBaseModel,
     NonEmptyStrField,
 )
@@ -17,11 +18,11 @@ class OrgCreate(OrgBase, extra=Extra.forbid):
     pass
 
 
-class OrgInDB(OrgBase, MongoBase, extra=Extra.allow):
+class OrgInDB(OrgBase, MongoBaseCreate, extra=Extra.allow):
     pass
 
 
-class OrgRead(MongoBase, extra=Extra.ignore):
+class OrgRead(MongoBaseRead, extra=Extra.ignore):
     name: str
     access_keys: Dict[str, SecretStr] | None = None
 

@@ -38,12 +38,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRead = void 0;
 const core = __importStar(require("../../core"));
 exports.UserRead = core.serialization.object({
-    id: core.serialization.property("_id", core.serialization.string().optional()),
-    createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
-    createdByUserId: core.serialization.property("created_by_user_id", core.serialization.string().optional()),
-    createdByOrgId: core.serialization.property("created_by_org_id", core.serialization.string().optional()),
+    id: core.serialization.property("_id", core.serialization.string()),
+    createdAt: core.serialization.property("created_at", core.serialization.string()),
+    createdByUserId: core.serialization.property("created_by_user_id", core.serialization.string()),
+    createdByOrgId: core.serialization.property("created_by_org_id", core.serialization.string()),
     fullName: core.serialization.property("full_name", core.serialization.string().optional()),
-    disabled: core.serialization.boolean().optional(),
+    disabled: core.serialization.boolean(),
     role: core.serialization.lazy(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).UserRoles; })).optional(),
     orgId: core.serialization.property("org_id", core.serialization.string()),
     email: core.serialization.string(),

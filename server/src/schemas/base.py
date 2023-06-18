@@ -37,11 +37,24 @@ class PyObjectId(ObjectId):
         field_schema.update(type="string")
 
 
-class MongoBase(MyBaseModel):
+class MongoBaseCreate(MyBaseModel):
+    """Base model for creating a record in MongoDB. Populates `id` and `created_at` when not passed.
+    `created_by_user_id` and `created_by_org_id` fields should be populated by base CRUD class
+    """
+
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
     created_by_user_id: Optional[PyObjectId] = None
     created_by_org_id: Optional[PyObjectId] = None
+
+
+class MongoBaseRead(MyBaseModel):
+    """Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks"""
+
+    id: PyObjectId = Field(alias="_id")
+    created_at: datetime
+    created_by_user_id: PyObjectId
+    created_by_org_id: PyObjectId
 
 
 class AllOptional(pydantic.main.ModelMetaclass):

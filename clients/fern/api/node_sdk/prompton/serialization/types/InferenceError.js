@@ -26,15 +26,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UnprocessableEntityError = void 0;
-const errors = __importStar(require("../../errors"));
-class UnprocessableEntityError extends errors.PromptonApiError {
-    constructor(body) {
-        super({
-            statusCode: 422,
-            body: body,
-        });
-        Object.setPrototypeOf(this, UnprocessableEntityError.prototype);
-    }
-}
-exports.UnprocessableEntityError = UnprocessableEntityError;
+exports.InferenceError = void 0;
+const core = __importStar(require("../../core"));
+exports.InferenceError = core.serialization.object({
+    errorClass: core.serialization.property("error_class", core.serialization.string()),
+    message: core.serialization.string(),
+    details: core.serialization.unknown().optional(),
+});

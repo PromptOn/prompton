@@ -7,12 +7,12 @@ import * as core from "../../core";
 export declare const UserRead: core.serialization.ObjectSchema<serializers.UserRead.Raw, PromptonApi.UserRead>;
 export declare namespace UserRead {
     interface Raw {
-        _id?: string | null;
-        created_at?: string | null;
-        created_by_user_id?: string | null;
-        created_by_org_id?: string | null;
+        _id: string;
+        created_at: string;
+        created_by_user_id: string;
+        created_by_org_id: string;
         full_name?: string | null;
-        disabled?: boolean | null;
+        disabled: boolean;
         role?: serializers.UserRoles.Raw | null;
         org_id: string;
         email: string;

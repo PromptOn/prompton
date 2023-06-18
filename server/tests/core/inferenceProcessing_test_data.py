@@ -42,7 +42,6 @@ expected_error_response = {
     "isError": True,
     "error": {
         "error_class": "builtins.Exception",
-        "error": None,
         "message": "mocked error",
         "details": {},
     },

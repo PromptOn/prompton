@@ -10,8 +10,8 @@ export declare namespace Orgs {
     }
 }
 export declare class Orgs {
-    protected readonly options: Orgs.Options;
-    constructor(options: Orgs.Options);
+    protected readonly _options: Orgs.Options;
+    constructor(_options: Orgs.Options);
     getOrgsList(): Promise<PromptonApi.OrgRead[]>;
     /**
      * @throws {@link PromptonApi.BadRequestError}

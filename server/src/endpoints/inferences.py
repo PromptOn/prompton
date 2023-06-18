@@ -163,7 +163,7 @@ async def new_inference(
     if isinstance(inferenceResponse, InferenceResponseError):
         inferenceResponse.isError = True
 
-        if inferenceResponse.error.get("error_class") == "openai.error.Timeout":
+        if inferenceResponse.error.error_class == "openai.error.Timeout":
             status = InferenceResponseStatus.COMPLETITION_TIMEOUT
         else:
             status = InferenceResponseStatus.COMPLETITION_ERROR
@@ -183,13 +183,13 @@ async def new_inference(
         if status == InferenceResponseStatus.COMPLETITION_TIMEOUT:
             raise OpenAIError(
                 inference_id=inferenceDB.id,
-                error=inferenceResponse.error,
+                inferenceResponse=inferenceResponse,
                 message="OpenAI API Timeout Error",
             )
         else:  # status == InferenceResponseStatus.COMPLETITION_ERROR
             raise OpenAIError(
                 inference_id=inferenceDB.id,
-                error=inferenceResponse.error,
+                inferenceResponse=inferenceResponse,
                 message="OpenAI API Error",
             )
 

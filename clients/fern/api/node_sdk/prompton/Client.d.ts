@@ -16,8 +16,8 @@ export declare namespace PromptonApiClient {
     }
 }
 export declare class PromptonApiClient {
-    protected readonly options: PromptonApiClient.Options;
-    constructor(options: PromptonApiClient.Options);
+    protected readonly _options: PromptonApiClient.Options;
+    constructor(_options: PromptonApiClient.Options);
     protected _serverStatus: ServerStatus | undefined;
     get serverStatus(): ServerStatus;
     protected _authentication: Authentication | undefined;

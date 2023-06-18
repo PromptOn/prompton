@@ -29,10 +29,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrgRead = void 0;
 const core = __importStar(require("../../core"));
 exports.OrgRead = core.serialization.object({
-    id: core.serialization.property("_id", core.serialization.string().optional()),
-    createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
-    createdByUserId: core.serialization.property("created_by_user_id", core.serialization.string().optional()),
-    createdByOrgId: core.serialization.property("created_by_org_id", core.serialization.string().optional()),
+    id: core.serialization.property("_id", core.serialization.string()),
+    createdAt: core.serialization.property("created_at", core.serialization.string()),
+    createdByUserId: core.serialization.property("created_by_user_id", core.serialization.string()),
+    createdByOrgId: core.serialization.property("created_by_org_id", core.serialization.string()),
     name: core.serialization.string(),
     accessKeys: core.serialization.property("access_keys", core.serialization.record(core.serialization.string(), core.serialization.string()).optional()),
 });

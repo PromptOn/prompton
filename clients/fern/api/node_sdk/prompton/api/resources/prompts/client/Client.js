@@ -45,8 +45,8 @@ const url_join_1 = __importDefault(require("url-join"));
 const serializers = __importStar(require("../../../../serialization"));
 const errors = __importStar(require("../../../../errors"));
 class Prompts {
-    constructor(options) {
-        this.options = options;
+    constructor(_options) {
+        this._options = _options;
     }
     /**
      * @throws {@link PromptonApi.BadRequestError}
@@ -57,7 +57,7 @@ class Prompts {
     getPromptsList() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "prompts"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "prompts"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -114,7 +114,7 @@ class Prompts {
     addPrompt(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "prompts"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "prompts"),
                 method: "POST",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -166,7 +166,7 @@ class Prompts {
     getPromptById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), `prompts/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `prompts/${id}`),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -224,7 +224,7 @@ class Prompts {
     updatePrompt(id, request = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), `prompts/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `prompts/${id}`),
                 method: "PATCH",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -282,7 +282,7 @@ class Prompts {
     deletePrompt(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), `prompts/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `prompts/${id}`),
                 method: "DELETE",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -324,7 +324,7 @@ class Prompts {
     }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
-            const bearer = yield core.Supplier.get(this.options.token);
+            const bearer = yield core.Supplier.get(this._options.token);
             if (bearer != null) {
                 return `Bearer ${bearer}`;
             }

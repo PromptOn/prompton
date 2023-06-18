@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import Enum
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional
 from pydantic import Extra, Field
 from src.schemas.openAI import (
     ChatGPTChatCompletitionRequest,
@@ -8,7 +8,7 @@ from src.schemas.openAI import (
     ChatGPTTokenUsage,
 )
 
-from src.schemas.base import MongoBase, MyBaseModel, PyObjectId
+from src.schemas.base import MongoBaseCreate, MongoBaseRead, MyBaseModel, PyObjectId
 from src.schemas.promptVersion import PromptVersionProviders
 
 
@@ -34,7 +34,7 @@ class InferenceBase(MyBaseModel):
         None,
         description="The API consumer's internal reference id to able to link references to their sessions.",
     )
-    template_args: Optional[dict[str, str]] = Field(None)
+    template_args: Optional[dict[str, str]] = Field({})
     metadata: Optional[dict[str, Any]] = Field(None)
     request_timeout: Optional[float] = Field(
         None,
@@ -61,9 +61,15 @@ class InferenceResponseBase(MyBaseModel):
     is_client_connected_at_finish: Optional[bool] = None
 
 
+class InferenceError(MyBaseModel, extra=Extra.allow):
+    error_class: str
+    message: str
+    details: Any
+
+
 class InferenceResponseError(InferenceResponseBase):
     isError: bool = True
-    error: Any
+    error: InferenceError
 
 
 class InferenceResponseData(InferenceResponseBase):
@@ -83,22 +89,29 @@ class InferenceUpdate(MyBaseModel, extra=Extra.forbid):
     response: InferenceResponseData | InferenceResponseError
 
 
-class InferenceInDB(InferenceBase, MongoBase, extra=Extra.allow):
+class InferenceInDBBase(InferenceBase, extra=Extra.allow):
     prompt_version_id: PyObjectId
     prompt_version_ids_considered: List[PyObjectId] = Field(
-        [],
+        ...,
         description="If inference was by prompt_id then a list of all other prompt versions considered for this inference. I.e. all prompt versions in Live status at the time of the inference",
     )
     prompt_id: PyObjectId
-    prompt_version_name: str = Field(None)
-    status: Optional[InferenceResponseStatus] = Field(
-        default=InferenceResponseStatus.REQUEST_RECEIVED
-    )
-    request: InferenceRequestData = Field(None)
+    prompt_version_name: str
+    status: InferenceResponseStatus
+    request: InferenceRequestData
     response: Optional[InferenceResponseData | InferenceResponseError] = Field(None)
 
 
-class InferenceRead(InferenceInDB, extra=Extra.ignore):
+class InferenceInDB(InferenceInDBBase, MongoBaseCreate, extra=Extra.allow):
+    """Same as InferenceRead but status and base DB fields are not mandatory to be populated by pydantic defaults"""
+
+    pass
+
+
+class InferenceRead(InferenceInDBBase, MongoBaseRead, extra=Extra.ignore):
+    # Same as InferenceInDB but fields with default values are mandatory so clients don't need to check None values
+    prompt_version_ids_considered: List[PyObjectId]
+    template_args: Dict[str, str]
     pass
 
 

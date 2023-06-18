@@ -2,12 +2,12 @@ from enum import Enum
 from typing import List, Optional
 from pydantic import Extra, Field, root_validator, validator
 
-from src.schemas.base import AllOptional, PyObjectId
+from src.schemas.base import AllOptional, MongoBaseRead, PyObjectId
 from src.schemas.openAI import (
     ChatGPTChatCompletitionConfig,
     ChatGPTMessageTemplate,
 )
-from src.schemas.base import MongoBase, MyBaseModel, NameField
+from src.schemas.base import MongoBaseCreate, MyBaseModel, NameField
 
 
 class PromptVersionProviders(str, Enum):
@@ -58,14 +58,22 @@ class PromptVersionCreate(PromptVersionBase, extra=Extra.forbid):
         return values
 
 
-class PromptVersionInDB(PromptVersionBase, MongoBase, extra=Extra.allow):
-    # list of args in the template - calculated at patch and post
+class PromptVersionInDB(PromptVersionBase, MongoBaseCreate, extra=Extra.allow):
     # NB: pydantic 2.0alpha has computed fields  https://github.com/pydantic/pydantic/blob/48f6842c7808807e076a69065f60a40b57f5fc5a/docs/usage/computed_fields.md#L4
-    template_arg_names: Optional[List[str]] = Field([])
+    template_arg_names: List[str] = Field(
+        default=[],
+    )
 
 
-class PromptVersionRead(PromptVersionInDB, extra=Extra.ignore):
-    pass
+class PromptVersionRead(PromptVersionBase, MongoBaseRead, extra=Extra.ignore):
+    # just overriding so all fields are mandatory so clients don't need to check None values
+    provider: PromptVersionProviders
+    status: PromptVersionStatus
+    template: ChatGPTMessageTemplate
+    template_arg_names: List[str] = Field(
+        ...,
+        description="List of args in the template - populated by server at PATHC and POST",
+    )
 
 
 class PromptVersionUpdate(PromptVersionBase, metaclass=AllOptional, extra=Extra.forbid):

@@ -1,5 +1,7 @@
 from fastapi import HTTPException, status
 
+from src.schemas.inference import InferenceResponseError
+
 
 class ItemNotFoundException(HTTPException):
     def __init__(
@@ -62,7 +64,13 @@ class PermissionValidationError(HTTPException):
 
 
 class OpenAIError(HTTPException):
-    def __init__(self, message=None, inference_id=None, error=None):
+    def __init__(
+        self,
+        message=None,
+        inference_id=None,
+        *,
+        inferenceResponse: InferenceResponseError,
+    ):
         """Raises HTTP 502 Bad Gateway - use this exception when OpenAI API call returns with error."""
         self.message = message
         super().__init__(
@@ -70,9 +78,9 @@ class OpenAIError(HTTPException):
             detail={
                 "inference_id": str(inference_id),
                 "message": self.message,
-                "openAI_error_class": error.get("error_class") if error else None,
-                "openAI_message": error.get("message") if error else None,
-                "openAI_error": error.get("error") if error else None,
+                "openAI_error_class": inferenceResponse.error.error_class,
+                "openAI_message": inferenceResponse.error.message,
+                "openAI_error": inferenceResponse.error.details,
             },
         )
 
