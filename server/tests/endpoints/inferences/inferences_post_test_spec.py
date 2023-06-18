@@ -126,8 +126,7 @@ expected_all_fields_head = {
 expected_min_fields_head = {
     "created_by_user_id": USER_BASIC["_id"],
     "created_by_org_id": ORG1["_id"],
-    "template_args": None,
-    "metadata": None,
+    "template_args": {},
     "end_user_id": None,
     "source": None,
     "client_ref_id": None,
@@ -312,7 +311,6 @@ post_openai_error_test_specs: TestSpecList = [
                 "is_client_connected_at_finish": True,
                 "error": {
                     "error_class": "openai.error.APIError",
-                    "error": None,
                     "message": "mocked error",
                 },
             },
@@ -342,7 +340,6 @@ post_openai_error_test_specs: TestSpecList = [
                 "is_client_connected_at_finish": True,
                 "error": {
                     "error_class": "openai.error.Timeout",
-                    "error": None,
                     "message": "mocked timeout",
                 },
             },

@@ -11,6 +11,6 @@ export declare namespace InferenceResponseError {
         completition_duration_seconds?: number | null;
         is_client_connected_at_finish?: boolean | null;
         isError?: boolean | null;
-        error?: unknown | null;
+        error: serializers.InferenceError.Raw;
     }
 }

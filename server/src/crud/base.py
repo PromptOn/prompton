@@ -11,11 +11,11 @@ from src.endpoints.endpoint_exceptions import (
     ItemNotFoundException,
     NoItemUpdatedException,
 )
-from src.schemas.base import MongoBase
+from src.schemas.base import MongoBaseCreate
 from src.schemas.user import UserInDB, UserRoles
 
 
-DBModelType = TypeVar("DBModelType", bound=MongoBase)
+DBModelType = TypeVar("DBModelType", bound=MongoBaseCreate)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 UpdateResponseSchemaType = TypeVar("UpdateResponseSchemaType", bound=BaseModel)

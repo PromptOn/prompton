@@ -12,10 +12,14 @@ from .inference_response_status import InferenceResponseStatus
 
 
 class InferenceRead(pydantic.BaseModel):
-    id: typing.Optional[str] = pydantic.Field(alias="_id")
-    created_at: typing.Optional[str]
-    created_by_user_id: typing.Optional[str]
-    created_by_org_id: typing.Optional[str]
+    """
+    Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks
+    """
+
+    id: str = pydantic.Field(alias="_id")
+    created_at: str
+    created_by_user_id: str
+    created_by_org_id: str
     end_user_id: typing.Optional[str] = pydantic.Field(
         description=(
             "The API consumer's internal user reference for metrics. It is also relayed to the provider as part of the request if the provider supports it (eg. OpenAI's user field).\n"
@@ -27,7 +31,7 @@ class InferenceRead(pydantic.BaseModel):
     client_ref_id: typing.Optional[str] = pydantic.Field(
         description=("The API consumer's internal reference id to able to link references to their sessions.\n")
     )
-    template_args: typing.Optional[typing.Dict[str, str]]
+    template_args: typing.Dict[str, str]
     metadata: typing.Optional[typing.Dict[str, typing.Any]]
     request_timeout: typing.Optional[float] = pydantic.Field(
         description=(
@@ -35,15 +39,11 @@ class InferenceRead(pydantic.BaseModel):
         )
     )
     prompt_version_id: str
-    prompt_version_ids_considered: typing.Optional[typing.List[str]] = pydantic.Field(
-        description=(
-            "If inference was by prompt_id then a list of all other prompt versions considered for this inference. I.e. all prompt versions in Live status at the time of the inference\n"
-        )
-    )
+    prompt_version_ids_considered: typing.List[str]
     prompt_id: str
-    prompt_version_name: typing.Optional[str]
-    status: typing.Optional[InferenceResponseStatus]
-    request: typing.Optional[InferenceRequestData]
+    prompt_version_name: str
+    status: InferenceResponseStatus
+    request: InferenceRequestData
     response: typing.Optional[InferenceReadResponse]
 
     def json(self, **kwargs: typing.Any) -> str:

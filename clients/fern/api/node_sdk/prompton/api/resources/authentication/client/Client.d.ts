@@ -10,8 +10,8 @@ export declare namespace Authentication {
     }
 }
 export declare class Authentication {
-    protected readonly options: Authentication.Options;
-    constructor(options: Authentication.Options);
+    protected readonly _options: Authentication.Options;
+    constructor(_options: Authentication.Options);
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

@@ -7,10 +7,10 @@ import * as core from "../../core";
 export declare const OrgRead: core.serialization.ObjectSchema<serializers.OrgRead.Raw, PromptonApi.OrgRead>;
 export declare namespace OrgRead {
     interface Raw {
-        _id?: string | null;
-        created_at?: string | null;
-        created_by_user_id?: string | null;
-        created_by_org_id?: string | null;
+        _id: string;
+        created_at: string;
+        created_by_user_id: string;
+        created_by_org_id: string;
         name: string;
         access_keys?: Record<string, string> | null;
     }

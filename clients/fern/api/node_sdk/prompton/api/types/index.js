@@ -30,6 +30,7 @@ __exportStar(require("./DbStatus"), exports);
 __exportStar(require("./HttpValidationError"), exports);
 __exportStar(require("./InferenceCreateByPromptId"), exports);
 __exportStar(require("./InferenceCreateByPromptVersionId"), exports);
+__exportStar(require("./InferenceError"), exports);
 __exportStar(require("./InferencePostResponse"), exports);
 __exportStar(require("./InferencePostResponseResponse"), exports);
 __exportStar(require("./InferenceRead"), exports);

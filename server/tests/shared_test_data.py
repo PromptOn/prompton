@@ -47,11 +47,13 @@ ORG2 = {
 
 USER_BASIC: Dict[str, Any] = {
     "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa1"),
+    "created_at": "2021-05-15T15:46:02.051309",
     "org_id": ORG_ID1,
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
     "created_by_org_id": ObjectId("ccccccccccccccccccccccc1"),
     "email": "basic@me.ai",
     "role": "Basic",
+    "disabled": False,
     "hashed_password": "$2b$12$JhlMpZQbm09aYUqpgz4gjOBD9k/vOE0QfgzXBMCwpbRbINDEScCY6",
 }
 
@@ -60,6 +62,7 @@ DEFAULT_MOCKED_USER = USER_BASIC
 
 USER_BASIC_ORG2 = {
     "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa2"),
+    "created_at": "2021-05-15T15:46:02.051309",
     "org_id": ORG_ID2,
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
     "created_by_org_id": ObjectId("ccccccccccccccccccccccc1"),
@@ -69,6 +72,7 @@ USER_BASIC_ORG2 = {
 
 USER_ORG_ADMIN = {
     "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa3"),
+    "created_at": "2021-05-15T15:46:02.051309",
     "org_id": ORG_ID1,
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
     "created_by_org_id": ObjectId("ccccccccccccccccccccccc1"),
@@ -79,6 +83,7 @@ USER_ORG_ADMIN = {
 
 USER_ORG_ADMIN_ORG2 = {
     "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa4"),
+    "created_at": "2021-05-15T15:46:02.051309",
     "org_id": ORG_ID2,
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
     "created_by_org_id": ObjectId("ccccccccccccccccccccccc1"),
@@ -89,6 +94,7 @@ USER_ORG_ADMIN_ORG2 = {
 
 USER_SUPER_ADMIN = {
     "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa5"),
+    "created_at": "2021-05-15T15:46:02.051309",
     "org_id": ObjectId("ccccccccccccccccccccccc1"),
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
     "created_by_org_id": ObjectId("ccccccccccccccccccccccc1"),

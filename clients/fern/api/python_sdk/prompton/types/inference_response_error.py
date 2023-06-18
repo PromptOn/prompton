@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ..core.datetime_utils import serialize_datetime
+from .inference_error import InferenceError
 
 
 class InferenceResponseError(pydantic.BaseModel):
@@ -13,7 +14,7 @@ class InferenceResponseError(pydantic.BaseModel):
     completition_duration_seconds: typing.Optional[float]
     is_client_connected_at_finish: typing.Optional[bool]
     is_error: typing.Optional[bool] = pydantic.Field(alias="isError")
-    error: typing.Optional[typing.Any]
+    error: InferenceError
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

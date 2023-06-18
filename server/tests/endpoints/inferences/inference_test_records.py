@@ -132,7 +132,7 @@ ERROR_INFERENCE = {
     "end_user_id": "fail_me_softly",
     "client_ref_id": None,
     "source": "openaidocs",
-    "template_args": None,
+    "template_args": {},
     "metadata": None,
     "request_timeout": None,
     "prompt_id": PROMPT_ID2,
@@ -172,7 +172,6 @@ ERROR_INFERENCE = {
         "isError": True,
         "error": {
             "error_class": "openai.error.APIError",
-            "error": None,
             "message": "mocking error",
             "details": {
                 "_message": "mocking error",
@@ -197,7 +196,7 @@ TIMEOUT_INFERENCE = {
     "client_ref_id": None,
     "end_user_id": None,
     "source": None,
-    "template_args": None,
+    "template_args": {},
     "metadata": None,
     "request_timeout": None,
     "prompt_id": PROMPT_ID2,
@@ -235,7 +234,6 @@ TIMEOUT_INFERENCE = {
         "isError": True,
         "error": {
             "error_class": "openai.error.Timeout",
-            "error": None,
             "message": "timeout error",
             "details": {
                 "_message": "timeout error",

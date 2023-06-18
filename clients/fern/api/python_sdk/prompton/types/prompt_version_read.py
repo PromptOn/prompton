@@ -13,18 +13,24 @@ from .prompt_version_status import PromptVersionStatus
 
 
 class PromptVersionRead(pydantic.BaseModel):
-    id: typing.Optional[str] = pydantic.Field(alias="_id")
-    created_at: typing.Optional[str]
-    created_by_user_id: typing.Optional[str]
-    created_by_org_id: typing.Optional[str]
-    status: typing.Optional[PromptVersionStatus]
-    provider: typing.Optional[PromptVersionProviders]
+    """
+    Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks
+    """
+
+    id: str = pydantic.Field(alias="_id")
+    created_at: str
+    created_by_user_id: str
+    created_by_org_id: str
+    status: PromptVersionStatus
+    provider: PromptVersionProviders
     name: str = pydantic.Field(description=('<span style="white-space: nowrap">`non-empty`</span>\n'))
     description: typing.Optional[str]
     prompt_id: str
-    template: typing.Optional[typing.List[ChatGptMessage]]
+    template: typing.List[ChatGptMessage]
     model_config: typing.Optional[ChatGptChatCompletitionConfig]
-    template_arg_names: typing.Optional[typing.List[str]]
+    template_arg_names: typing.List[str] = pydantic.Field(
+        description=("List of args in the template - populated by server at PATHC and POST\n")
+    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

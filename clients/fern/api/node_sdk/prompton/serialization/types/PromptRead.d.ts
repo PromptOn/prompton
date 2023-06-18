@@ -7,11 +7,11 @@ import * as core from "../../core";
 export declare const PromptRead: core.serialization.ObjectSchema<serializers.PromptRead.Raw, PromptonApi.PromptRead>;
 export declare namespace PromptRead {
     interface Raw {
-        _id?: string | null;
-        created_at?: string | null;
-        created_by_user_id?: string | null;
-        created_by_org_id?: string | null;
-        status?: serializers.PromptStatus.Raw | null;
+        _id: string;
+        created_at: string;
+        created_by_user_id: string;
+        created_by_org_id: string;
+        status: serializers.PromptStatus.Raw;
         name: string;
         description?: string | null;
     }

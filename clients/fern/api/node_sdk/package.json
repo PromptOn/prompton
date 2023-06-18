@@ -1,6 +1,6 @@
 {
-  "name": "@prompton/prompton",
-  "version": "0.0.5",
+  "name": "@prompton/prompton-sdk",
+  "version": "0.0.6",
   "description": "Chat prompt template evaluation and inference monitoring",
   "private": false,
   "publishConfig": {

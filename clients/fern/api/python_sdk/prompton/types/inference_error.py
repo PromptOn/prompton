@@ -6,25 +6,12 @@ import typing
 import pydantic
 
 from ..core.datetime_utils import serialize_datetime
-from .user_roles import UserRoles
 
 
-class UserRead(pydantic.BaseModel):
-    """
-    Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks
-    """
-
-    id: str = pydantic.Field(alias="_id")
-    created_at: str
-    created_by_user_id: str
-    created_by_org_id: str
-    full_name: typing.Optional[str] = pydantic.Field(
-        description=('<span style="white-space: nowrap">`non-empty`</span>\n')
-    )
-    disabled: bool
-    role: typing.Optional[UserRoles]
-    org_id: str
-    email: str
+class InferenceError(pydantic.BaseModel):
+    error_class: str
+    message: str
+    details: typing.Optional[typing.Any]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -36,5 +23,4 @@ class UserRead(pydantic.BaseModel):
 
     class Config:
         frozen = True
-        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

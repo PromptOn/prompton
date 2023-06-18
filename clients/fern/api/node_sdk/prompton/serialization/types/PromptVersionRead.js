@@ -38,18 +38,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PromptVersionRead = void 0;
 const core = __importStar(require("../../core"));
 exports.PromptVersionRead = core.serialization.object({
-    id: core.serialization.property("_id", core.serialization.string().optional()),
-    createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
-    createdByUserId: core.serialization.property("created_by_user_id", core.serialization.string().optional()),
-    createdByOrgId: core.serialization.property("created_by_org_id", core.serialization.string().optional()),
-    status: core.serialization.lazy(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).PromptVersionStatus; })).optional(),
-    provider: core.serialization.lazy(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).PromptVersionProviders; })).optional(),
+    id: core.serialization.property("_id", core.serialization.string()),
+    createdAt: core.serialization.property("created_at", core.serialization.string()),
+    createdByUserId: core.serialization.property("created_by_user_id", core.serialization.string()),
+    createdByOrgId: core.serialization.property("created_by_org_id", core.serialization.string()),
+    status: core.serialization.lazy(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).PromptVersionStatus; })),
+    provider: core.serialization.lazy(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).PromptVersionProviders; })),
     name: core.serialization.string(),
     description: core.serialization.string().optional(),
     promptId: core.serialization.property("prompt_id", core.serialization.string()),
-    template: core.serialization
-        .list(core.serialization.lazyObject(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).ChatGptMessage; })))
-        .optional(),
+    template: core.serialization.list(core.serialization.lazyObject(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).ChatGptMessage; }))),
     modelConfig: core.serialization.property("model_config", core.serialization.lazyObject(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).ChatGptChatCompletitionConfig; })).optional()),
-    templateArgNames: core.serialization.property("template_arg_names", core.serialization.list(core.serialization.string()).optional()),
+    templateArgNames: core.serialization.property("template_arg_names", core.serialization.list(core.serialization.string())),
 });
