@@ -1645,8 +1645,17 @@
       "InferenceRead": {
         "title": "InferenceRead",
         "required": [
+          "_id",
+          "created_at",
+          "created_by_user_id",
+          "created_by_org_id",
+          "template_args",
           "prompt_version_id",
-          "prompt_id"
+          "prompt_version_ids_considered",
+          "prompt_id",
+          "prompt_version_name",
+          "status",
+          "request"
         ],
         "type": "object",
         "properties": {
@@ -1707,9 +1716,7 @@
             "type": "array",
             "items": {
               "type": "string"
-            },
-            "description": "If inference was by prompt_id then a list of all other prompt versions considered for this inference. I.e. all prompt versions in Live status at the time of the inference",
-            "default": []
+            }
           },
           "prompt_id": {
             "title": "Prompt Id",
@@ -1720,12 +1727,7 @@
             "type": "string"
           },
           "status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/InferenceResponseStatus"
-              }
-            ],
-            "default": "RequestReceived"
+            "$ref": "#/components/schemas/InferenceResponseStatus"
           },
           "request": {
             "$ref": "#/components/schemas/InferenceRequestData"
@@ -1741,7 +1743,8 @@
               }
             ]
           }
-        }
+        },
+        "description": "Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks"
       },
       "InferenceRequestData": {
         "title": "InferenceRequestData",
@@ -1881,6 +1884,10 @@
       "OrgRead": {
         "title": "OrgRead",
         "required": [
+          "_id",
+          "created_at",
+          "created_by_user_id",
+          "created_by_org_id",
           "name"
         ],
         "type": "object",
@@ -1915,7 +1922,8 @@
               "writeOnly": true
             }
           }
-        }
+        },
+        "description": "Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks"
       },
       "OrgUpdate": {
         "title": "OrgUpdate",
@@ -1949,6 +1957,7 @@
                 "$ref": "#/components/schemas/PromptStatus"
               }
             ],
+            "description": "Prompt status for client consideration only, currently not used in server logic.",
             "default": "Active"
           },
           "name": {
@@ -1966,6 +1975,11 @@
       "PromptRead": {
         "title": "PromptRead",
         "required": [
+          "_id",
+          "created_at",
+          "created_by_user_id",
+          "created_by_org_id",
+          "status",
           "name"
         ],
         "type": "object",
@@ -1988,12 +2002,7 @@
             "type": "string"
           },
           "status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PromptStatus"
-              }
-            ],
-            "default": "Active"
+            "$ref": "#/components/schemas/PromptStatus"
           },
           "name": {
             "title": "Name",
@@ -2004,7 +2013,8 @@
             "title": "Description",
             "type": "string"
           }
-        }
+        },
+        "description": "Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks"
       },
       "PromptStatus": {
         "title": "PromptStatus",
@@ -2025,6 +2035,7 @@
                 "$ref": "#/components/schemas/PromptStatus"
               }
             ],
+            "description": "Prompt status for client consideration only, currently not used in server logic.",
             "default": "Active"
           },
           "name": {
@@ -2100,8 +2111,16 @@
       "PromptVersionRead": {
         "title": "PromptVersionRead",
         "required": [
+          "_id",
+          "created_at",
+          "created_by_user_id",
+          "created_by_org_id",
+          "status",
+          "provider",
           "name",
-          "prompt_id"
+          "prompt_id",
+          "template",
+          "template_arg_names"
         ],
         "type": "object",
         "properties": {
@@ -2123,20 +2142,10 @@
             "type": "string"
           },
           "status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PromptVersionStatus"
-              }
-            ],
-            "default": "Draft"
+            "$ref": "#/components/schemas/PromptVersionStatus"
           },
           "provider": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PromptVersionProviders"
-              }
-            ],
-            "default": "OpenAI"
+            "$ref": "#/components/schemas/PromptVersionProviders"
           },
           "name": {
             "title": "Name",
@@ -2167,9 +2176,10 @@
             "items": {
               "type": "string"
             },
-            "default": []
+            "description": "List of args in the template - populated by server at PATHC and POST"
           }
-        }
+        },
+        "description": "Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks"
       },
       "PromptVersionStatus": {
         "title": "PromptVersionStatus",
@@ -2294,6 +2304,11 @@
       "UserRead": {
         "title": "UserRead",
         "required": [
+          "_id",
+          "created_at",
+          "created_by_user_id",
+          "created_by_org_id",
+          "disabled",
           "org_id",
           "email"
         ],
@@ -2323,8 +2338,7 @@
           },
           "disabled": {
             "title": "Disabled",
-            "type": "boolean",
-            "default": false
+            "type": "boolean"
           },
           "role": {
             "allOf": [
@@ -2342,7 +2356,8 @@
             "title": "Email",
             "type": "string"
           }
-        }
+        },
+        "description": "Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks"
       },
       "UserRoles": {
         "title": "UserRoles",
