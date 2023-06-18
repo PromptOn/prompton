@@ -1027,6 +1027,7 @@ components:
           type: object
           additionalProperties:
             type: string
+          default: {}
         metadata:
           title: Metadata
           type: object
@@ -1074,6 +1075,7 @@ components:
           type: object
           additionalProperties:
             type: string
+          default: {}
         metadata:
           title: Metadata
           type: object
@@ -1087,6 +1089,21 @@ components:
           title: Prompt Version Id
           type: string
       additionalProperties: false
+    InferenceError:
+      title: InferenceError
+      required:
+      - error_class
+      - message
+      type: object
+      properties:
+        error_class:
+          title: Error Class
+          type: string
+        message:
+          title: Message
+          type: string
+        details:
+          title: Details
     InferencePostResponse:
       title: InferencePostResponse
       required:
@@ -1227,6 +1244,8 @@ components:
       additionalProperties: false
     InferenceResponseError:
       title: InferenceResponseError
+      required:
+      - error
       type: object
       properties:
         completed_at:
@@ -1244,7 +1263,7 @@ components:
           type: boolean
           default: true
         error:
-          title: Error
+          $ref: '#/components/schemas/InferenceError'
       additionalProperties: false
     InferenceResponseStatus:
       title: InferenceResponseStatus

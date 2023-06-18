@@ -1552,7 +1552,8 @@
             "type": "object",
             "additionalProperties": {
               "type": "string"
-            }
+            },
+            "default": {}
           },
           "metadata": {
             "title": "Metadata",
@@ -1598,7 +1599,8 @@
             "type": "object",
             "additionalProperties": {
               "type": "string"
-            }
+            },
+            "default": {}
           },
           "metadata": {
             "title": "Metadata",
@@ -1615,6 +1617,27 @@
           }
         },
         "additionalProperties": false
+      },
+      "InferenceError": {
+        "title": "InferenceError",
+        "required": [
+          "error_class",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error_class": {
+            "title": "Error Class",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "details": {
+            "title": "Details"
+          }
+        }
       },
       "InferencePostResponse": {
         "title": "InferencePostResponse",
@@ -1800,6 +1823,9 @@
       },
       "InferenceResponseError": {
         "title": "InferenceResponseError",
+        "required": [
+          "error"
+        ],
         "type": "object",
         "properties": {
           "completed_at": {
@@ -1821,7 +1847,7 @@
             "default": true
           },
           "error": {
-            "title": "Error"
+            "$ref": "#/components/schemas/InferenceError"
           }
         },
         "additionalProperties": false
