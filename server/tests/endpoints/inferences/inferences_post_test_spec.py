@@ -311,7 +311,6 @@ post_openai_error_test_specs: TestSpecList = [
                 "is_client_connected_at_finish": True,
                 "error": {
                     "error_class": "openai.error.APIError",
-                    "error": None,
                     "message": "mocked error",
                 },
             },
@@ -341,7 +340,6 @@ post_openai_error_test_specs: TestSpecList = [
                 "is_client_connected_at_finish": True,
                 "error": {
                     "error_class": "openai.error.Timeout",
-                    "error": None,
                     "message": "mocked timeout",
                 },
             },

@@ -57,7 +57,10 @@ async def test_inference_post_openai_errors(
         expected_response,
         response_data,
         ignore_order=True,
-        exclude_paths=["root['detail']['inference_id']"],
+        exclude_paths=[
+            "root['detail']['inference_id']",
+            "root['detail']['openAI_error']",
+        ],
     )
     print(" *** response vs expected diff:\n", diff.pretty())
     assert diff == {}, "response data should be as expected"

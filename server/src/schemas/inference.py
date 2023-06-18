@@ -61,9 +61,15 @@ class InferenceResponseBase(MyBaseModel):
     is_client_connected_at_finish: Optional[bool] = None
 
 
+class InferenceError(MyBaseModel, extra=Extra.allow):
+    error_class: str
+    message: str
+    details: Any
+
+
 class InferenceResponseError(InferenceResponseBase):
     isError: bool = True
-    error: Any
+    error: InferenceError
 
 
 class InferenceResponseData(InferenceResponseBase):

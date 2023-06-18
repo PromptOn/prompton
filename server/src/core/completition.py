@@ -7,6 +7,7 @@ from src.schemas.openAI import (
     ChatGPTChatCompletitionResponse,
 )
 from src.schemas.inference import (
+    InferenceError,
     InferenceResponseData,
     InferenceResponseError,
 )
@@ -88,12 +89,9 @@ async def get_openai_chat_completition(
     except Exception as e:
         full_classname = f"{e.__class__.__module__}.{e.__class__.__name__}"
         response = InferenceResponseError(
-            error={
-                "error_class": full_classname,
-                "error": vars(e)["error"] if "error" in vars(e) else None,
-                "message": str(e),
-                "details": {**vars(e)},
-            },
+            error=InferenceError(
+                error_class=full_classname, message=str(e), details={**vars(e)}
+            )
         )
     finally:
         end_time = time.perf_counter()

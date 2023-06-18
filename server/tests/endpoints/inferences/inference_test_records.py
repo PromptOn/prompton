@@ -172,7 +172,6 @@ ERROR_INFERENCE = {
         "isError": True,
         "error": {
             "error_class": "openai.error.APIError",
-            "error": None,
             "message": "mocking error",
             "details": {
                 "_message": "mocking error",
@@ -235,7 +234,6 @@ TIMEOUT_INFERENCE = {
         "isError": True,
         "error": {
             "error_class": "openai.error.Timeout",
-            "error": None,
             "message": "timeout error",
             "details": {
                 "_message": "timeout error",
