@@ -34,7 +34,7 @@ class InferenceBase(MyBaseModel):
         None,
         description="The API consumer's internal reference id to able to link references to their sessions.",
     )
-    template_args: Optional[dict[str, str]] = Field(None)
+    template_args: Optional[dict[str, str]] = Field({})
     metadata: Optional[dict[str, Any]] = Field(None)
     request_timeout: Optional[float] = Field(
         None,

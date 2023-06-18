@@ -28,7 +28,7 @@ def get_arg_identifiers(template: ChatGPTMessageTemplate):
 def get_populated_template(template: ChatGPTMessageTemplate, args: dict[str, str]):
     res: ChatGPTMessageTemplate = []
 
-    if template is not None and args is not None:
+    if template is not None and args is not None and len(args) > 0:
         for msg in template:
             res.append(
                 ChatGPTMessage(
@@ -40,7 +40,7 @@ def get_populated_template(template: ChatGPTMessageTemplate, args: dict[str, str
                     }  # type: ignore[arg-type]
                 )
             )
-    if args is None:
+    else:
         res = copy.deepcopy(template)
 
     return res
