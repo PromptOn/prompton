@@ -31,7 +31,6 @@ const errors = __importStar(require("../../errors"));
 class BadRequestError extends errors.PromptonApiError {
     constructor(body) {
         super({
-            message: "BadRequestError",
             statusCode: 400,
             body: body,
         });

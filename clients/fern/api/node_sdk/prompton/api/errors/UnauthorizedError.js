@@ -31,7 +31,6 @@ const errors = __importStar(require("../../errors"));
 class UnauthorizedError extends errors.PromptonApiError {
     constructor(body) {
         super({
-            message: "UnauthorizedError",
             statusCode: 401,
             body: body,
         });

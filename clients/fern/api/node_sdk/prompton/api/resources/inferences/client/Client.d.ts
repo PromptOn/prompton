@@ -10,8 +10,8 @@ export declare namespace Inferences {
     }
 }
 export declare class Inferences {
-    protected readonly options: Inferences.Options;
-    constructor(options: Inferences.Options);
+    protected readonly _options: Inferences.Options;
+    constructor(_options: Inferences.Options);
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

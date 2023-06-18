@@ -14,6 +14,7 @@ export * from "./DbStatus";
 export * from "./HttpValidationError";
 export * from "./InferenceCreateByPromptId";
 export * from "./InferenceCreateByPromptVersionId";
+export * from "./InferenceError";
 export * from "./InferencePostResponse";
 export * from "./InferencePostResponseResponse";
 export * from "./InferenceRead";

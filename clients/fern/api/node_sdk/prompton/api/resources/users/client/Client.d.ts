@@ -10,8 +10,8 @@ export declare namespace Users {
     }
 }
 export declare class Users {
-    protected readonly options: Users.Options;
-    constructor(options: Users.Options);
+    protected readonly _options: Users.Options;
+    constructor(_options: Users.Options);
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

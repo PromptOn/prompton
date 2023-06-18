@@ -10,8 +10,8 @@ export declare namespace PromptVersions {
     }
 }
 export declare class PromptVersions {
-    protected readonly options: PromptVersions.Options;
-    constructor(options: PromptVersions.Options);
+    protected readonly _options: PromptVersions.Options;
+    constructor(_options: PromptVersions.Options);
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

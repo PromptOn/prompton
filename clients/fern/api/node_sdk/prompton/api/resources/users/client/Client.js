@@ -45,8 +45,8 @@ const url_join_1 = __importDefault(require("url-join"));
 const serializers = __importStar(require("../../../../serialization"));
 const errors = __importStar(require("../../../../errors"));
 class Users {
-    constructor(options) {
-        this.options = options;
+    constructor(_options) {
+        this._options = _options;
     }
     /**
      * @throws {@link PromptonApi.BadRequestError}
@@ -57,7 +57,7 @@ class Users {
     getUsersList() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "users"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "users"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -114,7 +114,7 @@ class Users {
     addNewUser(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "users"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "users"),
                 method: "POST",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -166,7 +166,7 @@ class Users {
     getCurrentUser() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), "users/me"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "users/me"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -224,7 +224,7 @@ class Users {
     getUserById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(yield core.Supplier.get(this.options.environment), `users/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `users/${id}`),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -275,7 +275,7 @@ class Users {
     }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
-            const bearer = yield core.Supplier.get(this.options.token);
+            const bearer = yield core.Supplier.get(this._options.token);
             if (bearer != null) {
                 return `Bearer ${bearer}`;
             }

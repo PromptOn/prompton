@@ -15,6 +15,7 @@ from .db_status import DbStatus
 from .http_validation_error import HttpValidationError
 from .inference_create_by_prompt_id import InferenceCreateByPromptId
 from .inference_create_by_prompt_version_id import InferenceCreateByPromptVersionId
+from .inference_error import InferenceError
 from .inference_post_response import InferencePostResponse
 from .inference_post_response_response import InferencePostResponseResponse
 from .inference_read import InferenceRead
@@ -52,6 +53,7 @@ __all__ = [
     "HttpValidationError",
     "InferenceCreateByPromptId",
     "InferenceCreateByPromptVersionId",
+    "InferenceError",
     "InferencePostResponse",
     "InferencePostResponseResponse",
     "InferenceRead",

@@ -49,7 +49,10 @@ function fetcherImpl(args) {
                 responseType: (_a = args.responseType) !== null && _a !== void 0 ? _a : "json",
             });
             let body;
-            if (response.data != null && response.data.length > 0) {
+            if (args.responseType === "blob") {
+                body = response.data;
+            }
+            else if (response.data != null && response.data.length > 0) {
                 try {
                     body = (_b = JSON.parse(response.data)) !== null && _b !== void 0 ? _b : undefined;
                 }
@@ -67,7 +70,7 @@ function fetcherImpl(args) {
             if (response.status >= 200 && response.status < 400) {
                 return {
                     ok: true,
-                    body,
+                    body: body,
                 };
             }
             else {

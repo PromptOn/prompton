@@ -10,11 +10,15 @@ from .prompt_status import PromptStatus
 
 
 class PromptRead(pydantic.BaseModel):
-    id: typing.Optional[str] = pydantic.Field(alias="_id")
-    created_at: typing.Optional[str]
-    created_by_user_id: typing.Optional[str]
-    created_by_org_id: typing.Optional[str]
-    status: typing.Optional[PromptStatus]
+    """
+    Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks
+    """
+
+    id: str = pydantic.Field(alias="_id")
+    created_at: str
+    created_by_user_id: str
+    created_by_org_id: str
+    status: PromptStatus
     name: str = pydantic.Field(description=('<span style="white-space: nowrap">`non-empty`</span>\n'))
     description: typing.Optional[str]
 

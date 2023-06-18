@@ -7,22 +7,22 @@ import * as core from "../../core";
 export declare const InferenceRead: core.serialization.ObjectSchema<serializers.InferenceRead.Raw, PromptonApi.InferenceRead>;
 export declare namespace InferenceRead {
     interface Raw {
-        _id?: string | null;
-        created_at?: string | null;
-        created_by_user_id?: string | null;
-        created_by_org_id?: string | null;
+        _id: string;
+        created_at: string;
+        created_by_user_id: string;
+        created_by_org_id: string;
         end_user_id?: string | null;
         source?: string | null;
         client_ref_id?: string | null;
-        template_args?: Record<string, string> | null;
+        template_args: Record<string, string>;
         metadata?: Record<string, unknown> | null;
         request_timeout?: number | null;
         prompt_version_id: string;
-        prompt_version_ids_considered?: string[] | null;
+        prompt_version_ids_considered: string[];
         prompt_id: string;
-        prompt_version_name?: string | null;
-        status?: serializers.InferenceResponseStatus.Raw | null;
-        request?: serializers.InferenceRequestData.Raw | null;
+        prompt_version_name: string;
+        status: serializers.InferenceResponseStatus.Raw;
+        request: serializers.InferenceRequestData.Raw;
         response?: serializers.InferenceReadResponse.Raw | null;
     }
 }
