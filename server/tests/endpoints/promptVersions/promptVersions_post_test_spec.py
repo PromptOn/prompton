@@ -60,7 +60,7 @@ test_specs_post: TestSpecList = [
             "description": None,
             "prompt_id": VALID_PROMPT_ID,
             "provider": "OpenAI",
-            "template": None,
+            "template": [],
             "model_config": None,
             "template_arg_names": [],
         },
