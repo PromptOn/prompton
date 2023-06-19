@@ -2118,7 +2118,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ChatGPTMessage"
-            }
+            },
+            "default": []
           },
           "model_config": {
             "$ref": "#/components/schemas/ChatGPTChatCompletitionConfig"
@@ -2256,7 +2257,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ChatGPTMessage"
-            }
+            },
+            "default": []
           },
           "model_config": {
             "$ref": "#/components/schemas/ChatGPTChatCompletitionConfig"
