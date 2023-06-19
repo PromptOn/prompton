@@ -91,6 +91,7 @@ class CrudBase(
         projection: Dict[str, Any] | None = None,
         skip: int = 0,
         limit: int = 1000,
+        sort: List[tuple[str, int]] | tuple[str, int] | None = ("_id", -1),
     ) -> List[dict[str, Any]]:
         filter_with_permissions = self._add_org_id_filter(current_user, filter)
 
@@ -99,6 +100,7 @@ class CrudBase(
             .find(filter_with_permissions, projection=projection)
             .skip(skip)
             .limit(limit)
+            .sort(*sort)
             .to_list(limit)
         )
 
@@ -112,9 +114,10 @@ class CrudBase(
         filter: Dict[str, Any] | None = None,
         skip: int = 0,
         limit: int = 1000,
+        sort: List[tuple[str, int]] | tuple[str, int] | None = ("_id", -1),
     ) -> List[DBModelType]:
         items_raw = await self.get_multi_raw(
-            db, current_user, filter=filter, skip=skip, limit=limit
+            db, current_user, filter=filter, skip=skip, limit=limit, sort=sort
         )
 
         items = [self.db_schema.parse_obj(item) for item in items_raw]
