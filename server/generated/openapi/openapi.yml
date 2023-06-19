@@ -1468,6 +1468,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChatGPTMessage'
+          default: []
         model_config:
           $ref: '#/components/schemas/ChatGPTChatCompletitionConfig'
       additionalProperties: false
@@ -1572,6 +1573,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChatGPTMessage'
+          default: []
         model_config:
           $ref: '#/components/schemas/ChatGPTChatCompletitionConfig'
       additionalProperties: false

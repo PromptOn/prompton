@@ -29,7 +29,7 @@ class PromptVersionBase(MyBaseModel):
     name: NameField
     description: Optional[str] = Field(None)
     prompt_id: PyObjectId
-    template: ChatGPTMessageTemplate = Field(None)
+    template: ChatGPTMessageTemplate = Field([])
     model_config: ChatGPTChatCompletitionConfig = Field(None)
 
 
