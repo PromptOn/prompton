@@ -123,11 +123,13 @@ def bson_obj_to_json(data):
         return str(data)
 
 
-def bson_to_json(bson_dict: Dict[str, Any]) -> Dict[str, Any]:
+def bson_to_json(bson_dict: TListOrDict) -> TListOrDict:
     """convert ObjectIds and timestamps to str. Mostly used to prep data read from db for comparison with DeepDiff"""
-    res: Dict[str, Any] = bson_obj_to_json(bson_dict)  # pyright: ignore
-    return res
-    # return json.loads(json.dumps(bson_dict, default=lambda o: str(o)))
+    if isinstance(bson_dict, list):
+        return [bson_to_json(item) for item in bson_dict]
+    else:
+        res: Dict[str, Any] = bson_obj_to_json(bson_dict)  # pyright: ignore
+        return res
 
 
 def assert_base_db_records(expected_id, record):
