@@ -8,7 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = "0.97.0"
-motor = "^4.4.0"
+motor = "^3.1.2"
 uvicorn = "^0.22.0"
 httpx = "^0.24.1"
 aiohttp = "^3.8.4"
