@@ -125,7 +125,7 @@ test_specs_post: TestSpecList = [
         "spec_id": "Duplicate email",
         "mock_user": USER_ORG_ADMIN,
         "input": {"request_body": {**MIN_VALID, "email": " basic@me.ai "}},
-        "expected": 422,
+        "expected": 409,
     },
     #
     # Format validations

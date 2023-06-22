@@ -67,7 +67,7 @@ async def get_user_by_id(
 @router.post(
     "/users",
     tags=["users"],
-    responses={**ReqResponses.POST_RESPONSES},
+    responses={**ReqResponses.POST_RESPONSES, **ReqResponses.EMAIL_ALREADY_EXISTS},
     status_code=status.HTTP_201_CREATED,
 )
 async def add_new_user(
