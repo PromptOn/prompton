@@ -7,6 +7,7 @@ from src.endpoints.endpoint_exceptions import (
     EmailAlreadyExistsError,
     PermissionValidationError,
 )
+from src.schemas.base import DefaultPostResponse
 from src.schemas.user import UserInDB, UserRoles
 from src.core.user import (
     get_current_active_user,
@@ -73,7 +74,7 @@ async def add_new_user(
     user_to_add: UserCreate,
     current_user: Annotated[UserInDB, Depends(get_current_org_admin_user)],
     db=Depends(get_db),
-):
+) -> DefaultPostResponse:
     if (
         current_user.role != UserRoles.SUPER_ADMIN
         and user_to_add.org_id != current_user.org_id
@@ -94,7 +95,7 @@ async def add_new_user(
     except DuplicateKeyError:
         raise EmailAlreadyExistsError(email=user_to_add.email)
 
-    return {"id": str(insert_res.inserted_id)}
+    return DefaultPostResponse(id=str(insert_res.inserted_id))
 
 
 # TODO: update user (password, email, org?, role, disabled)
