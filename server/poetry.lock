@@ -1304,13 +1304,13 @@ zstd = ["zstandard"]
 
 [[package]]
 name = "pyright"
-version = "1.1.314"
+version = "1.1.315"
 description = "Command line wrapper for pyright"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pyright-1.1.314-py3-none-any.whl", hash = "sha256:5008a2e04b71e35c5f1b78b16adae9d012601197442ae6c798e9bb3456d1eecb"},
-    {file = "pyright-1.1.314.tar.gz", hash = "sha256:bd104c206fe40eaf5f836efa9027f07cc0efcbc452e6d22dfae36759c5fd28b3"},
+    {file = "pyright-1.1.315-py3-none-any.whl", hash = "sha256:262744daa7455f6056f6d6609b6278258e2fd7bd100d8937203516ee71d0eb93"},
+    {file = "pyright-1.1.315.tar.gz", hash = "sha256:f124400a1a72ccc5fd04836e7e48ed235e8f7929bcc42b270a571fb34df17979"},
 ]
 
 [package.dependencies]
@@ -1742,4 +1742,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "ac7b5003f600df0309f9ad7d1d780fd5b1529cbb0933fe266a257e276d4794f1"
+content-hash = "5b7d9daa10ce2736cad550cef6cc29b0aef288a0ab54ccc6b4d56bc71fe5d72c"
