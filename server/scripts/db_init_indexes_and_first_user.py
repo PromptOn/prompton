@@ -51,6 +51,8 @@ async def run():
         unique=True,
     )
 
+    await db.feedbacks.create_index([("prompt_version_id", DESCENDING)])
+
     print("Adding inital user: ", os.getenv("PROMPTON_USER_EMAIL"))
     org = {
         "created_at": datetime.utcnow(),

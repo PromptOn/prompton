@@ -23,3 +23,4 @@ db.feedbacks.createIndex(
   { inference_id: -1, created_by_user_id: 1, end_user_id: 1 },
   { unique: true }
 );
+db.feedbacks.createIndex({ prompt_version_id: -1 });
