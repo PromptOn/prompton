@@ -11,7 +11,7 @@ from src.schemas.base import (
 class FeedbackBase(MyBaseModel):
     """Feedback for an inference. Can be from an end user or internal user, `end_user_id` is null if from internal user.
     Allows for different scoring methods and flags for internal evaluation and end user feedback.
-    Eg. End users can thumbs/thumbs down mapped to -1 +1 `score`, internal users rate between from 0 to 100 and can add a note.
+    Eg. End users can thumbs down/up mapped to -1 +1 `score`, internal users rate between from 0 to 100 and can add a note.
     """
 
     inference_id: PyObjectId = Field(..., description="The inference being rated")
