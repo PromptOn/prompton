@@ -1,5 +1,5 @@
-from typing import Optional
-from pydantic import Extra, Field
+from typing import Any, Optional
+from pydantic import Extra, Field, root_validator
 from src.schemas.base import (
     MongoBaseCreate,
     MongoBaseRead,
@@ -9,28 +9,42 @@ from src.schemas.base import (
 
 
 class FeedbackBase(MyBaseModel):
-    """Feedback for an inference. Can be from an end user or internal user, `end_user_id` is null if from internal user.
-    Allows for different scoring methods and flags for internal evaluation and end user feedback.
-    Eg. End users can thumbs down/up mapped to -1 +1 `score`, internal users rate between from 0 to 100 and can add a note.
-    """
-
     inference_id: PyObjectId = Field(..., description="The inference being rated")
     end_user_id: Optional[str] = Field(
         None,
         description="API consumers' end user id If feedback from end user otherwise null",
     )
-    score: int = Field(
-        ...,
-        description="Any arbitrary integer score. Rules are up to the API consumer",
+    feedback_for_part: Optional[str] = Field(
+        None,
+        description="Specifies which part of the output the feedback is about. Can be used when the inference has multiple sections which require separate feedback",
+    )
+    score: Optional[int] = Field(
+        None,
+        description="Any integer score. Rules are up to the API consumer. Can be null if it was flagging or note only",
     )
     flag: Optional[str] = Field(
         None,
-        description="Any arbitrary string flagging of the inference. Rules are up to the API consumer.",
+        description="Any string when inference was flagged. Can be null if it is scoring or note only",
     )
     note: Optional[str] = Field(None)
+    metadata: Optional[dict[str, Any]] = Field(None)
 
 
 class FeedbackCreate(FeedbackBase, extra=Extra.forbid):
+    @root_validator
+    def mandatory_field_validation(cls, values):
+        """Check if either `score`, `flag` or `note` is provided"""
+        if not (values.get("score") or values.get("flag") or values.get("note")):
+            raise ValueError(
+                "At least one of `score`, `flag` or `note` must be provided"
+            )
+        return values
+
+
+class FeedbackUpdate(FeedbackBase, extra=Extra.forbid):
+    """Only placeholder for now as no feedback update feature"""
+
+    # TODO: decide what we allow to update with FeedbackUpdate and by whom (if need it at all)
     pass
 
 
@@ -38,5 +52,5 @@ class FeedbackInDB(FeedbackBase, MongoBaseCreate, extra=Extra.allow):
     prompt_version_id: PyObjectId
 
 
-class FeedbackRead(MongoBaseRead, extra=Extra.ignore):
+class FeedbackRead(FeedbackBase, MongoBaseRead, extra=Extra.ignore):
     prompt_version_id: Optional[PyObjectId] = None
