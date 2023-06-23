@@ -20,7 +20,7 @@ MIN_VALID_LIVE = {
     "model_config": VALID_CONFIG,
 }
 
-MIN_VALID_TESTING = {**MIN_VALID_LIVE, "status": "Testing"}  # type: ignore[arg-type]
+MIN_VALID_TESTING = {**MIN_VALID_LIVE, "status": "Testing"}
 
 DRAFT_FULL_PROMPT_VER = {
     "status": "Draft",
