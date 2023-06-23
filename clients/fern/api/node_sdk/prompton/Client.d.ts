@@ -9,6 +9,7 @@ import { PromptVersions } from "./api/resources/promptVersions/client/Client";
 import { Inferences } from "./api/resources/inferences/client/Client";
 import { Orgs } from "./api/resources/orgs/client/Client";
 import { Users } from "./api/resources/users/client/Client";
+import { Feedbacks } from "./api/resources/feedbacks/client/Client";
 export declare namespace PromptonApiClient {
     interface Options {
         environment: core.Supplier<string>;
@@ -32,4 +33,6 @@ export declare class PromptonApiClient {
     get orgs(): Orgs;
     protected _users: Users | undefined;
     get users(): Users;
+    protected _feedbacks: Feedbacks | undefined;
+    get feedbacks(): Feedbacks;
 }

@@ -14,6 +14,7 @@ from ...errors.bad_request_error import BadRequestError
 from ...errors.not_found_error import NotFoundError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
+from ...types.default_post_response import DefaultPostResponse
 from ...types.prompt_read import PromptRead
 from ...types.prompt_status import PromptStatus
 
@@ -53,7 +54,7 @@ class PromptsClient:
 
     def add_prompt(
         self, *, status: typing.Optional[PromptStatus] = OMIT, name: str, description: typing.Optional[str] = OMIT
-    ) -> typing.Any:
+    ) -> DefaultPostResponse:
         _request: typing.Dict[str, typing.Any] = {"name": name}
         if status is not OMIT:
             _request["status"] = status
@@ -69,7 +70,7 @@ class PromptsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(DefaultPostResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -202,7 +203,7 @@ class AsyncPromptsClient:
 
     async def add_prompt(
         self, *, status: typing.Optional[PromptStatus] = OMIT, name: str, description: typing.Optional[str] = OMIT
-    ) -> typing.Any:
+    ) -> DefaultPostResponse:
         _request: typing.Dict[str, typing.Any] = {"name": name}
         if status is not OMIT:
             _request["status"] = status
@@ -219,7 +220,7 @@ class AsyncPromptsClient:
                 timeout=60,
             )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(DefaultPostResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 401:

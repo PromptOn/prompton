@@ -26,15 +26,17 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authentication = exports.users = exports.orgs = exports.inferences = exports.promptVersions = exports.prompts = void 0;
+exports.authentication = exports.feedbacks = exports.users = exports.orgs = exports.inferences = exports.promptVersions = exports.prompts = void 0;
 exports.prompts = __importStar(require("./prompts"));
 exports.promptVersions = __importStar(require("./promptVersions"));
 exports.inferences = __importStar(require("./inferences"));
 exports.orgs = __importStar(require("./orgs"));
 exports.users = __importStar(require("./users"));
+exports.feedbacks = __importStar(require("./feedbacks"));
 exports.authentication = __importStar(require("./authentication"));
 __exportStar(require("./authentication/client/requests"), exports);
 __exportStar(require("./prompts/client/requests"), exports);
 __exportStar(require("./promptVersions/client/requests"), exports);
 __exportStar(require("./orgs/client/requests"), exports);
 __exportStar(require("./users/client/requests"), exports);
+__exportStar(require("./feedbacks/client/requests"), exports);

@@ -27,6 +27,8 @@ __exportStar(require("./ChatGptMessage"), exports);
 __exportStar(require("./ChatGptRole"), exports);
 __exportStar(require("./ChatGptTokenUsage"), exports);
 __exportStar(require("./DbStatus"), exports);
+__exportStar(require("./DefaultPostResponse"), exports);
+__exportStar(require("./FeedbackRead"), exports);
 __exportStar(require("./HttpValidationError"), exports);
 __exportStar(require("./InferenceCreateByPromptId"), exports);
 __exportStar(require("./InferenceCreateByPromptVersionId"), exports);

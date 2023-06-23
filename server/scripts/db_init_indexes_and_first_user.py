@@ -10,7 +10,7 @@ NB: this is practically a duplicate of the dev DB docker init scripts in mongo_i
 import asyncio
 import os
 from bson import ObjectId
-from pymongo import ASCENDING
+from pymongo import ASCENDING, DESCENDING
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -41,6 +41,10 @@ async def run():
     await db.inferences.create_index([("prompt_version_id", ASCENDING)])
     await db.inferences.create_index([("end_user_id", ASCENDING)])
     await db.inferences.create_index([("client_ref_id", ASCENDING)])
+
+    await db.feedbacks.create_index([("inference_id", DESCENDING)])
+    await db.feedbacks.create_index([("prompt_version_id", DESCENDING)])
+    await db.feedbacks.create_index([("created_by_user_id", ASCENDING)])
 
     print("Adding inital user: ", os.getenv("PROMPTON_USER_EMAIL"))
     org = {
