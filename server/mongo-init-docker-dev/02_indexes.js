@@ -18,9 +18,6 @@ db.inferences.createIndex({ prompt_version_id: 1 });
 db.inferences.createIndex({ end_user_id: 1 });
 db.inferences.createIndex({ client_ref_id: 1 });
 
-db.feedbacks.createIndex(
-  // NB: the order of indexes matter for MongoDB when filtering
-  { inference_id: -1, created_by_user_id: 1, end_user_id: 1 },
-  { unique: true }
-);
+db.feedbacks.createIndex({ inference_id: -1 });
 db.feedbacks.createIndex({ prompt_version_id: -1 });
+db.feedbacks.createIndex({ created_by_user_id: 1 });

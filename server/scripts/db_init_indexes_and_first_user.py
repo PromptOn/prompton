@@ -42,16 +42,9 @@ async def run():
     await db.inferences.create_index([("end_user_id", ASCENDING)])
     await db.inferences.create_index([("client_ref_id", ASCENDING)])
 
-    await db.feedbacks.create_index(  # NB: the order of indexes matter for MongoDB when filtering
-        [
-            ("inference_id", DESCENDING),
-            ("created_by_user_id", ASCENDING),
-            ("end_user_id", ASCENDING),
-        ],
-        unique=True,
-    )
-
+    await db.feedbacks.create_index([("inference_id", DESCENDING)])
     await db.feedbacks.create_index([("prompt_version_id", DESCENDING)])
+    await db.feedbacks.create_index([("created_by_user_id", ASCENDING)])
 
     print("Adding inital user: ", os.getenv("PROMPTON_USER_EMAIL"))
     org = {
