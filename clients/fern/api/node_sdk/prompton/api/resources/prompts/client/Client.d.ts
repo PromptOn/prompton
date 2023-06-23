@@ -24,7 +24,7 @@ export declare class Prompts {
      * @throws {@link PromptonApi.UnauthorizedError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
-    addPrompt(request: PromptonApi.PromptCreate): Promise<unknown>;
+    addPrompt(request: PromptonApi.PromptCreate): Promise<PromptonApi.DefaultPostResponse>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

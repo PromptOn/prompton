@@ -3,6 +3,7 @@
 import typing
 
 from .resources.authentication.client import AsyncAuthenticationClient, AuthenticationClient
+from .resources.feedbacks.client import AsyncFeedbacksClient, FeedbacksClient
 from .resources.inferences.client import AsyncInferencesClient, InferencesClient
 from .resources.orgs.client import AsyncOrgsClient, OrgsClient
 from .resources.prompt_versions.client import AsyncPromptVersionsClient, PromptVersionsClient
@@ -22,6 +23,7 @@ class PromptonApi:
         self.inferences = InferencesClient(environment=self._environment, token=self._token)
         self.orgs = OrgsClient(environment=self._environment, token=self._token)
         self.users = UsersClient(environment=self._environment, token=self._token)
+        self.feedbacks = FeedbacksClient(environment=self._environment, token=self._token)
 
 
 class AsyncPromptonApi:
@@ -35,3 +37,4 @@ class AsyncPromptonApi:
         self.inferences = AsyncInferencesClient(environment=self._environment, token=self._token)
         self.orgs = AsyncOrgsClient(environment=self._environment, token=self._token)
         self.users = AsyncUsersClient(environment=self._environment, token=self._token)
+        self.feedbacks = AsyncFeedbacksClient(environment=self._environment, token=self._token)

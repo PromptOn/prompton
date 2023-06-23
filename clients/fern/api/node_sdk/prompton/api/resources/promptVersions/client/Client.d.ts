@@ -24,7 +24,7 @@ export declare class PromptVersions {
      * @throws {@link PromptonApi.UnauthorizedError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
-    addPromptVersion(request: PromptonApi.PromptVersionCreate): Promise<unknown>;
+    addPromptVersion(request: PromptonApi.PromptVersionCreate): Promise<PromptonApi.DefaultPostResponse>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

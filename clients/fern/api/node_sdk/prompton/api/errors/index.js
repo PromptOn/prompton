@@ -17,4 +17,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./BadRequestError"), exports);
 __exportStar(require("./UnauthorizedError"), exports);
 __exportStar(require("./NotFoundError"), exports);
+__exportStar(require("./ConflictError"), exports);
 __exportStar(require("./UnprocessableEntityError"), exports);

@@ -18,7 +18,7 @@ export declare class Orgs {
      * @throws {@link PromptonApi.UnauthorizedError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
-    addOrg(request: PromptonApi.OrgCreate): Promise<unknown>;
+    addOrg(request: PromptonApi.OrgCreate): Promise<PromptonApi.DefaultPostResponse>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

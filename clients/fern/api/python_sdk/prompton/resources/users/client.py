@@ -11,9 +11,11 @@ from ...core.api_error import ApiError
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_headers import remove_none_from_headers
 from ...errors.bad_request_error import BadRequestError
+from ...errors.conflict_error import ConflictError
 from ...errors.not_found_error import NotFoundError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
+from ...types.default_post_response import DefaultPostResponse
 from ...types.user_read import UserRead
 from ...types.user_roles import UserRoles
 
@@ -60,7 +62,7 @@ class UsersClient:
         org_id: str,
         email: str,
         plain_password: str,
-    ) -> typing.Any:
+    ) -> DefaultPostResponse:
         _request: typing.Dict[str, typing.Any] = {"org_id": org_id, "email": email, "plain_password": plain_password}
         if full_name is not OMIT:
             _request["full_name"] = full_name
@@ -78,11 +80,13 @@ class UsersClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(DefaultPostResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 401:
             raise UnauthorizedError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
+        if _response.status_code == 409:
+            raise ConflictError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         try:
@@ -182,7 +186,7 @@ class AsyncUsersClient:
         org_id: str,
         email: str,
         plain_password: str,
-    ) -> typing.Any:
+    ) -> DefaultPostResponse:
         _request: typing.Dict[str, typing.Any] = {"org_id": org_id, "email": email, "plain_password": plain_password}
         if full_name is not OMIT:
             _request["full_name"] = full_name
@@ -201,11 +205,13 @@ class AsyncUsersClient:
                 timeout=60,
             )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(DefaultPostResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 401:
             raise UnauthorizedError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
+        if _response.status_code == 409:
+            raise ConflictError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         try:
