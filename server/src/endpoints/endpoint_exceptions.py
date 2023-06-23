@@ -119,9 +119,7 @@ class EmailAlreadyExistsError(HTTPException):
     def __init__(self, email=None):
         self.message = f"Email `{email}` already exists"
 
-        super().__init__(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=self.message
-        )
+        super().__init__(status_code=status.HTTP_409_CONFLICT, detail=self.message)
 
 
 class CredentialExpiredError(HTTPException):

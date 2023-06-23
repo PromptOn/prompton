@@ -50,6 +50,10 @@ class ReqResponses:
         status.HTTP_401_UNAUTHORIZED: {"description": "Incorrect username or password"}
     }
 
+    EMAIL_ALREADY_EXISTS: rtype = {
+        status.HTTP_409_CONFLICT: {"description": "Email already exists"}
+    }
+
     PATCH_RESPONSES: rtype = {
         **INVALID_ITEM_ID,
         **PATH_UPDATED,

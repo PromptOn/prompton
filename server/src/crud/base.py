@@ -45,7 +45,11 @@ class CrudBase(
         self.org_id_check_field_name = org_id_check_field_name
 
     async def get_raw(
-        self, db, id: str | ObjectId, current_user: UserInDB | None = None
+        self,
+        db,
+        id: str | ObjectId,
+        current_user: UserInDB | None = None,
+        projection: Dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         """Returns a one item by id as a dict from the database"""
 
@@ -54,7 +58,9 @@ class CrudBase(
         )
 
         if (
-            item := await db[self.collection].find_one(filter_with_permissions)
+            item := await db[self.collection].find_one(
+                filter_with_permissions, projection=projection
+            )
         ) is None:
             raise ItemNotFoundException(id, self.collection)
 

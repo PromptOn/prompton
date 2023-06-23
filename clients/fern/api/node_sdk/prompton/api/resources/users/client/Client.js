@@ -109,6 +109,7 @@ class Users {
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}
+     * @throws {@link PromptonApi.ConflictError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
     addNewUser(request) {
@@ -125,7 +126,12 @@ class Users {
                 timeoutMs: 60000,
             });
             if (_response.ok) {
-                return _response.body;
+                return yield serializers.DefaultPostResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -133,6 +139,8 @@ class Users {
                         throw new PromptonApi.BadRequestError(_response.error.body);
                     case 401:
                         throw new PromptonApi.UnauthorizedError(_response.error.body);
+                    case 409:
+                        throw new PromptonApi.ConflictError(_response.error.body);
                     case 422:
                         throw new PromptonApi.UnprocessableEntityError(_response.error.body);
                     default:

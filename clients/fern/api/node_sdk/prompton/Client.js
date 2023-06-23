@@ -11,6 +11,7 @@ const Client_4 = require("./api/resources/promptVersions/client/Client");
 const Client_5 = require("./api/resources/inferences/client/Client");
 const Client_6 = require("./api/resources/orgs/client/Client");
 const Client_7 = require("./api/resources/users/client/Client");
+const Client_8 = require("./api/resources/feedbacks/client/Client");
 class PromptonApiClient {
     constructor(_options) {
         this._options = _options;
@@ -42,6 +43,10 @@ class PromptonApiClient {
     get users() {
         var _a;
         return ((_a = this._users) !== null && _a !== void 0 ? _a : (this._users = new Client_7.Users(this._options)));
+    }
+    get feedbacks() {
+        var _a;
+        return ((_a = this._feedbacks) !== null && _a !== void 0 ? _a : (this._feedbacks = new Client_8.Feedbacks(this._options)));
     }
 }
 exports.PromptonApiClient = PromptonApiClient;

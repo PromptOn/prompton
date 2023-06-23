@@ -22,9 +22,10 @@ export declare class Users {
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}
+     * @throws {@link PromptonApi.ConflictError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
-    addNewUser(request: PromptonApi.UserCreate): Promise<unknown>;
+    addNewUser(request: PromptonApi.UserCreate): Promise<PromptonApi.DefaultPostResponse>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

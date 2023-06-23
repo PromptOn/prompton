@@ -13,6 +13,12 @@ class NonEmptyStrField(ConstrainedStr):
 NameField = NonEmptyStrField
 
 
+class DefaultPostResponse(BaseModel):
+    """Standard response for POST requests. Contains the id of the created item."""
+
+    id: str = Field(..., description="The id of the created item")
+
+
 class MyBaseModel(BaseModel):
     class Config:
         extra = Extra.forbid

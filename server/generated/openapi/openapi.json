@@ -184,7 +184,9 @@
             "description": "Item created",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultPostResponse"
+                }
               }
             }
           },
@@ -431,7 +433,9 @@
             "description": "Item created",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultPostResponse"
+                }
               }
             }
           },
@@ -791,7 +795,9 @@
             "description": "Item created",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultPostResponse"
+                }
               }
             }
           },
@@ -1025,7 +1031,9 @@
             "description": "Item created",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultPostResponse"
+                }
               }
             }
           },
@@ -1034,6 +1042,9 @@
           },
           "401": {
             "description": "Not authenticated"
+          },
+          "409": {
+            "description": "Email already exists"
           },
           "422": {
             "description": "Validation Error",
@@ -1116,6 +1127,177 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UserRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid itemid supplied"
+          },
+          "404": {
+            "description": "Item not found"
+          },
+          "400": {
+            "description": "Malformed request"
+          },
+          "401": {
+            "description": "Not authenticated"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/feedbacks": {
+      "get": {
+        "tags": [
+          "feedbacks"
+        ],
+        "summary": "Get Feedbacks List",
+        "operationId": "get_feedbacks_list",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Prompt Version Id",
+              "type": "string"
+            },
+            "name": "prompt_version_id",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Prompton User Id",
+              "type": "string"
+            },
+            "name": "prompton_user_id",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Inference Id",
+              "type": "string"
+            },
+            "name": "inference_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Feedbacks List Feedbacks Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FeedbackRead"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid itemid supplied"
+          },
+          "404": {
+            "description": "Item not found"
+          },
+          "400": {
+            "description": "Malformed request"
+          },
+          "401": {
+            "description": "Not authenticated"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "feedbacks"
+        ],
+        "summary": "Add Feedback",
+        "description": "Feedback about an inference from an end user or from a PromptOn user.\n\nAt least one of `score`, `flag` or `note` required\n\n`end_user_id` is null if from PromptOn user.\n\n`score` can be null if flagging or note only. Scoring method are for API consumer consideration. Eg. end users can thumbs down/up mapped to -1 +1 `score`, internal users rate between from 0 to 100.\n\n`flag` is any string when inference was flagged. Can be null if it is scoring or note only\n\n`feedback_for_part` is optional and can be used when the inference has multiple sections which require separate feedback.\n\n`metadata` is any dict for additional information.",
+        "operationId": "add_feedback",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Item created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultPostResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed request"
+          },
+          "401": {
+            "description": "Not authenticated"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/feedbacks/{id}": {
+      "get": {
+        "tags": [
+          "feedbacks"
+        ],
+        "summary": "Get Feedback By Id",
+        "operationId": "get_feedback_by_id",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Id",
+              "type": "string"
+            },
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackRead"
                 }
               }
             }
@@ -1511,6 +1693,132 @@
           }
         },
         "additionalProperties": false
+      },
+      "DefaultPostResponse": {
+        "title": "DefaultPostResponse",
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "The id of the created item"
+          }
+        },
+        "description": "Standard response for POST requests. Contains the id of the created item."
+      },
+      "FeedbackCreate": {
+        "title": "FeedbackCreate",
+        "required": [
+          "inference_id"
+        ],
+        "type": "object",
+        "properties": {
+          "inference_id": {
+            "title": "Inference Id",
+            "type": "string",
+            "description": "The inference being rated"
+          },
+          "end_user_id": {
+            "title": "End User Id",
+            "type": "string",
+            "description": "API consumers' end user id If feedback from end user otherwise null"
+          },
+          "feedback_for_part": {
+            "title": "Feedback For Part",
+            "type": "string",
+            "description": "Specifies which part of the output the feedback is about. Can be used when the inference has multiple sections which require separate feedback"
+          },
+          "score": {
+            "title": "Score",
+            "type": "integer",
+            "description": "Any integer score. Rules are up to the API consumer. Can be null if it was flagging or note only"
+          },
+          "flag": {
+            "title": "Flag",
+            "type": "string",
+            "description": "Any string when inference was flagged. Can be null if it is scoring or note only"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "metadata": {
+            "title": "Metadata",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FeedbackRead": {
+        "title": "FeedbackRead",
+        "required": [
+          "_id",
+          "created_at",
+          "created_by_user_id",
+          "created_by_org_id",
+          "inference_id"
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "title": " Id",
+            "type": "string"
+          },
+          "created_at": {
+            "title": "Created At",
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_by_user_id": {
+            "title": "Created By User Id",
+            "type": "string"
+          },
+          "created_by_org_id": {
+            "title": "Created By Org Id",
+            "type": "string"
+          },
+          "inference_id": {
+            "title": "Inference Id",
+            "type": "string",
+            "description": "The inference being rated"
+          },
+          "end_user_id": {
+            "title": "End User Id",
+            "type": "string",
+            "description": "API consumers' end user id If feedback from end user otherwise null"
+          },
+          "feedback_for_part": {
+            "title": "Feedback For Part",
+            "type": "string",
+            "description": "Specifies which part of the output the feedback is about. Can be used when the inference has multiple sections which require separate feedback"
+          },
+          "score": {
+            "title": "Score",
+            "type": "integer",
+            "description": "Any integer score. Rules are up to the API consumer. Can be null if it was flagging or note only"
+          },
+          "flag": {
+            "title": "Flag",
+            "type": "string",
+            "description": "Any string when inference was flagged. Can be null if it is scoring or note only"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "metadata": {
+            "title": "Metadata",
+            "type": "object"
+          },
+          "prompt_version_id": {
+            "title": "Prompt Version Id",
+            "type": "string"
+          }
+        },
+        "description": "Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks"
       },
       "HTTPValidationError": {
         "title": "HTTPValidationError",

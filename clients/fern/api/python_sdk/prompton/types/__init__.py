@@ -12,6 +12,8 @@ from .chat_gpt_message import ChatGptMessage
 from .chat_gpt_role import ChatGptRole
 from .chat_gpt_token_usage import ChatGptTokenUsage
 from .db_status import DbStatus
+from .default_post_response import DefaultPostResponse
+from .feedback_read import FeedbackRead
 from .http_validation_error import HttpValidationError
 from .inference_create_by_prompt_id import InferenceCreateByPromptId
 from .inference_create_by_prompt_version_id import InferenceCreateByPromptVersionId
@@ -50,6 +52,8 @@ __all__ = [
     "ChatGptRole",
     "ChatGptTokenUsage",
     "DbStatus",
+    "DefaultPostResponse",
+    "FeedbackRead",
     "HttpValidationError",
     "InferenceCreateByPromptId",
     "InferenceCreateByPromptVersionId",

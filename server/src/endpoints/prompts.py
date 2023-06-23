@@ -5,6 +5,7 @@ from src.core.user import get_current_active_user
 from src.endpoints.endpoint_exceptions import (
     NotImplementedException,
 )
+from src.schemas.base import DefaultPostResponse
 from src.schemas.prompt import PromptUpdate, PromptRead, PromptCreate
 from src.core.database import get_db
 from src.endpoints.ApiResponses import ReqResponses
@@ -61,10 +62,10 @@ async def add_prompt(
     prompt: PromptCreate,
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
     db=Depends(get_db),
-):
+) -> DefaultPostResponse:
     insert_res = await prompt_crud.create(db, prompt, current_user)
 
-    return {"id": str(insert_res.inserted_id)}
+    return DefaultPostResponse(id=str(insert_res.inserted_id))
 
 
 @router.patch(

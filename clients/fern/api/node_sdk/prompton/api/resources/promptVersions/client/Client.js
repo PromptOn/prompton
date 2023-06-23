@@ -132,7 +132,12 @@ class PromptVersions {
                 timeoutMs: 60000,
             });
             if (_response.ok) {
-                return _response.body;
+                return yield serializers.DefaultPostResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {

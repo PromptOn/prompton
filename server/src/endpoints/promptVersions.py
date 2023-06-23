@@ -1,8 +1,8 @@
 from typing import List, Annotated
 from fastapi import APIRouter, Depends, status
 
-
 from src.core.database import get_db
+from src.schemas.base import DefaultPostResponse
 from src.schemas.user import UserInDB
 from src.core.user import get_current_active_user
 from src.core.utils import str_to_ObjectId
@@ -68,12 +68,12 @@ async def add_promptVersion(
     promptVersion: PromptVersionCreate,
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
     db=Depends(get_db),
-):
+) -> DefaultPostResponse:
     insert_res = await promptVersion_crud.create(
         db, promptVersion, current_user=current_user
     )
 
-    return {"id": str(insert_res.inserted_id)}
+    return DefaultPostResponse(id=str(insert_res.inserted_id))
 
 
 @router.patch(
