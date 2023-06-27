@@ -45,7 +45,6 @@ async def shutdown():
 
 
 @app.head("/")  # allow head for quick health check
-@app.head("/")  # allow head for quick health check
 @app.get("/", include_in_schema=False)
 async def swagger_docs():
     response = get_swagger_ui_html(openapi_url="/openapi.json", title="docs")
