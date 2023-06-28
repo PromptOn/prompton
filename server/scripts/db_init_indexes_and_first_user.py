@@ -34,6 +34,7 @@ async def run():
     await db.prompts.create_index([("created_by_org_id", ASCENDING)])
     await db.promptVersions.create_index([("created_by_org_id", ASCENDING)])
     await db.inferences.create_index([("created_by_org_id", ASCENDING)])
+    await db.feedbacks.create_index([("created_by_org_id", ASCENDING)])
 
     await db.promptVersions.create_index([("prompt_id", ASCENDING)])
 

@@ -10,6 +10,7 @@ db.orgs.createIndex({ created_by_org_id: 1 });
 db.prompts.createIndex({ created_by_org_id: 1 });
 db.promptVersions.createIndex({ created_by_org_id: 1 });
 db.inferences.createIndex({ created_by_org_id: 1 });
+db.feedbacks.createIndex({ created_by_org_id: 1 });
 
 db.promptVersions.createIndex({ prompt_id: 1 });
 
