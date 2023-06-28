@@ -29,6 +29,8 @@ async def run():
     print("Creating indexes")
     await db.users.create_index([("email", ASCENDING)], unique=True)
 
+    await db.orgs.create_index([("google_sso_domain", ASCENDING)])
+
     await db.users.create_index([("created_by_org_id", ASCENDING)])
     await db.orgs.create_index([("created_by_org_id", ASCENDING)])
     await db.prompts.create_index([("created_by_org_id", ASCENDING)])
