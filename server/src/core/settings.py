@@ -1,4 +1,4 @@
-from pydantic import BaseSettings
+from pydantic import BaseSettings, SecretStr
 
 
 class Settings(BaseSettings):
@@ -10,6 +10,10 @@ class Settings(BaseSettings):
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
     JWT_SECRET_KEY: SecretStr
     JWT_ALGORITHM: str = "HS256"
+
+    GOOGLE_CLIENT_ID: SecretStr | None = None
+    GOOGLE_CLIENT_SECRET: SecretStr | None = None
+    STARLETTE_SESSION_SECRET: SecretStr | None = None
 
     GITHUB_ENV: str | None
     GITHUB_SHA: str | None

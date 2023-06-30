@@ -59,3 +59,8 @@ class UserUpdate(UserCreate, metaclass=AllOptional):
 class LoginCredentialsPost(MyBaseModel):
     username: EmailStr
     password: SecretStr
+
+
+class OauthUserInfo(MyBaseModel, extra=Extra.allow):
+    email: EmailStr
+    name: str
