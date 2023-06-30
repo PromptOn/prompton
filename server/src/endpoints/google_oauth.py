@@ -58,7 +58,12 @@ async def login(request: Request):
         raise Exception(
             "Google OAuth2 is not setup. Check GOOGLE_CLIENT_SECRET and GOOGLE_CLIENT_ID env variables."
         )
-    redirect_uri = request.url_for("callback")
+
+    callback_url = request.url_for("callback")
+    redirect_uri = (
+        f"{request.scope['scheme']}://{callback_url.netloc}{callback_url.path}"
+    )
+    print("redirect_uri", redirect_uri)
     request.session["original_query_params"] = urlencode(
         request.query_params.multi_items(), doseq=True
     )
