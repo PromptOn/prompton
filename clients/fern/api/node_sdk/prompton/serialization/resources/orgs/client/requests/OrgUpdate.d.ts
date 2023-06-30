@@ -9,5 +9,6 @@ export declare namespace OrgUpdate {
     interface Raw {
         name?: string | null;
         access_keys?: Record<string, string> | null;
+        oauth_domain?: string | null;
     }
 }

@@ -1,7 +1,8 @@
 from tests.shared_test_data import (
     DEFAULT_MODEL_CONFIG,
     USER_BASIC,
-    USER_BASIC_ORG2,
+    USER_PROMPT_ADMIN,
+    USER_PROMPT_ADMIN_ORG2,
 )
 from tests.endpoints.promptVersions.promptVersions_test_records import (
     PROMPT_WITH_2_VER,
@@ -31,7 +32,7 @@ PV_DRAFT_ID = str(PROMPT_VER_DRAFT["_id"])
 test_specs_patch: TestSpecList = [
     {
         "spec_id": "all fields on Draft",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_DRAFT["_id"]),
             "request_body": {
@@ -66,7 +67,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "description on Live",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_LIVE["_id"]),
             "request_body": {"description": "hah"},
@@ -75,7 +76,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "Live to Archived",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_LIVE["_id"]),
             "request_body": {"status": "Archived"},
@@ -84,7 +85,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "Draft to Live",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_DRAFT["_id"]),
             "request_body": {
@@ -112,7 +113,7 @@ test_specs_patch: TestSpecList = [
     # status change validations:
     {
         "spec_id": "no Live to Draft",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_LIVE["_id"]),
             "request_body": {"status": "Draft"},
@@ -121,7 +122,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "no Testing to Draft",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_TESTING_EXTRA_FIELD["_id"]),
             "request_body": {"status": "Draft"},
@@ -130,7 +131,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "no Archived to Draft",
-        "mock_user": USER_BASIC_ORG2,
+        "mock_user": USER_PROMPT_ADMIN_ORG2,
         "input": {
             "id": str(PROMPT_VER_ARCHIVED_ORG2["_id"]),
             "request_body": {"status": "Draft"},
@@ -139,7 +140,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "Live need template",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": PV_DRAFT_ID,
             "request_body": {"status": "Live", "template": None, "model": "GPT-4"},
@@ -148,7 +149,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "Live need model",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": PV_DRAFT_ID,
             "request_body": {"status": "Live", "model_config": {"model": None}},
@@ -160,7 +161,7 @@ test_specs_patch: TestSpecList = [
     #
     {
         "spec_id": "Live no model update",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_LIVE["_id"]),
             "request_body": {"model": "GPT-5"},
@@ -169,7 +170,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "Live no model_config update",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_LIVE["_id"]),
             "request_body": {"model_config": VALID_MODEL_CONFIG},
@@ -178,7 +179,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "Live no model_config None",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_LIVE["_id"]),
             "request_body": {"model_config": None},
@@ -187,7 +188,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "Live no template update",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_LIVE["_id"]),
             "request_body": {"template": [VALID_TEMPLATE]},
@@ -196,7 +197,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "Live no prompt_id update",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_LIVE["_id"]),
             "request_body": {"prompt_id": PROMPT_WITH_2_VER["_id"]},
@@ -205,7 +206,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "Live no name update",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {"id": str(PROMPT_VER_LIVE["_id"]), "request_body": {"name": "oi"}},
         "expected": 422,
     },
@@ -214,7 +215,7 @@ test_specs_patch: TestSpecList = [
     #
     {
         "spec_id": "Archived no template update",
-        "mock_user": USER_BASIC_ORG2,
+        "mock_user": USER_PROMPT_ADMIN_ORG2,
         "input": {
             "id": str(PROMPT_VER_ARCHIVED_ORG2["_id"]),
             "request_body": {"template": [VALID_TEMPLATE]},
@@ -223,7 +224,7 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "Testing no template update",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_TESTING_EXTRA_FIELD["_id"]),
             "request_body": {"template": [VALID_TEMPLATE]},
@@ -235,25 +236,34 @@ test_specs_patch: TestSpecList = [
     #
     {
         "spec_id": "shouldn't update other org's prompt_version",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": str(PROMPT_VER_ARCHIVED_ORG2["_id"]),
             "request_body": {"description": "x"},
         },
         "expected": 404,
     },
+    {
+        "spec_id": "shouldn't update other org's prompt_version",
+        "mock_user": USER_BASIC,
+        "input": {
+            "id": str(PROMPT_VER_LIVE["_id"]),
+            "request_body": {"description": "hah"},
+        },
+        "expected": 403,
+    },
     #
     #  test basic validations:
     #
     {
         "spec_id": "invalid prompt_id",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {"id": PV_DRAFT_ID, "request_body": {"prompt_id": "invalid"}},
         "expected": 422,
     },
     {
         "spec_id": "non existent prompt_id",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": PV_DRAFT_ID,
             "request_body": {"prompt_id": "ffffffffffffffffffffffff"},
@@ -262,31 +272,31 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "invalid status",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {"id": PV_DRAFT_ID, "request_body": {"status": "foo", "name": "blah"}},
         "expected": 422,
     },
     {
         "spec_id": "invalid extra field",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {"id": PV_DRAFT_ID, "request_body": {"foo": "moo", "name": "blah"}},
         "expected": 422,
     },
     {
         "spec_id": "empty name",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {"id": PV_DRAFT_ID, "request_body": {"name": ""}},
         "expected": 422,
     },
     {
         "spec_id": "name only whitespaces",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {"id": PV_DRAFT_ID, "request_body": {"name": " \t \n "}},
         "expected": 422,
     },
     {
         "spec_id": "created_at non-editable",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {
             "id": PV_DRAFT_ID,
             "request_body": {"created_at": "2023-05-12T10:12:35.995000", "name": "b"},
@@ -295,19 +305,19 @@ test_specs_patch: TestSpecList = [
     },
     {
         "spec_id": "_id non-editable",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {"id": PV_DRAFT_ID, "request_body": {"_id": "foo", "name": "blah"}},
         "expected": 422,
     },
     {
         "spec_id": "Template need one msg",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {"id": PV_DRAFT_ID, "request_body": {"template": []}},
         "expected": 422,
     },
     {
         "spec_id": "Invalid model_config",
-        "mock_user": USER_BASIC,
+        "mock_user": USER_PROMPT_ADMIN,
         "input": {"id": PV_DRAFT_ID, "request_body": {"model_config": {"foo": "bar"}}},
         "expected": 422,
     },

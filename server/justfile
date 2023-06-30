@@ -50,8 +50,6 @@ devdb-init-purge:
 lint:
   poetry run mypy src/ tests/ scripts/
   poetry run pyright
-
-lint-flake8:
   poetry run flake8 src/ tests/ scripts/
 
 build-docker:
