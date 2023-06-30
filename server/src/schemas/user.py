@@ -22,6 +22,7 @@ class TokenData(MyBaseModel):
 
 class UserRoles(str, Enum):
     BASIC = "Basic"
+    PROMPT_ADMIN = "PromptAdmin"
     ORG_ADMIN = "OrgAdmin"
     SUPER_ADMIN = "SuperAdmin"
 
