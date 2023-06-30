@@ -1929,6 +1929,7 @@ components:
       title: UserRoles
       enum:
       - Basic
+      - PromptAdmin
       - OrgAdmin
       - SuperAdmin
       type: string
