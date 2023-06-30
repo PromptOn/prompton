@@ -31,4 +31,5 @@ const core = __importStar(require("../../../../../core"));
 exports.OrgUpdate = core.serialization.object({
     name: core.serialization.string().optional(),
     accessKeys: core.serialization.property("access_keys", core.serialization.record(core.serialization.string(), core.serialization.string()).optional()),
+    oauthDomain: core.serialization.property("oauth_domain", core.serialization.string().optional()),
 });

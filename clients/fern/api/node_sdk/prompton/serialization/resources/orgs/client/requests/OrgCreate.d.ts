@@ -9,5 +9,6 @@ export declare namespace OrgCreate {
     interface Raw {
         name: string;
         access_keys?: Record<string, string> | null;
+        oauth_domain?: string | null;
     }
 }
