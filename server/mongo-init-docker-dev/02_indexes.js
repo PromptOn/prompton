@@ -5,7 +5,7 @@ db.auth(process.env.MONGO_USER, process.env.MONGO_PASSWORD);
 
 db.users.createIndex({ email: 1 }, { unique: true });
 
-db.orgs.createIndex({ google_sso_domain: 1 });
+db.orgs.createIndex({ oauth_domain: 1 });
 
 db.users.createIndex({ created_by_org_id: 1 });
 db.orgs.createIndex({ created_by_org_id: 1 });

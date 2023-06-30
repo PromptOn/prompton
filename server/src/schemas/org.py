@@ -12,9 +12,9 @@ from src.schemas.base import (
 class OrgBase(MyBaseModel):
     name: NonEmptyStrField
     access_keys: Dict[str, str] | None = None
-    google_sso_domain: str | None = Field(
+    oauth_domain: str | None = Field(
         None,
-        description="APEX domain for google single sign on. Anyone with an email address ending in this domain will be able to register to the org after google account sign in.",
+        description="APEX domain for oauth single sign on. Anyone with an email address ending in this domain will be able to register to the org after google account sign in. Only Google OAuth is supported for now.",
     )
 
 
