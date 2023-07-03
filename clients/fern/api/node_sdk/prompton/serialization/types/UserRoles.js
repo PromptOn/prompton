@@ -28,4 +28,4 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRoles = void 0;
 const core = __importStar(require("../../core"));
-exports.UserRoles = core.serialization.enum_(["Basic", "OrgAdmin", "SuperAdmin"]);
+exports.UserRoles = core.serialization.enum_(["Basic", "PromptAdmin", "OrgAdmin", "SuperAdmin"]);

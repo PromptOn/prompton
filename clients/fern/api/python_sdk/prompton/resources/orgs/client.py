@@ -43,10 +43,18 @@ class OrgsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def add_org(self, *, name: str, access_keys: typing.Optional[typing.Dict[str, str]] = OMIT) -> DefaultPostResponse:
+    def add_org(
+        self,
+        *,
+        name: str,
+        access_keys: typing.Optional[typing.Dict[str, str]] = OMIT,
+        oauth_domain: typing.Optional[str] = OMIT,
+    ) -> DefaultPostResponse:
         _request: typing.Dict[str, typing.Any] = {"name": name}
         if access_keys is not OMIT:
             _request["access_keys"] = access_keys
+        if oauth_domain is not OMIT:
+            _request["oauth_domain"] = oauth_domain
         _response = httpx.request(
             "POST",
             urllib.parse.urljoin(f"{self._environment}/", "orgs"),
@@ -121,13 +129,20 @@ class OrgsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def update_org(
-        self, id: str, *, name: typing.Optional[str] = OMIT, access_keys: typing.Optional[typing.Dict[str, str]] = OMIT
+        self,
+        id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        access_keys: typing.Optional[typing.Dict[str, str]] = OMIT,
+        oauth_domain: typing.Optional[str] = OMIT,
     ) -> OrgRead:
         _request: typing.Dict[str, typing.Any] = {}
         if name is not OMIT:
             _request["name"] = name
         if access_keys is not OMIT:
             _request["access_keys"] = access_keys
+        if oauth_domain is not OMIT:
+            _request["oauth_domain"] = oauth_domain
         _response = httpx.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._environment}/", f"orgs/{id}"),
@@ -178,11 +193,17 @@ class AsyncOrgsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def add_org(
-        self, *, name: str, access_keys: typing.Optional[typing.Dict[str, str]] = OMIT
+        self,
+        *,
+        name: str,
+        access_keys: typing.Optional[typing.Dict[str, str]] = OMIT,
+        oauth_domain: typing.Optional[str] = OMIT,
     ) -> DefaultPostResponse:
         _request: typing.Dict[str, typing.Any] = {"name": name}
         if access_keys is not OMIT:
             _request["access_keys"] = access_keys
+        if oauth_domain is not OMIT:
+            _request["oauth_domain"] = oauth_domain
         async with httpx.AsyncClient() as _client:
             _response = await _client.request(
                 "POST",
@@ -260,13 +281,20 @@ class AsyncOrgsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def update_org(
-        self, id: str, *, name: typing.Optional[str] = OMIT, access_keys: typing.Optional[typing.Dict[str, str]] = OMIT
+        self,
+        id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        access_keys: typing.Optional[typing.Dict[str, str]] = OMIT,
+        oauth_domain: typing.Optional[str] = OMIT,
     ) -> OrgRead:
         _request: typing.Dict[str, typing.Any] = {}
         if name is not OMIT:
             _request["name"] = name
         if access_keys is not OMIT:
             _request["access_keys"] = access_keys
+        if oauth_domain is not OMIT:
+            _request["oauth_domain"] = oauth_domain
         async with httpx.AsyncClient() as _client:
             _response = await _client.request(
                 "PATCH",

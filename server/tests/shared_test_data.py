@@ -31,6 +31,7 @@ ORG1: Dict[str, Any] = {
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
     "created_by_org_id": ObjectId("ffffffffffffffffffffffff"),
     "name": "org1",
+    "oauth_domain": "me.ai",
     "access_keys": {"openai_api_key": "1234567890"},
 }
 
@@ -41,6 +42,7 @@ ORG2 = {
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
     "created_by_org_id": ObjectId("ffffffffffffffffffffffff"),
     "name": "org2",
+    "oauth_domain": None,
     "access_keys": None,
 }
 
@@ -57,11 +59,23 @@ USER_BASIC: Dict[str, Any] = {
     "hashed_password": "$2b$12$JhlMpZQbm09aYUqpgz4gjOBD9k/vOE0QfgzXBMCwpbRbINDEScCY6",
 }
 
+USER_PROMPT_ADMIN: Dict[str, Any] = {
+    "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa2"),
+    "created_at": "2021-05-15T15:46:02.051309",
+    "org_id": ORG_ID1,
+    "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
+    "created_by_org_id": ObjectId("ccccccccccccccccccccccc1"),
+    "email": "promptadmin@me.ai",
+    "role": "PromptAdmin",
+    "disabled": False,
+    "hashed_password": "$2b$12$JhlMpZQbm09aYUqpgz4gjOBD9k/vOE0QfgzXBMCwpbRbINDEScCY6",
+}
+
 
 DEFAULT_MOCKED_USER = USER_BASIC
 
 USER_BASIC_ORG2 = {
-    "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa2"),
+    "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa3"),
     "created_at": "2021-05-15T15:46:02.051309",
     "org_id": ORG_ID2,
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
@@ -70,8 +84,18 @@ USER_BASIC_ORG2 = {
     "role": "Basic",
 }
 
+USER_PROMPT_ADMIN_ORG2 = {
+    "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa4"),
+    "created_at": "2021-05-15T15:46:02.051309",
+    "org_id": ORG_ID2,
+    "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
+    "created_by_org_id": ObjectId("ccccccccccccccccccccccc1"),
+    "email": "promptadmin2@me.ai",
+    "role": "PromptAdmin",
+}
+
 USER_ORG_ADMIN = {
-    "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa3"),
+    "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa5"),
     "created_at": "2021-05-15T15:46:02.051309",
     "org_id": ORG_ID1,
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
@@ -82,7 +106,7 @@ USER_ORG_ADMIN = {
 }
 
 USER_ORG_ADMIN_ORG2 = {
-    "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa4"),
+    "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa6"),
     "created_at": "2021-05-15T15:46:02.051309",
     "org_id": ORG_ID2,
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
@@ -93,7 +117,7 @@ USER_ORG_ADMIN_ORG2 = {
 }
 
 USER_SUPER_ADMIN = {
-    "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa5"),
+    "_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa7"),
     "created_at": "2021-05-15T15:46:02.051309",
     "org_id": ObjectId("ccccccccccccccccccccccc1"),
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),

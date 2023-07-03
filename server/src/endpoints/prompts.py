@@ -1,6 +1,6 @@
 from typing import Annotated, List
 from fastapi import APIRouter, Depends, status
-from src.core.user import get_current_active_user
+from src.core.user import get_current_active_user, get_current_prompt_admin_user
 
 from src.endpoints.endpoint_exceptions import (
     NotImplementedException,
@@ -60,7 +60,7 @@ async def get_prompt_by_id(
 )
 async def add_prompt(
     prompt: PromptCreate,
-    current_user: Annotated[UserInDB, Depends(get_current_active_user)],
+    current_user: Annotated[UserInDB, Depends(get_current_prompt_admin_user)],
     db=Depends(get_db),
 ) -> DefaultPostResponse:
     insert_res = await prompt_crud.create(db, prompt, current_user)
@@ -77,7 +77,7 @@ async def add_prompt(
 async def update_prompt(
     prompt_patch: PromptUpdate,
     id: str,
-    current_user: Annotated[UserInDB, Depends(get_current_active_user)],
+    current_user: Annotated[UserInDB, Depends(get_current_prompt_admin_user)],
     db=Depends(get_db),
 ):
     prompt = await prompt_crud.update_and_fetch(db, id, prompt_patch, current_user)

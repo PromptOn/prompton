@@ -56,6 +56,28 @@ class InvalidUserNameOrPassword(HTTPException):
         )
 
 
+class OAuthSignInFailed(HTTPException):
+    def __init__(self, message=None):
+        self.message = f"OAuth sign in failed: {message}"
+        self.headers = {"WWW-Authenticate": "Bearer"}
+        super().__init__(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=self.message,
+            headers=self.headers,
+        )
+
+
+class NoOrgMatchForOAuthUserDomain(HTTPException):
+    def __init__(self, oAuthDomain: str, message=None):
+        self.message = f"No organization match for `{oAuthDomain}` domain. Make sure you are signing it with your organisation's account and single sign on is configured in PromptOn for your org (`org.oauth_domain`)."
+        self.headers = {"WWW-Authenticate": "Bearer"}
+        super().__init__(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=self.message,
+            headers=self.headers,
+        )
+
+
 class PermissionValidationError(HTTPException):
     def __init__(self, message=None):
         """HTTP 403 Forbidden - use this exception when operation is not permitted with current user's permissions."""

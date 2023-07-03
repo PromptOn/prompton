@@ -5,11 +5,14 @@ db.auth(process.env.MONGO_USER, process.env.MONGO_PASSWORD);
 
 db.users.createIndex({ email: 1 }, { unique: true });
 
+db.orgs.createIndex({ oauth_domain: 1 });
+
 db.users.createIndex({ created_by_org_id: 1 });
 db.orgs.createIndex({ created_by_org_id: 1 });
 db.prompts.createIndex({ created_by_org_id: 1 });
 db.promptVersions.createIndex({ created_by_org_id: 1 });
 db.inferences.createIndex({ created_by_org_id: 1 });
+db.feedbacks.createIndex({ created_by_org_id: 1 });
 
 db.promptVersions.createIndex({ prompt_id: 1 });
 

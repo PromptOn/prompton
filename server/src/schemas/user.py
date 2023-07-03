@@ -22,6 +22,7 @@ class TokenData(MyBaseModel):
 
 class UserRoles(str, Enum):
     BASIC = "Basic"
+    PROMPT_ADMIN = "PromptAdmin"
     ORG_ADMIN = "OrgAdmin"
     SUPER_ADMIN = "SuperAdmin"
 
@@ -59,3 +60,8 @@ class UserUpdate(UserCreate, metaclass=AllOptional):
 class LoginCredentialsPost(MyBaseModel):
     username: EmailStr
     password: SecretStr
+
+
+class OauthUserInfo(MyBaseModel, extra=Extra.allow):
+    email: EmailStr
+    name: str

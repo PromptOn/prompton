@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, status
 from src.core.database import get_db
 from src.schemas.base import DefaultPostResponse
 from src.schemas.user import UserInDB
-from src.core.user import get_current_active_user
+from src.core.user import get_current_active_user, get_current_prompt_admin_user
 from src.core.utils import str_to_ObjectId
 from src.schemas.promptVersion import (
     PromptVersionCreate,
@@ -66,7 +66,7 @@ async def get_promptVersion_by_id(
 )
 async def add_promptVersion(
     promptVersion: PromptVersionCreate,
-    current_user: Annotated[UserInDB, Depends(get_current_active_user)],
+    current_user: Annotated[UserInDB, Depends(get_current_prompt_admin_user)],
     db=Depends(get_db),
 ) -> DefaultPostResponse:
     insert_res = await promptVersion_crud.create(
@@ -85,7 +85,7 @@ async def add_promptVersion(
 async def update_promptVersion(
     promptVersion_patch: PromptVersionUpdate,
     id: str,
-    current_user: Annotated[UserInDB, Depends(get_current_active_user)],
+    current_user: Annotated[UserInDB, Depends(get_current_prompt_admin_user)],
     db=Depends(get_db),
 ):
     promptVersion_updated = await promptVersion_crud.update_and_fetch(
