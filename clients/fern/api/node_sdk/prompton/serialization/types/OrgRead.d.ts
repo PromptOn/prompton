@@ -12,6 +12,7 @@ export declare namespace OrgRead {
         created_by_user_id: string;
         created_by_org_id: string;
         name: string;
+        oauth_domain?: string | null;
         access_keys?: Record<string, string> | null;
     }
 }
