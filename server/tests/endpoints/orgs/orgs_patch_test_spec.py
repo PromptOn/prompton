@@ -19,17 +19,20 @@ test_specs_patch: TestSpecList = [
             "id": str(ORG1["_id"]),
             "request_body": {
                 "name": "Hoo Inc",
+                "oauth_domain": "you.ai",
                 "access_keys": {"ClosedAI": "666"},
             },
         },
         "expected": {
             **ORG1,
             "name": "Hoo Inc",
+            "oauth_domain": "you.ai",
             "access_keys": {"openai_api_key": "**********", "ClosedAI": "**********"},
         },
         "expected_db": {
             **ORG1,
             "name": "Hoo Inc",
+            "oauth_domain": "you.ai",
             "access_keys": {**ORG1["access_keys"], "ClosedAI": "666"},
         },
     },

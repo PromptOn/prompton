@@ -28,6 +28,10 @@ class OrgInDB(OrgBase, MongoBaseCreate, extra=Extra.allow):
 
 class OrgRead(MongoBaseRead, extra=Extra.ignore):
     name: str
+    oauth_domain: str | None = Field(
+        None,
+        description="APEX domain for oauth single sign on. Anyone with an email address ending in this domain will be able to register to the org after google account sign in. Only Google OAuth is supported for now.",
+    )
     access_keys: Dict[str, SecretStr] | None = None
 
 

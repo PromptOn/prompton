@@ -31,6 +31,7 @@ ORG1: Dict[str, Any] = {
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
     "created_by_org_id": ObjectId("ffffffffffffffffffffffff"),
     "name": "org1",
+    "oauth_domain": "me.ai",
     "access_keys": {"openai_api_key": "1234567890"},
 }
 
@@ -41,6 +42,7 @@ ORG2 = {
     "created_by_user_id": ObjectId("645d786f180786983c9eede6"),
     "created_by_org_id": ObjectId("ffffffffffffffffffffffff"),
     "name": "org2",
+    "oauth_domain": None,
     "access_keys": None,
 }
 
