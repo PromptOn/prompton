@@ -34,5 +34,6 @@ exports.OrgRead = core.serialization.object({
     createdByUserId: core.serialization.property("created_by_user_id", core.serialization.string()),
     createdByOrgId: core.serialization.property("created_by_org_id", core.serialization.string()),
     name: core.serialization.string(),
+    oauthDomain: core.serialization.property("oauth_domain", core.serialization.string().optional()),
     accessKeys: core.serialization.property("access_keys", core.serialization.record(core.serialization.string(), core.serialization.string()).optional()),
 });

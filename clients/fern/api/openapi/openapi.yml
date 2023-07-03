@@ -1584,6 +1584,12 @@ components:
         name:
           title: Name
           type: string
+        oauth_domain:
+          title: Oauth Domain
+          type: string
+          description: APEX domain for oauth single sign on. Anyone with an email
+            address ending in this domain will be able to register to the org after
+            google account sign in. Only Google OAuth is supported for now.
         access_keys:
           title: Access Keys
           type: object

@@ -18,6 +18,11 @@ class OrgRead(pydantic.BaseModel):
     created_by_user_id: str
     created_by_org_id: str
     name: str
+    oauth_domain: typing.Optional[str] = pydantic.Field(
+        description=(
+            "APEX domain for oauth single sign on. Anyone with an email address ending in this domain will be able to register to the org after google account sign in. Only Google OAuth is supported for now.\n"
+        )
+    )
     access_keys: typing.Optional[typing.Dict[str, str]]
 
     def json(self, **kwargs: typing.Any) -> str:
