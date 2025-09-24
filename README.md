@@ -281,4 +281,4 @@ just test-quick # if you want to cut a few secs by skipping slower tests (passwo
 
 ## Licence
 
-This project is licensed under the GNU Affero General Public License v3.0 license - see the [LICENSE](LICENSE) file for details.
+MIT - see the [LICENSE](LICENSE) file for details.
