@@ -31,7 +31,6 @@ const errors = __importStar(require("../../errors"));
 class NotFoundError extends errors.PromptonApiError {
     constructor(body) {
         super({
-            message: "NotFoundError",
             statusCode: 404,
             body: body,
         });

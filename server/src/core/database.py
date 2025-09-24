@@ -40,7 +40,7 @@ async def connect_db():
     if db_client is not None:
         raise Exception("Database client is already initialized")
 
-    db_client = AsyncIOMotorClient(settings.DATABASE_URL)
+    db_client = AsyncIOMotorClient(settings.DATABASE_URL.get_secret_value())
     db = db_client[settings.MONGO_DATABASE]
 
 

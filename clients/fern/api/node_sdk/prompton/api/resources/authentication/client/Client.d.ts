@@ -5,13 +5,13 @@ import * as core from "../../../../core";
 import * as PromptonApi from "../../..";
 export declare namespace Authentication {
     interface Options {
-        environment: string;
+        environment: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 export declare class Authentication {
-    protected readonly options: Authentication.Options;
-    constructor(options: Authentication.Options);
+    protected readonly _options: Authentication.Options;
+    constructor(_options: Authentication.Options);
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

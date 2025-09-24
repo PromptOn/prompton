@@ -5,13 +5,13 @@ import * as core from "../../../../core";
 import * as PromptonApi from "../../..";
 export declare namespace Users {
     interface Options {
-        environment: string;
+        environment: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 export declare class Users {
-    protected readonly options: Users.Options;
-    constructor(options: Users.Options);
+    protected readonly _options: Users.Options;
+    constructor(_options: Users.Options);
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}
@@ -22,9 +22,10 @@ export declare class Users {
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}
+     * @throws {@link PromptonApi.ConflictError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
-    addNewUser(request: PromptonApi.UserCreate): Promise<unknown>;
+    addNewUser(request: PromptonApi.UserCreate): Promise<PromptonApi.DefaultPostResponse>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

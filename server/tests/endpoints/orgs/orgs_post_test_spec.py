@@ -1,5 +1,3 @@
-import pytest
-
 from tests.shared_test_data import (
     USER_BASIC,
     USER_ORG_ADMIN,
@@ -15,6 +13,7 @@ test_specs_post: TestSpecList = [
         "input": {
             "request_body": {
                 "name": "  org name  ",
+                "oauth_domain": "prompton.ai",
                 "access_keys": {"OpenAI": "1234567890"},
             }
         },
@@ -22,6 +21,7 @@ test_specs_post: TestSpecList = [
             "created_by_user_id": USER_SUPER_ADMIN["_id"],
             "created_by_org_id": USER_SUPER_ADMIN["org_id"],
             "name": "org name",
+            "oauth_domain": "prompton.ai",
             "access_keys": {"OpenAI": "1234567890"},
         },
     },
@@ -33,6 +33,7 @@ test_specs_post: TestSpecList = [
             "created_by_user_id": USER_SUPER_ADMIN["_id"],
             "created_by_org_id": USER_SUPER_ADMIN["org_id"],
             "name": "org x",
+            "oauth_domain": None,
             "access_keys": None,
         },
     },

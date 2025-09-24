@@ -1,4 +1,5 @@
 # Client SDK generation scripts
+# TODO: clean and build all clients before generating
 
 default: 
   just --list
@@ -6,5 +7,36 @@ default:
 install:
   npm install
 
+# updates openapi.yml from server/generated and generates clients with fern
 generate-clients:
+  cp ../server/generated/openapi/openapi.yml fern/api/openapi
   npx fern generate
+
+# bump version numbers manually in all packages before! 
+publish-all-clients:
+  just publish-fern-python
+  just publish-fern-node
+
+# requires manual version bump in pyproject.toml before!
+publish-fern-python:
+  #!/usr/bin/env bash
+  cd fern/api/python_sdk
+  just install
+  just build-publish
+
+# requires manual version bump in package.json before!
+publish-fern-node:
+  #!/usr/bin/env bash
+  cd fern/api/node_sdk
+  just install
+  just build-publish
+
+# testing openapi-generator (not in use)
+openapi-generator-generate-node:
+  #!/usr/bin/env bash
+  # npx @openapitools/openapi-generator-cli generate -i openapi/openapi.yml -g typescript-axios -o openapi/generated
+  npx openapi-generator-cli generate  -i ./fern/api/openapi/openapi.yml -g typescript-node -o ./openapi-generator/typescript-node --additional-properties=supportsES6=true,npmName=@prompton/api
+
+# testing openapi-generator (not in use)
+openapi-generator-generate-python:
+  npx openapi-generator-cli generate  -i ./fern/api/openapi/openapi.yml -g python-nextgen -o ./openapi-generator/python-nextgen

@@ -5,7 +5,6 @@ from deepdiff import DeepDiff
 
 from src.core.completition import get_openai_chat_completition
 
-from src.schemas.inference import InferenceCreate
 from src.schemas.openAI import ChatGPTChatCompletitionRequest
 from tests.core.inferenceProcessing_test_data import (
     expected_error_response,
@@ -13,7 +12,7 @@ from tests.core.inferenceProcessing_test_data import (
     test_raw_request,
     expected_response,
 )
-from tests.shared_test_data import DEFAULT_RAW_COMPLETITION_REQUEST
+
 from tests.utils import bson_to_json
 
 

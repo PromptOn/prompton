@@ -1,9 +1,10 @@
 from enum import Enum
-from pydantic import EmailStr, Extra, Field, SecretStr
+from pydantic import EmailStr, Extra, SecretStr
 
 from src.schemas.base import (
     AllOptional,
-    MongoBase,
+    MongoBaseCreate,
+    MongoBaseRead,
     MyBaseModel,
     NonEmptyStrField,
     PyObjectId,
@@ -21,6 +22,7 @@ class TokenData(MyBaseModel):
 
 class UserRoles(str, Enum):
     BASIC = "Basic"
+    PROMPT_ADMIN = "PromptAdmin"
     ORG_ADMIN = "OrgAdmin"
     SUPER_ADMIN = "SuperAdmin"
 
@@ -38,14 +40,16 @@ class UserCreate(User, extra=Extra.forbid):
     pass
 
 
-class UserInDB(User, MongoBase, extra=Extra.allow):
+class UserInDB(User, MongoBaseCreate, extra=Extra.allow):
     email: str
     hashed_password: str
 
 
-class UserRead(User, MongoBase, extra=Extra.ignore):
+class UserRead(User, MongoBaseRead, extra=Extra.ignore):
     # we ignore extra fields to prevent hashed_password to be returned
+    # override all fields with default values as mandatory so clients don't need to check None values
     email: str
+    disabled: bool
     pass
 
 
@@ -56,3 +60,8 @@ class UserUpdate(UserCreate, metaclass=AllOptional):
 class LoginCredentialsPost(MyBaseModel):
     username: EmailStr
     password: SecretStr
+
+
+class OauthUserInfo(MyBaseModel, extra=Extra.allow):
+    email: EmailStr
+    name: str

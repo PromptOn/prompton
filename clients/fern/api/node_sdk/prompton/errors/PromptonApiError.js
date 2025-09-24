@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PromptonApiError = void 0;
 class PromptonApiError extends Error {
     constructor({ message, statusCode, body }) {
-        super(message);
+        super(buildMessage({ message, statusCode, body }));
         Object.setPrototypeOf(this, PromptonApiError.prototype);
         if (statusCode != null) {
             this.statusCode = statusCode;
@@ -17,3 +17,16 @@ class PromptonApiError extends Error {
     }
 }
 exports.PromptonApiError = PromptonApiError;
+function buildMessage({ message, statusCode, body, }) {
+    let lines = [];
+    if (message != null) {
+        lines.push(message);
+    }
+    if (statusCode != null) {
+        lines.push(`Status code: ${statusCode.toString()}`);
+    }
+    if (body != null) {
+        lines.push(`Body: ${JSON.stringify(body, undefined, 2)}`);
+    }
+    return lines.join("\n");
+}

@@ -10,7 +10,7 @@ from .chat_gpt_chat_completition_config_stop import ChatGptChatCompletitionConfi
 
 
 class ChatGptChatCompletitionConfig(pydantic.BaseModel):
-    model: typing.Optional[str] = pydantic.Field(description=("`non-empty`\n"))
+    model: typing.Optional[str] = pydantic.Field(description=('<span style="white-space: nowrap">`non-empty`</span>\n'))
     temperature: typing.Optional[float]
     top_p: typing.Optional[float]
     stop: typing.Optional[ChatGptChatCompletitionConfigStop]

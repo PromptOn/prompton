@@ -2,18 +2,13 @@
 
 import copy
 from enum import Enum
-import enum
-import json
 import re
 from types import NoneType
-from typing import Any, Callable, Coroutine, Dict, List, Optional, TypeVar, TypedDict
+from typing import Any, Callable, Coroutine, Dict, List, TypeVar, TypedDict
 import bson
-from httpx import AsyncClient
+from httpx import AsyncClient, Response as HttpxResponse
 from datetime import datetime
 
-from httpx import AsyncClient, Response as HttpxResponse
-
-from tests.shared_test_data import ORG2
 
 MockDBData = Dict[str, List[Dict[str, Any]]]
 
@@ -25,16 +20,19 @@ class TestInput(TypedDict, total=False):
     id: str
 
 
+CustomValidatorFn = Callable[[dict[str, Any]], bool]
+
+
 class TestSpecMin(TypedDict):
     spec_id: str
     mock_user: Dict[str, Any] | None
     input: TestInput
-    expected: Dict[str, Any] | List[Any] | int
+    expected: Dict[str, Any] | List[Any] | int | CustomValidatorFn
 
 
 class TestSpec(TestSpecMin, total=False):
     mock_exception: Exception
-    expected_db: Dict[str, Any] | List[Any]
+    expected_db: Dict[str, Any] | List[Any] | CustomValidatorFn
     expected_status_code: int
 
 
@@ -125,11 +123,13 @@ def bson_obj_to_json(data):
         return str(data)
 
 
-def bson_to_json(bson_dict: Dict[str, Any]) -> Dict[str, Any]:
+def bson_to_json(bson_dict: TListOrDict) -> TListOrDict:
     """convert ObjectIds and timestamps to str. Mostly used to prep data read from db for comparison with DeepDiff"""
-    res: Dict[str, Any] = bson_obj_to_json(bson_dict)  # pyright: ignore
-    return res
-    # return json.loads(json.dumps(bson_dict, default=lambda o: str(o)))
+    if isinstance(bson_dict, list):
+        return [bson_to_json(item) for item in bson_dict]
+    else:
+        res: Dict[str, Any] = bson_obj_to_json(bson_dict)  # pyright: ignore
+        return res
 
 
 def assert_base_db_records(expected_id, record):

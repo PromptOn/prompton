@@ -45,13 +45,13 @@ const url_join_1 = __importDefault(require("url-join"));
 const serializers = __importStar(require("../../../../serialization"));
 const errors = __importStar(require("../../../../errors"));
 class Orgs {
-    constructor(options) {
-        this.options = options;
+    constructor(_options) {
+        this._options = _options;
     }
-    getOrgList() {
+    getOrgsList() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "orgs"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "orgs"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -61,7 +61,7 @@ class Orgs {
                 timeoutMs: 60000,
             });
             if (_response.ok) {
-                return yield serializers.orgs.getOrgList.Response.parseOrThrow(_response.body, {
+                return yield serializers.orgs.getOrgsList.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -97,7 +97,7 @@ class Orgs {
     addOrg(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "orgs"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "orgs"),
                 method: "POST",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -108,7 +108,12 @@ class Orgs {
                 timeoutMs: 60000,
             });
             if (_response.ok) {
-                return _response.body;
+                return yield serializers.DefaultPostResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    breadcrumbsPrefix: ["response"],
+                });
             }
             if (_response.error.reason === "status-code") {
                 switch (_response.error.statusCode) {
@@ -149,7 +154,7 @@ class Orgs {
     getCurrentUserOrg() {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, "orgs/me"),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), "orgs/me"),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -207,7 +212,7 @@ class Orgs {
     getOrgById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, `orgs/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `orgs/${id}`),
                 method: "GET",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -265,7 +270,7 @@ class Orgs {
     updateOrg(id, request = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             const _response = yield core.fetcher({
-                url: (0, url_join_1.default)(this.options.environment, `orgs/${id}`),
+                url: (0, url_join_1.default)(yield core.Supplier.get(this._options.environment), `orgs/${id}`),
                 method: "PATCH",
                 headers: {
                     Authorization: yield this._getAuthorizationHeader(),
@@ -317,7 +322,7 @@ class Orgs {
     }
     _getAuthorizationHeader() {
         return __awaiter(this, void 0, void 0, function* () {
-            const bearer = yield core.Supplier.get(this.options.token);
+            const bearer = yield core.Supplier.get(this._options.token);
             if (bearer != null) {
                 return `Bearer ${bearer}`;
             }

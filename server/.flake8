@@ -1,0 +1,23 @@
+[flake8]
+exclude = 
+    .history,
+    .git,
+    __pycache__
+
+; max-line-length = 88
+
+ignore = 
+    # any line length:
+    E501
+    # line break before binary operator (conflicting black's):  
+    W503
+
+per-file-ignores =      
+    # import * for mocks
+    tests/*: F403, F401
+    # allow any line length for test files
+;     tests/*: E501
+    
+extend-ignore =
+    # See https://github.com/PyCQA/pycodestyle/issues/373
+    E203,

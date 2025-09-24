@@ -1,4 +1,3 @@
-from functools import partial
 import pytest
 
 from src.asgi import app

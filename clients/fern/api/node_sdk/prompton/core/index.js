@@ -28,5 +28,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.serialization = void 0;
 exports.serialization = __importStar(require("./schemas"));
-__exportStar(require("./auth"), exports);
 __exportStar(require("./fetcher"), exports);
+__exportStar(require("./auth"), exports);

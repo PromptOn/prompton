@@ -6,5 +6,5 @@ import * as PromptonApi from "../../api";
 import * as core from "../../core";
 export declare const UserRoles: core.serialization.Schema<serializers.UserRoles.Raw, PromptonApi.UserRoles>;
 export declare namespace UserRoles {
-    type Raw = "Basic" | "OrgAdmin" | "SuperAdmin";
+    type Raw = "Basic" | "PromptAdmin" | "OrgAdmin" | "SuperAdmin";
 }

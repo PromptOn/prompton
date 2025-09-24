@@ -1,14 +1,11 @@
-import json
 import pytest
 from bson import ObjectId
 from mongomock_motor import AsyncMongoMockClient
-from pymongo import ASCENDING
 from copy import deepcopy
 from datetime import datetime
 
 from src.asgi import app
 from src.core.database import get_db
-from tests.utils import bson_to_json
 
 
 @pytest.fixture

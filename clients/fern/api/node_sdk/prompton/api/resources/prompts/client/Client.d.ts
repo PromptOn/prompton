@@ -5,26 +5,26 @@ import * as core from "../../../../core";
 import * as PromptonApi from "../../..";
 export declare namespace Prompts {
     interface Options {
-        environment: string;
+        environment: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 export declare class Prompts {
-    protected readonly options: Prompts.Options;
-    constructor(options: Prompts.Options);
+    protected readonly _options: Prompts.Options;
+    constructor(_options: Prompts.Options);
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}
      * @throws {@link PromptonApi.NotFoundError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
-    getPromptList(): Promise<PromptonApi.PromptRead[]>;
+    getPromptsList(): Promise<PromptonApi.PromptRead[]>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
-    addPrompt(request: PromptonApi.PromptCreate): Promise<unknown>;
+    addPrompt(request: PromptonApi.PromptCreate): Promise<PromptonApi.DefaultPostResponse>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

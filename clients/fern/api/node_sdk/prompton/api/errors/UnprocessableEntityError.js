@@ -31,7 +31,6 @@ const errors = __importStar(require("../../errors"));
 class UnprocessableEntityError extends errors.PromptonApiError {
     constructor(body) {
         super({
-            message: "UnprocessableEntityError",
             statusCode: 422,
             body: body,
         });

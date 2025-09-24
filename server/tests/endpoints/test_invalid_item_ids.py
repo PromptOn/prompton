@@ -33,7 +33,14 @@ test_items = [
 ]
 
 endpoints = {
-    "GET": ["/prompts", "/promptVersions", "/inferences", "/orgs", "/users"],
+    "GET": [
+        "/prompts",
+        "/promptVersions",
+        "/inferences",
+        "/orgs",
+        "/users",
+        "/feedbacks",
+    ],
     "PATCH": ["/promptVersions", "/prompts", "/orgs"]
     # TODO: add "/users" when user's PATCH  implemented
     # "DELETE": ["/prompts", "/promptVersions"]

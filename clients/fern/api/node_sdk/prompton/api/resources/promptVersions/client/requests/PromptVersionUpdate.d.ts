@@ -5,7 +5,7 @@ import * as PromptonApi from "../../../..";
 export interface PromptVersionUpdate {
     status?: PromptonApi.PromptVersionStatus;
     provider?: PromptonApi.PromptVersionProviders;
-    /** `non-empty` */
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     name?: string;
     description?: string;
     promptId?: string;

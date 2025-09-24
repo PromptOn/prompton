@@ -5,20 +5,20 @@ import * as core from "../../../../core";
 import * as PromptonApi from "../../..";
 export declare namespace Orgs {
     interface Options {
-        environment: string;
+        environment: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 export declare class Orgs {
-    protected readonly options: Orgs.Options;
-    constructor(options: Orgs.Options);
-    getOrgList(): Promise<PromptonApi.OrgRead[]>;
+    protected readonly _options: Orgs.Options;
+    constructor(_options: Orgs.Options);
+    getOrgsList(): Promise<PromptonApi.OrgRead[]>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
-    addOrg(request: PromptonApi.OrgCreate): Promise<unknown>;
+    addOrg(request: PromptonApi.OrgCreate): Promise<PromptonApi.DefaultPostResponse>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

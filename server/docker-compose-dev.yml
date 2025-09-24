@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   mongodb:
-    image: mongo:6.0.5 # mongodb/mongodb-community-server:6.0.5-ubi8 ?
+    image: mongo:6.0.6 # mongodb/mongodb-community-server:6.0.5-ubi8 ?
     container_name: mongodb
     restart: unless-stopped
     # command: '/bin/bash -c "sleep 5; mongosh $$CONN_STR --eval \"show dbs;\""'

@@ -1,8 +1,9 @@
-from typing import Dict, List
-from pydantic import Extra, SecretStr
+from typing import Dict
+from pydantic import Extra, Field, SecretStr
 from src.schemas.base import (
     AllOptional,
-    MongoBase,
+    MongoBaseCreate,
+    MongoBaseRead,
     MyBaseModel,
     NonEmptyStrField,
 )
@@ -11,18 +12,26 @@ from src.schemas.base import (
 class OrgBase(MyBaseModel):
     name: NonEmptyStrField
     access_keys: Dict[str, str] | None = None
+    oauth_domain: str | None = Field(
+        None,
+        description="APEX domain for oauth single sign on. Anyone with an email address ending in this domain will be able to register to the org after google account sign in. Only Google OAuth is supported for now.",
+    )
 
 
 class OrgCreate(OrgBase, extra=Extra.forbid):
     pass
 
 
-class OrgInDB(OrgBase, MongoBase, extra=Extra.allow):
+class OrgInDB(OrgBase, MongoBaseCreate, extra=Extra.allow):
     pass
 
 
-class OrgRead(MongoBase, extra=Extra.ignore):
+class OrgRead(MongoBaseRead, extra=Extra.ignore):
     name: str
+    oauth_domain: str | None = Field(
+        None,
+        description="APEX domain for oauth single sign on. Anyone with an email address ending in this domain will be able to register to the org after google account sign in. Only Google OAuth is supported for now.",
+    )
     access_keys: Dict[str, SecretStr] | None = None
 
 

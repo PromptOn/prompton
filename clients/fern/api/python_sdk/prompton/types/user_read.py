@@ -10,12 +10,18 @@ from .user_roles import UserRoles
 
 
 class UserRead(pydantic.BaseModel):
-    id: typing.Optional[str] = pydantic.Field(alias="_id")
-    created_at: typing.Optional[str]
-    created_by_user_id: typing.Optional[str]
-    created_by_org_id: typing.Optional[str]
-    full_name: typing.Optional[str] = pydantic.Field(description=("`non-empty`\n"))
-    disabled: typing.Optional[bool]
+    """
+    Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks
+    """
+
+    id: str = pydantic.Field(alias="_id")
+    created_at: str
+    created_by_user_id: str
+    created_by_org_id: str
+    full_name: typing.Optional[str] = pydantic.Field(
+        description=('<span style="white-space: nowrap">`non-empty`</span>\n')
+    )
+    disabled: bool
     role: typing.Optional[UserRoles]
     org_id: str
     email: str

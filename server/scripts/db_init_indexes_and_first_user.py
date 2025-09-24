@@ -1,17 +1,16 @@
-""" Performs initial setup of the database:
-- indexes 
+"""Performs initial setup of the database:
+- indexes
 - initial SuperAdmin user + org set in env vars:
    - PROMPTON_ORG_NAME, PROMPTON_ORG_OPENAI_API_KEY
    - PROMPTON_USER_EMAIL, PROMPTON_USER_PASSWORD_HASH
 Should be part of a db migrations system when we have more than one migration to run.
 
-NB: this is practically a duplicate of the dev DB docker init scripts in mongo_init_docker-dev 
-
+NB: this is practically a duplicate of the dev DB docker init scripts in mongo_init_docker-dev
 """
 import asyncio
 import os
 from bson import ObjectId
-from pymongo import ASCENDING
+from pymongo import ASCENDING, DESCENDING
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -30,16 +29,25 @@ async def run():
     print("Creating indexes")
     await db.users.create_index([("email", ASCENDING)], unique=True)
 
+    await db.orgs.create_index([("oauth_domain", ASCENDING)])
+
     await db.users.create_index([("created_by_org_id", ASCENDING)])
     await db.orgs.create_index([("created_by_org_id", ASCENDING)])
     await db.prompts.create_index([("created_by_org_id", ASCENDING)])
     await db.promptVersions.create_index([("created_by_org_id", ASCENDING)])
     await db.inferences.create_index([("created_by_org_id", ASCENDING)])
+    await db.feedbacks.create_index([("created_by_org_id", ASCENDING)])
 
     await db.promptVersions.create_index([("prompt_id", ASCENDING)])
-    await db.inferences.create_index([("prompt_id", ASCENDING)])
 
+    await db.inferences.create_index([("prompt_id", ASCENDING)])
     await db.inferences.create_index([("prompt_version_id", ASCENDING)])
+    await db.inferences.create_index([("end_user_id", ASCENDING)])
+    await db.inferences.create_index([("client_ref_id", ASCENDING)])
+
+    await db.feedbacks.create_index([("inference_id", DESCENDING)])
+    await db.feedbacks.create_index([("prompt_version_id", DESCENDING)])
+    await db.feedbacks.create_index([("created_by_user_id", ASCENDING)])
 
     print("Adding inital user: ", os.getenv("PROMPTON_USER_EMAIL"))
     org = {

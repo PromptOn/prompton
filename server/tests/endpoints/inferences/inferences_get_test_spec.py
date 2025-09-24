@@ -1,4 +1,3 @@
-from typing import Any, Dict, List
 from tests.endpoints.inferences.inference_test_records import (
     ERROR_INFERENCE,
     PROCESSED_INFERENCE,

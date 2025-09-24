@@ -3,7 +3,6 @@ from fastapi import APIRouter, Depends
 from src.core.settings import settings
 from src.core.database import get_db
 from src.schemas import apiStatus
-from src.core.database import get_db
 
 router = APIRouter()
 

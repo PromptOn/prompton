@@ -9,15 +9,16 @@ import { PromptVersions } from "./api/resources/promptVersions/client/Client";
 import { Inferences } from "./api/resources/inferences/client/Client";
 import { Orgs } from "./api/resources/orgs/client/Client";
 import { Users } from "./api/resources/users/client/Client";
+import { Feedbacks } from "./api/resources/feedbacks/client/Client";
 export declare namespace PromptonApiClient {
     interface Options {
-        environment: string;
+        environment: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 export declare class PromptonApiClient {
-    protected readonly options: PromptonApiClient.Options;
-    constructor(options: PromptonApiClient.Options);
+    protected readonly _options: PromptonApiClient.Options;
+    constructor(_options: PromptonApiClient.Options);
     protected _serverStatus: ServerStatus | undefined;
     get serverStatus(): ServerStatus;
     protected _authentication: Authentication | undefined;
@@ -32,4 +33,6 @@ export declare class PromptonApiClient {
     get orgs(): Orgs;
     protected _users: Users | undefined;
     get users(): Users;
+    protected _feedbacks: Feedbacks | undefined;
+    get feedbacks(): Feedbacks;
 }

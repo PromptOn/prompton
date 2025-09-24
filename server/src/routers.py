@@ -8,6 +8,7 @@ from src.endpoints.inferences import router as inferencesRouter
 from src.endpoints.token_login import router as tokenRouter
 from src.endpoints.orgs import router as orgsRouter
 from src.endpoints.users import router as usersRouter
+from src.endpoints.feedbacks import router as feedbackRouter
 
 
 def use_route_names_as_operation_ids(app: FastAPI) -> None:
@@ -21,7 +22,7 @@ def use_route_names_as_operation_ids(app: FastAPI) -> None:
     """
     for route in app.routes:
         if isinstance(route, APIRoute):
-            route.operation_id = route.name  # in this case, 'read_items'
+            route.operation_id = route.name
 
 
 all_routers = APIRouter()
@@ -32,3 +33,4 @@ all_routers.include_router(promptVersionsRouter)
 all_routers.include_router(inferencesRouter)
 all_routers.include_router(orgsRouter)
 all_routers.include_router(usersRouter)
+all_routers.include_router(feedbackRouter)

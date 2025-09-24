@@ -7,7 +7,6 @@ import pydantic
 
 from ..core.datetime_utils import serialize_datetime
 from .chat_gpt_chat_completition_response import ChatGptChatCompletitionResponse
-from .chat_gpt_message import ChatGptMessage
 from .chat_gpt_token_usage import ChatGptTokenUsage
 
 
@@ -16,7 +15,6 @@ class InferenceResponseData(pydantic.BaseModel):
     completition_duration_seconds: typing.Optional[float]
     is_client_connected_at_finish: typing.Optional[bool]
     is_error: typing.Optional[bool] = pydantic.Field(alias="isError")
-    first_message: ChatGptMessage
     token_usage: ChatGptTokenUsage
     raw_response: ChatGptChatCompletitionResponse
 

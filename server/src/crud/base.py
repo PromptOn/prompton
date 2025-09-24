@@ -11,11 +11,11 @@ from src.endpoints.endpoint_exceptions import (
     ItemNotFoundException,
     NoItemUpdatedException,
 )
-from src.schemas.base import MongoBase
+from src.schemas.base import MongoBaseCreate
 from src.schemas.user import UserInDB, UserRoles
 
 
-DBModelType = TypeVar("DBModelType", bound=MongoBase)
+DBModelType = TypeVar("DBModelType", bound=MongoBaseCreate)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 UpdateResponseSchemaType = TypeVar("UpdateResponseSchemaType", bound=BaseModel)
@@ -45,7 +45,11 @@ class CrudBase(
         self.org_id_check_field_name = org_id_check_field_name
 
     async def get_raw(
-        self, db, id: str | ObjectId, current_user: UserInDB | None = None
+        self,
+        db,
+        id: str | ObjectId,
+        current_user: UserInDB | None = None,
+        projection: Dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         """Returns a one item by id as a dict from the database"""
 
@@ -54,7 +58,9 @@ class CrudBase(
         )
 
         if (
-            item := await db[self.collection].find_one(filter_with_permissions)
+            item := await db[self.collection].find_one(
+                filter_with_permissions, projection=projection
+            )
         ) is None:
             raise ItemNotFoundException(id, self.collection)
 
@@ -88,16 +94,19 @@ class CrudBase(
         current_user: UserInDB | None = None,
         *,
         filter: Dict[str, Any] | None = None,
+        projection: Dict[str, Any] | None = None,
         skip: int = 0,
         limit: int = 1000,
+        sort: List[tuple[str, int]] | tuple[str, int] | None = ("_id", -1),
     ) -> List[dict[str, Any]]:
         filter_with_permissions = self._add_org_id_filter(current_user, filter)
 
         items = (
             await db[self.collection]
-            .find(filter_with_permissions)
+            .find(filter_with_permissions, projection=projection)
             .skip(skip)
             .limit(limit)
+            .sort(*sort)
             .to_list(limit)
         )
 
@@ -111,10 +120,10 @@ class CrudBase(
         filter: Dict[str, Any] | None = None,
         skip: int = 0,
         limit: int = 1000,
+        sort: List[tuple[str, int]] | tuple[str, int] | None = ("_id", -1),
     ) -> List[DBModelType]:
-        # items_raw = await self.get_multi_raw(db, current_user, filter, skip, limit, )
         items_raw = await self.get_multi_raw(
-            db, current_user, filter=filter, skip=skip, limit=limit
+            db, current_user, filter=filter, skip=skip, limit=limit, sort=sort
         )
 
         items = [self.db_schema.parse_obj(item) for item in items_raw]

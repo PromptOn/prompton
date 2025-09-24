@@ -7,17 +7,17 @@ import * as core from "../../core";
 export declare const PromptVersionRead: core.serialization.ObjectSchema<serializers.PromptVersionRead.Raw, PromptonApi.PromptVersionRead>;
 export declare namespace PromptVersionRead {
     interface Raw {
-        _id?: string | null;
-        created_at?: string | null;
-        created_by_user_id?: string | null;
-        created_by_org_id?: string | null;
-        status?: serializers.PromptVersionStatus.Raw | null;
-        provider?: serializers.PromptVersionProviders.Raw | null;
+        _id: string;
+        created_at: string;
+        created_by_user_id: string;
+        created_by_org_id: string;
+        status: serializers.PromptVersionStatus.Raw;
+        provider: serializers.PromptVersionProviders.Raw;
         name: string;
         description?: string | null;
         prompt_id: string;
-        template?: serializers.ChatGptMessage.Raw[] | null;
+        template: serializers.ChatGptMessage.Raw[];
         model_config?: serializers.ChatGptChatCompletitionConfig.Raw | null;
-        template_arg_names?: string[] | null;
+        template_arg_names: string[];
     }
 }

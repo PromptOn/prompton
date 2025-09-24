@@ -26,6 +26,6 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPromptList = void 0;
-exports.getPromptList = __importStar(require("./getPromptList"));
+exports.getPromptsList = void 0;
+exports.getPromptsList = __importStar(require("./getPromptsList"));
 __exportStar(require("./requests"), exports);

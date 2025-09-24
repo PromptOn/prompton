@@ -14,6 +14,7 @@ from ...errors.bad_request_error import BadRequestError
 from ...errors.not_found_error import NotFoundError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
+from ...types.default_post_response import DefaultPostResponse
 from ...types.org_read import OrgRead
 
 # this is used as the default value for optional parameters
@@ -25,7 +26,7 @@ class OrgsClient:
         self._environment = environment
         self._token = token
 
-    def get_org_list(self) -> typing.List[OrgRead]:
+    def get_orgs_list(self) -> typing.List[OrgRead]:
         _response = httpx.request(
             "GET",
             urllib.parse.urljoin(f"{self._environment}/", "orgs"),
@@ -42,10 +43,18 @@ class OrgsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def add_org(self, *, name: str, access_keys: typing.Optional[typing.Dict[str, str]] = OMIT) -> typing.Any:
+    def add_org(
+        self,
+        *,
+        name: str,
+        access_keys: typing.Optional[typing.Dict[str, str]] = OMIT,
+        oauth_domain: typing.Optional[str] = OMIT,
+    ) -> DefaultPostResponse:
         _request: typing.Dict[str, typing.Any] = {"name": name}
         if access_keys is not OMIT:
             _request["access_keys"] = access_keys
+        if oauth_domain is not OMIT:
+            _request["oauth_domain"] = oauth_domain
         _response = httpx.request(
             "POST",
             urllib.parse.urljoin(f"{self._environment}/", "orgs"),
@@ -56,7 +65,7 @@ class OrgsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(DefaultPostResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -120,13 +129,20 @@ class OrgsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def update_org(
-        self, id: str, *, name: typing.Optional[str] = OMIT, access_keys: typing.Optional[typing.Dict[str, str]] = OMIT
+        self,
+        id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        access_keys: typing.Optional[typing.Dict[str, str]] = OMIT,
+        oauth_domain: typing.Optional[str] = OMIT,
     ) -> OrgRead:
         _request: typing.Dict[str, typing.Any] = {}
         if name is not OMIT:
             _request["name"] = name
         if access_keys is not OMIT:
             _request["access_keys"] = access_keys
+        if oauth_domain is not OMIT:
+            _request["oauth_domain"] = oauth_domain
         _response = httpx.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._environment}/", f"orgs/{id}"),
@@ -158,7 +174,7 @@ class AsyncOrgsClient:
         self._environment = environment
         self._token = token
 
-    async def get_org_list(self) -> typing.List[OrgRead]:
+    async def get_orgs_list(self) -> typing.List[OrgRead]:
         async with httpx.AsyncClient() as _client:
             _response = await _client.request(
                 "GET",
@@ -176,10 +192,18 @@ class AsyncOrgsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def add_org(self, *, name: str, access_keys: typing.Optional[typing.Dict[str, str]] = OMIT) -> typing.Any:
+    async def add_org(
+        self,
+        *,
+        name: str,
+        access_keys: typing.Optional[typing.Dict[str, str]] = OMIT,
+        oauth_domain: typing.Optional[str] = OMIT,
+    ) -> DefaultPostResponse:
         _request: typing.Dict[str, typing.Any] = {"name": name}
         if access_keys is not OMIT:
             _request["access_keys"] = access_keys
+        if oauth_domain is not OMIT:
+            _request["oauth_domain"] = oauth_domain
         async with httpx.AsyncClient() as _client:
             _response = await _client.request(
                 "POST",
@@ -191,7 +215,7 @@ class AsyncOrgsClient:
                 timeout=60,
             )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(DefaultPostResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -257,13 +281,20 @@ class AsyncOrgsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def update_org(
-        self, id: str, *, name: typing.Optional[str] = OMIT, access_keys: typing.Optional[typing.Dict[str, str]] = OMIT
+        self,
+        id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        access_keys: typing.Optional[typing.Dict[str, str]] = OMIT,
+        oauth_domain: typing.Optional[str] = OMIT,
     ) -> OrgRead:
         _request: typing.Dict[str, typing.Any] = {}
         if name is not OMIT:
             _request["name"] = name
         if access_keys is not OMIT:
             _request["access_keys"] = access_keys
+        if oauth_domain is not OMIT:
+            _request["oauth_domain"] = oauth_domain
         async with httpx.AsyncClient() as _client:
             _response = await _client.request(
                 "PATCH",

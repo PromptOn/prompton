@@ -5,13 +5,13 @@ import * as core from "../../../../core";
 import * as PromptonApi from "../../..";
 export declare namespace PromptVersions {
     interface Options {
-        environment: string;
+        environment: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 export declare class PromptVersions {
-    protected readonly options: PromptVersions.Options;
-    constructor(options: PromptVersions.Options);
+    protected readonly _options: PromptVersions.Options;
+    constructor(_options: PromptVersions.Options);
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}
@@ -24,7 +24,7 @@ export declare class PromptVersions {
      * @throws {@link PromptonApi.UnauthorizedError}
      * @throws {@link PromptonApi.UnprocessableEntityError}
      */
-    addPromptVersion(request: PromptonApi.PromptVersionCreate): Promise<unknown>;
+    addPromptVersion(request: PromptonApi.PromptVersionCreate): Promise<PromptonApi.DefaultPostResponse>;
     /**
      * @throws {@link PromptonApi.BadRequestError}
      * @throws {@link PromptonApi.UnauthorizedError}

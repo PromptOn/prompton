@@ -5,13 +5,13 @@ import * as core from "../../../../core";
 import * as PromptonApi from "../../..";
 export declare namespace ServerStatus {
     interface Options {
-        environment: string;
+        environment: core.Supplier<string>;
         token?: core.Supplier<core.BearerToken | undefined>;
     }
 }
 export declare class ServerStatus {
-    protected readonly options: ServerStatus.Options;
-    constructor(options: ServerStatus.Options);
+    protected readonly _options: ServerStatus.Options;
+    constructor(_options: ServerStatus.Options);
     getStatus(): Promise<PromptonApi.ApiStatusResponse>;
     protected _getAuthorizationHeader(): Promise<string | undefined>;
 }

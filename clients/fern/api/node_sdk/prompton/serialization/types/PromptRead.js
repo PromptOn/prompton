@@ -38,11 +38,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PromptRead = void 0;
 const core = __importStar(require("../../core"));
 exports.PromptRead = core.serialization.object({
-    id: core.serialization.property("_id", core.serialization.string().optional()),
-    createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
-    createdByUserId: core.serialization.property("created_by_user_id", core.serialization.string().optional()),
-    createdByOrgId: core.serialization.property("created_by_org_id", core.serialization.string().optional()),
-    status: core.serialization.lazy(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).PromptStatus; })).optional(),
+    id: core.serialization.property("_id", core.serialization.string()),
+    createdAt: core.serialization.property("created_at", core.serialization.string()),
+    createdByUserId: core.serialization.property("created_by_user_id", core.serialization.string()),
+    createdByOrgId: core.serialization.property("created_by_org_id", core.serialization.string()),
+    status: core.serialization.lazy(() => __awaiter(void 0, void 0, void 0, function* () { return (yield Promise.resolve().then(() => __importStar(require("..")))).PromptStatus; })),
     name: core.serialization.string(),
     description: core.serialization.string().optional(),
 });

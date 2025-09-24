@@ -8,7 +8,6 @@ from tests.endpoints.test_generators.get_test_genarator import (
     generate_pytest_get,
     generate_pytest_get_empty,
 )
-from tests.shared_test_data import USER_SUPER_ADMIN
 
 
 test_orgs_get = generate_pytest_get("/orgs", test_db_data, test_specs_get)

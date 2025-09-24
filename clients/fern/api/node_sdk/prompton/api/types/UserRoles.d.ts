@@ -4,9 +4,10 @@
 /**
  * An enumeration.
  */
-export declare type UserRoles = "Basic" | "OrgAdmin" | "SuperAdmin";
+export declare type UserRoles = "Basic" | "PromptAdmin" | "OrgAdmin" | "SuperAdmin";
 export declare const UserRoles: {
     readonly Basic: "Basic";
+    readonly PromptAdmin: "PromptAdmin";
     readonly OrgAdmin: "OrgAdmin";
     readonly SuperAdmin: "SuperAdmin";
 };

@@ -31,30 +31,37 @@ PromptOn helps you to:
 
 It's a REST API microservice designed to mix it into your existing ecosystem in a non intrusive way.
 
+_The API is still in alpha, may change without notice. However, the schema is largely stable and it will soon enter production when proper versioning will be introduced._
+
 ## Getting started
 
- ### Endpoint UI & docs
+### Endpoint UI & docs
+
  The easiest way to try is via the [Prompton API documentation UI](https://staging.api.prompton.ai) on our hosted staging environment.
 
  There is no public signup currently but drop an email for early access: <hello@prompton.ai>
 
- ### Client SDKs
+### Client SDKs
 
- #### Python
+#### Python
 
    ```sh
    pip install prompton
    ```
 
-   Basic [Streamlit UI example](./ui-examples/streamlit/main.py)
+   [Streamlit UI example](https://github.com/PromptOn/ui-example-streamlit)
 
- #### Typescript
- 
-   Package is not published yet but you can try it from [clients folder in the repo](./clients/fern/api/node_sdk/prompton)
- 
+#### Typescript
+
+   ```sh
+   npm install prompton 
+   ```
+
+  [Typescript Node example repo](https://github.com/PromptOn/client-example-type-script-node)
+
+### Local dev setup
+
  To install local dev env: [Local setup](#local_dev_setup)
-
-The API is still in alpha, may change without notice. However, the schema is largely stable and it will soon enter production when  proper versioning will be introduced.
 
 ## End-to-end example
 
@@ -82,7 +89,6 @@ The API is still in alpha, may change without notice. However, the schema is lar
         { "access_keys": {"openai_api_key": "<your OpenAI API key>"  }}
         ```
 
-    TIP: if you just want to play around then set `openai_api_key` to any string and [mock responses](#mock_response_tip)
     TIP: if you just want to play around then set `openai_api_key` to any string and [mock responses](#mock_response_tip)
 
 1. Prompt
@@ -118,23 +124,18 @@ The API is still in alpha, may change without notice. However, the schema is lar
 
     ```json
     {
-        "prompt_version_id": "<your prompt version id>",
-        "end_user_id": "your_end_user_id_for_linking", 
-        "source": "swaggerdocs", 
+        "prompt_version_id": "<your prompt version id>", // or prompt_id and it will pick one of the Live prompt versions
+        "end_user_id": "your_end_user_id_for_linking",  // optional, passed on to provider
         "template_args": {"words_limit": "10", "what": "crazy"}
     }
     ```
 
     It will:
 
-
     1. Populate the template with the passed values
     2. Log the request
     3. Send the request to provider
-    4. Log respnse and send it back to client.
-    2. Log the request
-    3. Send the request to provider
-    4. Log respnse and send it back to client.
+    4. Log response and send it back to client.
 
     It also handles errors, timeouts and updates the inference accordingly. It will still process response if client disconnects before it arrives.
 
@@ -280,4 +281,4 @@ just test-quick # if you want to cut a few secs by skipping slower tests (passwo
 
 ## Licence
 
-This project is licensed under the GNU Affero General Public License v3.0 license - see the [LICENSE](LICENSE) file for details.
+MIT - see the [LICENSE](LICENSE) file for details.

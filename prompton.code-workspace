@@ -1,7 +1,22 @@
 {
 	"folders": [
 		{
+			"name": "root",
 			"path": "."
+		},
+		{
+			"path": "server"
+		},
+		{
+			"path": "clients"
+		},
+		{
+			"name": "python_sdk",
+			"path": "clients/fern/api/python_sdk"
+		},
+		{
+			"name": "node_sdk",
+			"path": "clients/fern/api/node_sdk"
 		}
 	],
 	"settings": {

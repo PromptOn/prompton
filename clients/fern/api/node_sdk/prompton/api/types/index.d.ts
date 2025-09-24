@@ -1,3 +1,4 @@
+export * from "./NewInferenceRequest";
 export * from "./ApiStatusResponse";
 export * from "./BodyGetAccessTokenExtendedTokenPost";
 export * from "./ChatGptChatCompletitionConfig";
@@ -10,7 +11,12 @@ export * from "./ChatGptMessage";
 export * from "./ChatGptRole";
 export * from "./ChatGptTokenUsage";
 export * from "./DbStatus";
+export * from "./DefaultPostResponse";
+export * from "./FeedbackRead";
 export * from "./HttpValidationError";
+export * from "./InferenceCreateByPromptId";
+export * from "./InferenceCreateByPromptVersionId";
+export * from "./InferenceError";
 export * from "./InferencePostResponse";
 export * from "./InferencePostResponseResponse";
 export * from "./InferenceRead";

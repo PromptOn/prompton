@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "fern-api": "0.10.15"
+    "@openapitools/openapi-generator-cli": "^2.6.0",
+    "fern-api": "0.11.2"
   }
 }

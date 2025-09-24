@@ -16,6 +16,7 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.chat_gpt_chat_completition_config import ChatGptChatCompletitionConfig
 from ...types.chat_gpt_message import ChatGptMessage
+from ...types.default_post_response import DefaultPostResponse
 from ...types.prompt_version_providers import PromptVersionProviders
 from ...types.prompt_version_read import PromptVersionRead
 from ...types.prompt_version_status import PromptVersionStatus
@@ -65,7 +66,7 @@ class PromptVersionsClient:
         prompt_id: str,
         template: typing.Optional[typing.List[ChatGptMessage]] = OMIT,
         model_config: typing.Optional[ChatGptChatCompletitionConfig] = OMIT,
-    ) -> typing.Any:
+    ) -> DefaultPostResponse:
         _request: typing.Dict[str, typing.Any] = {"name": name, "prompt_id": prompt_id}
         if status is not OMIT:
             _request["status"] = status
@@ -87,7 +88,7 @@ class PromptVersionsClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(DefaultPostResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -222,7 +223,7 @@ class AsyncPromptVersionsClient:
         prompt_id: str,
         template: typing.Optional[typing.List[ChatGptMessage]] = OMIT,
         model_config: typing.Optional[ChatGptChatCompletitionConfig] = OMIT,
-    ) -> typing.Any:
+    ) -> DefaultPostResponse:
         _request: typing.Dict[str, typing.Any] = {"name": name, "prompt_id": prompt_id}
         if status is not OMIT:
             _request["status"] = status
@@ -245,7 +246,7 @@ class AsyncPromptVersionsClient:
                 timeout=60,
             )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(typing.Any, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(DefaultPostResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequestError(pydantic.parse_obj_as(typing.Any, _response.json()))  # type: ignore
         if _response.status_code == 401:

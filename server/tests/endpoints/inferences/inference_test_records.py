@@ -16,7 +16,6 @@ PROMPT_VERSION_ID2 = ObjectId("646bae490e5a37458856d10d")
 PROMPT_ID3 = ObjectId("6468b05c1e5a374588560000")
 PROMPT_VERSION_ID3 = ObjectId("646bae490e5a374588511111")
 
-
 LIVE_PROMPT_VERSION_DB: Dict[str, Any] = {
     "_id": ObjectId("645d786f180786983c9eede6"),
     "created_at": "2023-05-15T15:46:02.051309",
@@ -32,6 +31,7 @@ LIVE_PROMPT_VERSION_DB: Dict[str, Any] = {
     "template_arg_names": ["arg1", "arg2"],
 }
 
+
 DRAFT_PROMPT_VERSION_DB = {
     **LIVE_PROMPT_VERSION_DB,
     "_id": ObjectId("645d786f180786983c9eede7"),
@@ -43,6 +43,7 @@ PROCESSED_INFERENCE: Dict[str, Any] = {
     "created_at": "2023-05-24T15:17:07.799000",
     "created_by_user_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa1"),
     "created_by_org_id": ORG_ID1,
+    "client_ref_id": "xxx",
     "end_user_id": "mock_me_softly",
     "source": "openaidocs",
     "template_args": {"arg1": "v1", "arg2": "v2"},
@@ -51,6 +52,10 @@ PROCESSED_INFERENCE: Dict[str, Any] = {
     "prompt_id": PROMPT_ID1,
     "prompt_version_id": PROMPT_VERSION_ID1,
     "prompt_version_name": "random number v1",
+    "prompt_version_ids_considered": [
+        ObjectId("ffffffffffffffffffffffff"),
+        ObjectId("eeeeeeeeeeeeeeeeeeeeeeee"),
+    ],
     "status": "Processed",
     "request": {
         "provider": "OpenAI",
@@ -80,7 +85,6 @@ PROCESSED_INFERENCE: Dict[str, Any] = {
         "completition_duration_seconds": 1.1,
         "is_client_connected_at_finish": True,
         "isError": False,
-        "first_message": {"role": "assistant", "content": "71", "name": None},
         "token_usage": {
             "prompt_tokens": 25,
             "completion_tokens": 1,
@@ -126,13 +130,15 @@ ERROR_INFERENCE = {
     "created_by_user_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa1"),
     "created_by_org_id": ORG_ID1,
     "end_user_id": "fail_me_softly",
+    "client_ref_id": None,
     "source": "openaidocs",
-    "template_args": None,
+    "template_args": {},
     "metadata": None,
     "request_timeout": None,
     "prompt_id": PROMPT_ID2,
     "prompt_version_id": PROMPT_VERSION_ID2,
     "prompt_version_name": "random number v1",
+    "prompt_version_ids_considered": [],
     "status": "CompletitionError",
     "request": {
         "provider": "OpenAI",
@@ -161,10 +167,11 @@ ERROR_INFERENCE = {
         "completed_at": "2023-05-24T15:18:45.531000",
         "completition_duration_seconds": 1.1,
         "is_client_connected_at_finish": True,
+        # TODO: ignore extra fields in nested schemas. see core/test_pydantic_bases.py
+        # "extra_field2": "nested extra field should be ignoreded too",
         "isError": True,
         "error": {
             "error_class": "openai.error.APIError",
-            "error": None,
             "message": "mocking error",
             "details": {
                 "_message": "mocking error",
@@ -186,14 +193,16 @@ TIMEOUT_INFERENCE = {
     "created_at": "2023-05-24T15:22:48.248000",
     "created_by_user_id": ObjectId("aaaaaaaaaaaaaaaaaaaaaaa1"),
     "created_by_org_id": ORG_ID1,
-    "end_user_id": "timeout_me_softly",
-    "source": "openaidocs",
-    "template_args": None,
+    "client_ref_id": None,
+    "end_user_id": None,
+    "source": None,
+    "template_args": {},
     "metadata": None,
     "request_timeout": None,
     "prompt_id": PROMPT_ID2,
     "prompt_version_id": PROMPT_VERSION_ID2,
     "prompt_version_name": "random number v1",
+    "prompt_version_ids_considered": [],
     "status": "CompletitionTimeout",
     "request": {
         "provider": "OpenAI",
@@ -225,7 +234,6 @@ TIMEOUT_INFERENCE = {
         "isError": True,
         "error": {
             "error_class": "openai.error.Timeout",
-            "error": None,
             "message": "timeout error",
             "details": {
                 "_message": "timeout error",

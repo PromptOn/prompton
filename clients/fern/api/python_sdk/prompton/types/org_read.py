@@ -9,11 +9,20 @@ from ..core.datetime_utils import serialize_datetime
 
 
 class OrgRead(pydantic.BaseModel):
-    id: typing.Optional[str] = pydantic.Field(alias="_id")
-    created_at: typing.Optional[str]
-    created_by_user_id: typing.Optional[str]
-    created_by_org_id: typing.Optional[str]
-    name: str = pydantic.Field(description=("`non-empty`\n"))
+    """
+    Base model for reading from MongoDB. Same as MongoBaseCreate but assumes all DB base fields are populated so generated clients doesn't requrie None checks
+    """
+
+    id: str = pydantic.Field(alias="_id")
+    created_at: str
+    created_by_user_id: str
+    created_by_org_id: str
+    name: str
+    oauth_domain: typing.Optional[str] = pydantic.Field(
+        description=(
+            "APEX domain for oauth single sign on. Anyone with an email address ending in this domain will be able to register to the org after google account sign in. Only Google OAuth is supported for now.\n"
+        )
+    )
     access_keys: typing.Optional[typing.Dict[str, str]]
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -15,6 +15,21 @@ async def get_current_active_user(
     return current_user
 
 
+async def get_current_prompt_admin_user(
+    current_user: Annotated[UserInDB, Depends(auth.get_current_user)]
+):
+    if current_user.role not in [
+        UserRoles.ORG_ADMIN,
+        UserRoles.SUPER_ADMIN,
+        UserRoles.PROMPT_ADMIN,
+    ]:
+        raise PermissionValidationError(
+            "Method Requires `PromptAdmin`, `OrgAdmin` or `SuperAdmin` role"
+        )
+
+    return current_user
+
+
 async def get_current_org_admin_user(
     current_user: Annotated[UserInDB, Depends(get_current_active_user)]
 ):

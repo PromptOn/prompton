@@ -11,37 +11,42 @@ const Client_4 = require("./api/resources/promptVersions/client/Client");
 const Client_5 = require("./api/resources/inferences/client/Client");
 const Client_6 = require("./api/resources/orgs/client/Client");
 const Client_7 = require("./api/resources/users/client/Client");
+const Client_8 = require("./api/resources/feedbacks/client/Client");
 class PromptonApiClient {
-    constructor(options) {
-        this.options = options;
+    constructor(_options) {
+        this._options = _options;
     }
     get serverStatus() {
         var _a;
-        return ((_a = this._serverStatus) !== null && _a !== void 0 ? _a : (this._serverStatus = new Client_1.ServerStatus(this.options)));
+        return ((_a = this._serverStatus) !== null && _a !== void 0 ? _a : (this._serverStatus = new Client_1.ServerStatus(this._options)));
     }
     get authentication() {
         var _a;
-        return ((_a = this._authentication) !== null && _a !== void 0 ? _a : (this._authentication = new Client_2.Authentication(this.options)));
+        return ((_a = this._authentication) !== null && _a !== void 0 ? _a : (this._authentication = new Client_2.Authentication(this._options)));
     }
     get prompts() {
         var _a;
-        return ((_a = this._prompts) !== null && _a !== void 0 ? _a : (this._prompts = new Client_3.Prompts(this.options)));
+        return ((_a = this._prompts) !== null && _a !== void 0 ? _a : (this._prompts = new Client_3.Prompts(this._options)));
     }
     get promptVersions() {
         var _a;
-        return ((_a = this._promptVersions) !== null && _a !== void 0 ? _a : (this._promptVersions = new Client_4.PromptVersions(this.options)));
+        return ((_a = this._promptVersions) !== null && _a !== void 0 ? _a : (this._promptVersions = new Client_4.PromptVersions(this._options)));
     }
     get inferences() {
         var _a;
-        return ((_a = this._inferences) !== null && _a !== void 0 ? _a : (this._inferences = new Client_5.Inferences(this.options)));
+        return ((_a = this._inferences) !== null && _a !== void 0 ? _a : (this._inferences = new Client_5.Inferences(this._options)));
     }
     get orgs() {
         var _a;
-        return ((_a = this._orgs) !== null && _a !== void 0 ? _a : (this._orgs = new Client_6.Orgs(this.options)));
+        return ((_a = this._orgs) !== null && _a !== void 0 ? _a : (this._orgs = new Client_6.Orgs(this._options)));
     }
     get users() {
         var _a;
-        return ((_a = this._users) !== null && _a !== void 0 ? _a : (this._users = new Client_7.Users(this.options)));
+        return ((_a = this._users) !== null && _a !== void 0 ? _a : (this._users = new Client_7.Users(this._options)));
+    }
+    get feedbacks() {
+        var _a;
+        return ((_a = this._feedbacks) !== null && _a !== void 0 ? _a : (this._feedbacks = new Client_8.Feedbacks(this._options)));
     }
 }
 exports.PromptonApiClient = PromptonApiClient;

@@ -3,8 +3,9 @@
  */
 import * as PromptonApi from "../../../..";
 export interface PromptCreate {
+    /** Prompt status for client consideration only, currently not used in server logic. */
     status?: PromptonApi.PromptStatus;
-    /** `non-empty` */
+    /** <span style="white-space: nowrap">`non-empty`</span> */
     name: string;
     description?: string;
 }

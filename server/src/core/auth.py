@@ -46,7 +46,9 @@ def create_access_token(data: dict, expires_delta_minutes: timedelta | None = No
     to_encode.update({"exp": expire})
 
     encoded_jwt = jwt.encode(
-        to_encode, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM
+        to_encode,
+        settings.JWT_SECRET_KEY.get_secret_value(),
+        algorithm=settings.JWT_ALGORITHM,
     )
 
     return encoded_jwt
@@ -58,7 +60,9 @@ async def get_current_user(
     """returns user associated with token. raises if token is invalid or expired"""
     try:
         payload = jwt.decode(
-            token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM]
+            token,
+            settings.JWT_SECRET_KEY.get_secret_value(),
+            algorithms=[settings.JWT_ALGORITHM],
         )
 
         email: str | None = payload.get("sub")

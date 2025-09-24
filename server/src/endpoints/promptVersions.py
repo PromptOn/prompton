@@ -1,10 +1,10 @@
 from typing import List, Annotated
 from fastapi import APIRouter, Depends, status
 
-
 from src.core.database import get_db
+from src.schemas.base import DefaultPostResponse
 from src.schemas.user import UserInDB
-from src.core.user import get_current_active_user
+from src.core.user import get_current_active_user, get_current_prompt_admin_user
 from src.core.utils import str_to_ObjectId
 from src.schemas.promptVersion import (
     PromptVersionCreate,
@@ -27,7 +27,7 @@ router = APIRouter()
     responses={**ReqResponses.GET_RESPONSES},
     response_model=List[PromptVersionRead],
 )
-async def get_promptVersions_list(
+async def get_prompt_versions_list(
     current_user: Annotated[UserInDB, Depends(get_current_active_user)],
     db=Depends(get_db),
     prompt_id: str | None = None,
@@ -66,14 +66,14 @@ async def get_promptVersion_by_id(
 )
 async def add_promptVersion(
     promptVersion: PromptVersionCreate,
-    current_user: Annotated[UserInDB, Depends(get_current_active_user)],
+    current_user: Annotated[UserInDB, Depends(get_current_prompt_admin_user)],
     db=Depends(get_db),
-):
+) -> DefaultPostResponse:
     insert_res = await promptVersion_crud.create(
         db, promptVersion, current_user=current_user
     )
 
-    return {"id": str(insert_res.inserted_id)}
+    return DefaultPostResponse(id=str(insert_res.inserted_id))
 
 
 @router.patch(
@@ -85,7 +85,7 @@ async def add_promptVersion(
 async def update_promptVersion(
     promptVersion_patch: PromptVersionUpdate,
     id: str,
-    current_user: Annotated[UserInDB, Depends(get_current_active_user)],
+    current_user: Annotated[UserInDB, Depends(get_current_prompt_admin_user)],
     db=Depends(get_db),
 ):
     promptVersion_updated = await promptVersion_crud.update_and_fetch(
